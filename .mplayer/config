@@ -1,0 +1,15 @@
+# Write your default config options here!
+
+vfm=ffmpeg
+lavdopts=threads=2:fast=1
+
+ass=1
+noar=1
+
+cache-min=1
+cache=1048576
+
+volume=100
+autosync=30
+
+af=scaletempo
