@@ -20,3 +20,4 @@
 !.dotprivate/
 
 !.ssh/config
+!.ssh/id_rsa
