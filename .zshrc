@@ -164,6 +164,8 @@ function envvars {
 		NODE_PATH "/usr/local/lib/node" \
 		M2_HOME "/usr/share/maven" \
 		JAVA_HOME "/System/Library/Frameworks/JavaVM.framework/Home"
+
+	fpath=( "$HOME/.zsh/functions" "$fpath[@]" )
 }
 envvars
 

@@ -16,8 +16,13 @@
 !.vimrc
 
 !.zshrc
+!.zsh/
 !.oh-my-zsh/
 !.dotprivate/
 
 !.ssh/config
 !.ssh/id_rsa
+
+.netrwhist~
+.*.swp
+.*.swo

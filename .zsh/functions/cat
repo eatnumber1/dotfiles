@@ -1,0 +1,32 @@
+function cat {
+	setopt err_return
+	zmodload -F zsh/system +b:syserror +b:sysread
+	typeset -i ERRNO=0 ret=0
+	while true; do
+		ret=0
+		sysread -o 1 || ret=$?
+		case $ret in
+		0)
+			;;
+		2|3)
+			syserror -p "cat: " $ERRNO >&2
+			;& # Fallthrough
+		1)
+			return $ret
+			;;
+		4)
+			printf "cat: sysread timed out" >&2
+			return $ret
+			;;
+		5)
+			return 0
+			;;
+		*)
+			printf "cat: unknown case value %d" $ret
+			return $ret
+		esac
+	done
+	return $ret
+}
+
+# vim:ft=zsh
