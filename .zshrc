@@ -148,7 +148,7 @@ function export_if_exist {
 
 function envvars {
 	path prepend "$HOME/bin" /usr/local/{s,}bin
-	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin"
+	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin"
 
 	if [[ -x ${commands[vim]} ]]; then
 		export EDITOR="vim"
