@@ -101,6 +101,7 @@ chatnets = {
   "P2P-Network" = { type = "IRC"; username = "p2p-network"; };
   OnionNet = { type = "IRC"; username = "onionnet"; };
   HackInt = { type = "IRC"; username = "hackint"; };
+  irc129 = { type = "IRC"; username = "irc129"; };
 };
 
 channels = (
