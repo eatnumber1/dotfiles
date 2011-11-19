@@ -20,8 +20,11 @@
 !.oh-my-zsh/
 !.dotprivate/
 
+!.ssh/
+.ssh/*
 !.ssh/config
 !.ssh/id_rsa
+!.ssh/authorized_keys
 
 .netrwhist~
 .*.swp
