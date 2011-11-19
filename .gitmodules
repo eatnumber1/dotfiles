@@ -1,6 +1,6 @@
 [submodule "oh-my-zsh"]
 	path = .oh-my-zsh
-	url = git://github.com/eatnumber1/oh-my-zsh.git
+	url = git@github.com:eatnumber1/oh-my-zsh.git
 [submodule "dotprivate"]
 	path = .dotprivate
-	url = git://github.com/eatnumber1/dotprivate.git
+	url = git@github.com:eatnumber1/dotprivate.git
