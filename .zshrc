@@ -155,14 +155,14 @@ function export_if_exist {
 }
 
 function envvars {
-	typeset prefix="$HOME/prefix"
+	typeset -g prefix="$HOME/prefix"
 	if [[ -d "$prefix" ]]; then
 		# TODO: Replace with path_to_array function
 		perl5lib=( "${(s/:/)PERL5LIB}" )
 		perl5lib+=( "$prefix/lib/perl5" )
 		export PERL5LIB="${(j/:/)perl5lib}"
 
-		PREFIX="$prefix"
+		manpath+=( "$prefix/man" "$prefix/share/man" )
 	fi
 
 	path prepend "$HOME/bin" /usr/local/{s,}bin
