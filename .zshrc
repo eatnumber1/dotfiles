@@ -106,30 +106,38 @@ function path {
 	typeset -a directories
 	directories=( "$@" )
 	local x i d
-	for (( x=1; x<=${#path}; x++ )); do
-		for (( i=1; i<=${#directories}; i++ )); do
-			if [[ "$directories[$i]" == "$path[$x]" ]]; then
-				path[$x]=()
-				let x-=1
-			elif [[ ! -d "$directories[$i]" ]]; then
-				directories[$i]=()
-				let i-=1
-			fi
+	if [[ "$cmd" == "remove" ]]; then
+		for d in "$directories[@]"; do
+			for (( i=1; i<=${#path}; i++ )); do
+				[[ "$d" == "$path[$i]" ]] && path[$i]=()
+			done
 		done
-	done
-	for d in "$directories[@]"; do
-		case "$cmd" in
-		prepend)
-			path=( "$d" "$path[@]" )
-			;;
-		append)
-			path+=( "$d" )
-			;;
-		*)
-			syserror EINVAL
-			return 1
-		esac
-	done
+	else
+		for (( x=1; x<=${#path}; x++ )); do
+			for (( i=1; i<=${#directories}; i++ )); do
+				if [[ "$directories[$i]" == "$path[$x]" ]]; then
+					path[$x]=()
+					let x-=1
+				elif [[ ! -d "$directories[$i]" ]]; then
+					directories[$i]=()
+					let i-=1
+				fi
+			done
+		done
+		for d in "$directories[@]"; do
+			case "$cmd" in
+			prepend)
+				path=( "$d" "$path[@]" )
+				;;
+			append)
+				path+=( "$d" )
+				;;
+			*)
+				syserror EINVAL
+				return 1
+			esac
+		done
+	fi
 }
 
 function export_if_exist {
@@ -148,8 +156,19 @@ function export_if_exist {
 }
 
 function envvars {
+	typeset -g prefix="$HOME/prefix"
+	if [[ -d "$prefix" ]]; then
+		# TODO: Replace with path_to_array function
+		perl5lib=( "${(s/:/)PERL5LIB}" )
+		perl5lib+=( "$prefix/lib/perl5" )
+		export PERL5LIB="${(j/:/)perl5lib}"
+
+		manpath+=( "$prefix/man" "$prefix/share/man" )
+	fi
+
 	path prepend "$HOME/bin" /usr/local/{s,}bin
-	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin"
+	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin" "$prefix/bin"
+	path remove "."
 
 	if [[ -x ${commands[vim]} ]]; then
 		export EDITOR="vim"
