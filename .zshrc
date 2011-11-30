@@ -46,6 +46,7 @@ if [[ "$OS" =~ CYGWIN.* ]]; then
 fi
 
 RPROMPT='$(vi_mode_prompt_info)'" $RPS1"
+PROMPT='%{${fg[blue]}%}%m %{$fg_bold[green]%}❯%{$reset_color%} '"$PROMPT"
 
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
