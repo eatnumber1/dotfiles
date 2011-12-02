@@ -4,3 +4,6 @@
 [submodule "dotprivate"]
 	path = .dotprivate
 	url = git@github.com:eatnumber1/dotprivate.git
+[submodule ".vim/plugin/vundle"]
+	path = .vim/plugin/vundle
+	url = http://github.com/gmarik/vundle.git
