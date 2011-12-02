@@ -9,8 +9,6 @@ endif
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
-filetype off
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -40,14 +38,10 @@ endif
 
 color inkpot
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" let Vundle manage Vundle
-" required! 
-Bundle 'gmarik/vundle'
-
-Bundle 'vim-scripts/gtk-vim-syntax'
+" Pathogen stuff
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+Helptags
 
 set spellfile=~/.vim/spellfile.en.add
 

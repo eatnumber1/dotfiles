@@ -21,7 +21,7 @@ CASE_SENSITIVE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew github osx lol vi-mode)
+plugins=(brew github osx lol vi-mode zsh-syntax-highlighting)
 
 typeset -r OS="$(uname -s)"
 

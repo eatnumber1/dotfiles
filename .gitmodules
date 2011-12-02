@@ -7,3 +7,12 @@
 [submodule ".vim/plugin/vundle"]
 	path = .vim/plugin/vundle
 	url = http://github.com/gmarik/vundle.git
+[submodule ".vim/bundle/c-standard-functions-highlight"]
+	path = .vim/bundle/c-standard-functions-highlight
+	url = git://github.com/vim-scripts/c-standard-functions-highlight.git
+[submodule ".vim/bundle/gtk-vim-syntax"]
+	path = .vim/bundle/gtk-vim-syntax
+	url = git://github.com/vim-scripts/gtk-vim-syntax.git
+[submodule ".vim/bundle/vim-pathogen"]
+	path = .vim/bundle/vim-pathogen
+	url = git://github.com/tpope/vim-pathogen.git

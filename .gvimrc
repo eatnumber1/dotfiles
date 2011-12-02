@@ -8,11 +8,11 @@ if &background == "dark"
 	hi normal guibg=black
 endif
 
-if s:uname == "Cygwin"
+if has("gui_macvim")
+	set guifont=Terminus\ Medium:h14
+else
 	set go-=m go-=e
 	set guifont=Terminus\ Medium\ 12
-else
-	set guifont=Terminus\ Medium:h14
 endif
 
 set number
@@ -20,3 +20,5 @@ set listchars=nbsp:.,eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 hi NonText guifg=#262626
 hi SpecialKey guifg=#262626
+
+set cursorline
