@@ -168,6 +168,7 @@ function envvars {
 
 	path prepend "$HOME/bin" /usr/local/{s,}bin
 	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin" "$prefix/bin"
+	[[ -f /etc/debian_version ]] && path append /var/lib/gems/*/bin
 	path remove "."
 
 	if [[ -x ${commands[vim]} ]]; then
