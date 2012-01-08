@@ -75,7 +75,7 @@ if has("autocmd")
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setf mkd
 	"	set ai formatoptions=tcroqn2 comments=n:&gt;
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setlocal spell
-	augroup END 
+	augroup END
 else
 
 	"  set autoindent		" always set autoindenting on
@@ -97,3 +97,5 @@ let s:localrc = expand("~/.vimrc-local")
 if filereadable(s:localrc)
 	execute "source " . s:localrc
 endif
+
+set nofoldenable

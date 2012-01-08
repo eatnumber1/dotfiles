@@ -20,5 +20,3 @@ set listchars=nbsp:.,eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 hi NonText guifg=#262626
 hi SpecialKey guifg=#262626
-
-set cursorline

@@ -3,7 +3,7 @@
 vfm=ffmpeg
 lavdopts=threads=2:fast=1
 
-ass=1
+#ass=1
 noar=1
 
 cache-min=10
@@ -12,5 +12,10 @@ cache=102400
 
 volume=25
 autosync=30
+
+channels=2
+
+framedrop=1
+nocorrect-pts=1
 
 #af=scaletempo
