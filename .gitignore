@@ -1,6 +1,7 @@
 /*
 
 !.gitignore
+!.gitignore.global
 !.gitmodules
 !.gitconfig
 !.htoprc

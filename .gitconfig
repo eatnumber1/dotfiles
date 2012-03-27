@@ -3,3 +3,11 @@
 	email = russ@eatnumber1.com
 [core]
 	ignorecase = false
+	excludesfile = /Users/russ/.gitignore.global
+[color]
+	diff = auto
+	branch = auto
+	grep = auto
+	interactive = auto
+	showbranch = auto
+	status = auto
