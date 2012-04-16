@@ -25,25 +25,18 @@ plugins=(brew github osx lol vi-mode zsh-syntax-highlighting)
 
 typeset -r OS="$(uname -s)"
 
-# Git plugin is SLLOOOWWW on cygwin
-if ! [[ "$OS" =~ CYGWIN.* ]]; then
-	plugins+=( git )
-fi
-
 typeset -r ZSHRC_LOCAL="$HOME/.zshrc-local"
 [[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
 
 source $ZSH/oh-my-zsh.sh
 
-if [[ "$OS" =~ CYGWIN.* ]]; then
-	# Disable all built-in git hax
-	function git_prompt_info() {}
-	function parse_git_dirty() {}
-	function git_prompt_ahead() {}
-	function git_prompt_short_sha() {}
-	function git_prompt_long_sha() {}
-	function git_prompt_status() {}
-fi
+# Disable all built-in git hax
+function git_prompt_info() {}
+function parse_git_dirty() {}
+function git_prompt_ahead() {}
+function git_prompt_short_sha() {}
+function git_prompt_long_sha() {}
+function git_prompt_status() {}
 
 RPROMPT='$(vi_mode_prompt_info)'" $RPS1"
 PROMPT='%{${fg[blue]}%}%m %{$fg_bold[green]%}❯%{$reset_color%} '"$PROMPT"
