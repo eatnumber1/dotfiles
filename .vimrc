@@ -43,7 +43,10 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 Helptags
 
+set tabstop=4 shiftwidth=4 softtabstop=4
 set spellfile=~/.vim/spellfile.en.add
+
+let g:liquid_highlight_types = ["c", "dot"]
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -71,10 +74,14 @@ if has("autocmd")
 
 	augroup END
 
-	augroup mkd
+	augroup Markdown
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setf mkd
 	"	set ai formatoptions=tcroqn2 comments=n:&gt;
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setlocal spell
+	augroup END
+
+	augroup Ruby
+		au BufRead,BufNewFile Gemfile *.ru *.rb set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 	augroup END
 else
 
@@ -82,7 +89,6 @@ else
 
 endif " has("autocmd")
 
-set tabstop=4 shiftwidth=4 softtabstop=4
 set autowrite
 "set textwidth=80
 set modeline modelines=5
