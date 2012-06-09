@@ -104,6 +104,7 @@ chatnets = {
   irc129 = { type = "IRC"; username = "irc129"; };
   CorruptNet = { type = "IRC"; username = "corruptnet"; };
   PassThePopcorn = { type = "IRC"; username = "passthepopcorn"; };
+  CSH = { type = "IRC"; username = "csh"; };
 };
 
 channels = (
