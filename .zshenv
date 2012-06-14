@@ -104,6 +104,10 @@ function envvars {
 			alias pbpaste="xclip -out -selection clipboard"
 		fi
 	fi
+
+	if [[ -x "${commands[keychain]}" ]]; then
+		eval "$(keychain --quiet --eval --inherit any-once id_rsa)"
+	fi
 }
 envvars
 unfunction envvars
