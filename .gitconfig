@@ -11,3 +11,5 @@
 	interactive = auto
 	showbranch = auto
 	status = auto
+[github]
+	user = eatnumber1

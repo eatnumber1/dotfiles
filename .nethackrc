@@ -11,8 +11,9 @@ OPTIONS=windowborders:3
 OPTIONS=splash_screen
 OPTIONS=petattr:u
 OPTIONS=guicolor
+OPTIONS=mouse
 
-#OPTIONS=use_darkgray
+OPTIONS=use_darkgray
 
 # == Try these for a while ===================================
 OPTIONS=!cmdassist,!help,suppress_alert:3.4.3,showrace

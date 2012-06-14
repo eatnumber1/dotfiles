@@ -83,10 +83,14 @@ function envvars {
 	[[ -x ${commands[slrn]} ]] && export NNTPSERVER="snews://news.csh.rit.edu"
 	if [[ -x ${commands[brew]} ]]; then
 		path append "$(brew --prefix openssl)/bin"
-		export_if_exist GEM_HOME "$(brew --cellar)/gems/1.8"
+		export_if_exist \
+			GEM_HOME "$(brew --cellar)/gems/1.8" \
+			NODE_PATH "$(brew --prefix)/lib/node_modules"
+		if (( ${+GEM_HOME} )); then
+			path append "$GEM_HOME"/bin
+		fi
 	fi
 	export_if_exist \
-		NODE_PATH "/usr/local/lib/node" \
 		M2_HOME "/usr/share/maven" \
 		JAVA_HOME "/System/Library/Frameworks/JavaVM.framework/Home"
 
