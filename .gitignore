@@ -28,6 +28,7 @@
 .ssh/*
 !.ssh/config
 !.ssh/id_rsa
+!.ssh/id_rsa.pub
 !.ssh/authorized_keys
 
 .netrwhist~
