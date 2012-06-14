@@ -91,5 +91,15 @@ function envvars {
 		JAVA_HOME "/System/Library/Frameworks/JavaVM.framework/Home"
 
 	fpath=( "$HOME/.zsh/functions" "$fpath[@]" )
+
+	if [[ -x "${commands[xclip]}" ]]; then
+		if [[ -z "${commands[pbcopy]}" ]]; then
+			alias pbcopy="xclip -in -selection clipboard"
+		fi
+		if [[ -z "${commands[pbpaste]}" ]]; then
+			alias pbpaste="xclip -out -selection clipboard"
+		fi
+	fi
 }
 envvars
+unfunction envvars
