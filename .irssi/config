@@ -287,5 +287,9 @@ ignores = (
   {
     level = "JOINS PARTS QUITS MODES NICKS";
     channels = ( "&bitlbee" );
+  },
+  {
+    level = "JOINS PARTS QUITS MODES NICKS";
+    channels = ( "&google" );
   }
 );
