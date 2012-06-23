@@ -288,8 +288,13 @@ ignores = (
     level = "JOINS PARTS QUITS MODES NICKS";
     channels = ( "&bitlbee" );
   },
-  {
+  { 
     level = "JOINS PARTS QUITS MODES NICKS";
     channels = ( "&google" );
-  }
+  },
+  { 
+    level = "JOINS PARTS QUITS MODES";
+    channels = ( "#chromium-os" );
+  },
+  { level = "JOINS PARTS QUITS MODES"; channels = ( "##c" ); }
 );
