@@ -24,6 +24,8 @@
 !.oh-my-zsh/
 !.dotprivate/
 
+!.tmux.conf
+
 !.ssh/
 .ssh/*
 !.ssh/config
