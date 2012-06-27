@@ -60,6 +60,7 @@ function export_if_exist {
 }
 
 function envvars {
+	setopt local_options nullglob
 	typeset -g prefix="$HOME/prefix"
 	if [[ -d "$prefix" ]]; then
 		# TODO: Replace with path_to_array function
@@ -71,8 +72,7 @@ function envvars {
 	fi
 
 	path prepend "$HOME/bin" /usr/local/{s,}bin
-	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin" "$prefix/bin"
-	[[ -f /etc/debian_version && -d /var/lib/gems ]] && path append /var/lib/gems/*/bin
+	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin" "$prefix/bin" /var/lib/gems/*/bin
 	path remove "."
 
 	if [[ -x ${commands[vim]} ]]; then
@@ -106,7 +106,10 @@ function envvars {
 	fi
 
 	if [[ -x "${commands[keychain]}" ]]; then
-		eval "$(keychain --quiet --eval --inherit any-once id_rsa)"
+		eval "$(keychain --quiet --eval --inherit any-once)"
+		if [[ -f "$HOME/.ssh/id_rsa" ]]; then
+			keychain --quiet "$HOME/.ssh/id_rsa"
+		fi
 	fi
 }
 envvars
