@@ -36,12 +36,12 @@ if &t_Co > 2 || has("gui_running")
 	set hlsearch
 endif
 
-color inkpot
-
 " Pathogen stuff
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
 Helptags
+
+color inkpot
 
 set tabstop=4 shiftwidth=4 softtabstop=4
 set spellfile=~/.vim/spellfile.en.add
