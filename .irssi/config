@@ -296,5 +296,9 @@ ignores = (
     level = "JOINS PARTS QUITS MODES";
     channels = ( "#chromium-os" );
   },
-  { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "##c" ); }
+  { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "##c" ); },
+  {
+    level = "JOINS PARTS QUITS MODES NICKS";
+    channels = ( "#chromium" );
+  }
 );
