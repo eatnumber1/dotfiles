@@ -59,7 +59,7 @@ function export_if_exist {
 	done
 }
 
-function envvars {
+() {
 	setopt local_options nullglob
 	typeset -g prefix="$HOME/prefix"
 	if [[ -d "$prefix" ]]; then
@@ -112,5 +112,3 @@ function envvars {
 		fi
 	fi
 }
-envvars
-unfunction envvars
