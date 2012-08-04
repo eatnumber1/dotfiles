@@ -106,7 +106,7 @@ function envvars {
 	fi
 
 	if [[ -x "${commands[keychain]}" ]]; then
-		eval "$(keychain --quiet --eval --inherit any-once)"
+		eval "$(keychain --quiet --eval --inherit any)"
 		if [[ -f "$HOME/.ssh/id_rsa" ]]; then
 			keychain --quiet "$HOME/.ssh/id_rsa"
 		fi
