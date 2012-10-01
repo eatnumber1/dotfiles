@@ -1,6 +1,3 @@
-[submodule "oh-my-zsh"]
-	path = .oh-my-zsh
-	url = git@github.com:eatnumber1/oh-my-zsh.git
 [submodule "dotprivate"]
 	path = .dotprivate
 	url = git@github.com:eatnumber1/dotprivate.git
@@ -28,3 +25,6 @@
 [submodule ".vim/bundle/inkpot"]
 	path = .vim/bundle/inkpot
 	url = git://github.com/ciaranm/inkpot.git
+[submodule ".zprezto"]
+	path = .zprezto
+	url = https://github.com/sorin-ionescu/prezto.git

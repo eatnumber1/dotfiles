@@ -1,114 +1,142 @@
-zmodload -F zsh/system +b:syserror
-
-function path {
-	if [[ $# -lt 2 ]]; then
-		syserror EINVAL
-		return 1
-	fi
-	typeset cmd="$1"
-	shift
-	typeset -a directories
-	directories=( "$@" )
-	local x i d
-	if [[ "$cmd" == "remove" ]]; then
-		for d in "$directories[@]"; do
-			for (( i=1; i<=${#path}; i++ )); do
-				[[ "$d" == "$path[$i]" ]] && path[$i]=()
-			done
-		done
-	else
-		for (( x=1; x<=${#path}; x++ )); do
-			for (( i=1; i<=${#directories}; i++ )); do
-				if [[ "$directories[$i]" == "$path[$x]" ]]; then
-					path[$x]=()
-					let x-=1
-				elif [[ ! -d "$directories[$i]" ]]; then
-					directories[$i]=()
-					let i-=1
-				fi
-			done
-		done
-		for d in "$directories[@]"; do
-			case "$cmd" in
-			prepend)
-				path=( "$d" "$path[@]" )
-				;;
-			append)
-				path+=( "$d" )
-				;;
-			*)
-				syserror EINVAL
-				return 1
-			esac
-		done
-	fi
-}
-
-function export_if_exist {
-	typeset -i argeven
-	let "argeven = $# % 2"
-	if [[ $argeven -ne 0 ]]; then
-		syserror EINVAL
-		return 1
-	fi
-	typeset -A args
-	args=( "$@" )
-	local var
-	for var in "${(k)args[@]}"; do
-		export "${var}=${args[$var]}"
-	done
-}
+#
+# Defines environment variables.
+#
 
 () {
-	setopt local_options nullglob
-	typeset -g prefix="$HOME/prefix"
-	if [[ -d "$prefix" ]]; then
-		# TODO: Replace with path_to_array function
-		perl5lib=( "${(s/:/)PERL5LIB}" )
-		perl5lib+=( "$prefix/lib/perl5" )
-		export PERL5LIB="${(j/:/)perl5lib}"
+	setopt LOCAL_OPTIONS
+	setopt FUNCTION_ARGZERO
+	setopt ERR_RETURN
+	setopt NOUNSET
+	#setopt XTRACE
+	# We set 0 to RANDOM here to prevent name clashes since an anonymous
+	# function is always called (anon)
+	local 0="$0_$RANDOM"
 
-		manpath+=( "$prefix/man" "$prefix/share/man" )
-	fi
-
-	path prepend "$HOME/bin" /usr/local/{s,}bin
-	path append "/Applications/LyX.app/Contents/MacOS" "/usr/texbin" "$HOME/.cabal/bin" "$prefix/bin" /var/lib/gems/*/bin
-	path remove "."
-
-	if [[ -x ${commands[vim]} ]]; then
-		export EDITOR="vim"
-	else
-		echo "Vim not found in path" >&2
-	fi
-	[[ -x ${commands[slrn]} ]] && export NNTPSERVER="snews://news.csh.rit.edu"
-	if [[ -x ${commands[brew]} ]]; then
-		path append "$(brew --prefix openssl)/bin"
-		export_if_exist \
-			GEM_HOME "$(brew --cellar)/gems/1.8" \
-			NODE_PATH "$(brew --prefix)/lib/node_modules"
-		if (( ${+GEM_HOME} )); then
-			path append "$GEM_HOME"/bin
+	{
+		#
+		# Browser
+		#
+		if [[ "$OSTYPE" == darwin* ]]; then
+		  export BROWSER='open'
 		fi
-	fi
-	export_if_exist \
-		M2_HOME "/usr/share/maven" \
-		JAVA_HOME "/System/Library/Frameworks/JavaVM.framework/Home"
 
-	fpath=( "$HOME/.zsh/functions" "$fpath[@]" )
+		#
+		# Editors
+		#
+		function $0_export_or_warn {
+			typeset -i argeven
+			let "argeven = $# % 2"
+			if [[ $argeven -ne 0 ]]; then
+				zmodload -F zsh/system +b:syserror
+				syserror EINVAL
+				return 1
+			fi
 
-	if [[ -x "${commands[xclip]}" ]]; then
-		if [[ -z "${commands[pbcopy]}" ]]; then
-			alias pbcopy="xclip -in -selection clipboard"
-		fi
-		if [[ -z "${commands[pbpaste]}" ]]; then
-			alias pbpaste="xclip -out -selection clipboard"
-		fi
-	fi
+			typeset -A args
+			args=( "$@" )
+			local var
+			for var in "${(k)args[@]}"; do
+				local cmd="$args[$var]"
+				if [[ -x ${commands[$cmd]} ]]; then
+					export "$var=$cmd"
+				else
+					echo "$cmd not found in path" >&2
+				fi
+			done
+		}
+		$0_export_or_warn \
+			EDITOR vim \
+			VISUAL view \
+			PAGER less
 
-	if [[ -x "${commands[keychain]}" ]]; then
-		eval "$(keychain --quiet --eval --inherit any)"
-		if [[ -f "$HOME/.ssh/id_rsa" ]]; then
-			keychain --quiet "$HOME/.ssh/id_rsa"
+		#
+		# Language
+		#
+		if [[ -z "$LANG" ]]; then
+		  eval "$(locale)"
 		fi
-	fi
+
+		#
+		# Less
+		#
+		# Set the default Less options.
+		# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+		# Remove -X and -F (exit if the content fits on one screen) to enable it.
+		export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+		# Set the Less input preprocessor.
+		if (( $+commands[lesspipe.sh] )); then
+		  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
+		fi
+
+		#
+		# Paths
+		#
+		typeset -gU cdpath fpath mailpath manpath path
+		typeset -gUT INFOPATH infopath
+
+		# Set the the list of directories that cd searches.
+		# cdpath=(
+		#   $cdpath
+		# )
+
+		# Set the list of directories that info searches for manuals.
+		infopath=(
+		  /usr/local/share/info
+		  /usr/share/info
+		  $infopath
+		)
+
+		# Set the list of directories that man searches for manuals.
+		manpath=(
+		  /usr/local/share/man
+		  /usr/share/man
+		  $manpath
+		)
+
+		for path_file in /etc/manpaths.d/*(.N); do
+		  manpath+=($(<$path_file))
+		done
+		unset path_file
+
+		# Set the list of directories that Zsh searches for programs.
+		path=(
+		  $HOME/bin
+		  /usr/local/{bin,sbin}
+		  /usr/{bin,sbin}
+		  /{bin,sbin}
+		  $path
+		)
+
+		for path_file in /etc/paths.d/*(.N); do
+		  path+=($(<$path_file))
+		done
+		unset path_file
+
+		#
+		# Temporary Files
+		#
+		if [[ -d "$TMPDIR" ]]; then
+		  export TMPPREFIX="${TMPDIR%/}/zsh"
+		  if [[ ! -d "$TMPPREFIX" ]]; then
+			mkdir -p "$TMPPREFIX"
+		  fi
+		fi
+
+		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
+		fpath=( "$HOME/.zsh/functions" "$fpath[@]" )
+
+
+		false
+		if (( $+commands[keychain] )); then
+			eval "$(keychain --quiet --eval --inherit any-once)"
+			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
+				keychain --quiet "$HOME/.ssh/id_rsa"
+			fi
+		fi
+	} always {
+		unfunction -m "$0_*"
+	}
 }
+
+# vim:tw=80

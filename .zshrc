@@ -1,90 +1,62 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="sorin"
-
-# Set to this to use case-sensitive completion
-CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew github osx lol vi-mode zsh-syntax-highlighting)
-
-typeset -r OS="$(uname -s)"
-
-typeset -r ZSHRC_LOCAL="$HOME/.zshrc-local"
-[[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
-
-source $ZSH/oh-my-zsh.sh
-
-# Disable all built-in git hax
-function git_prompt_info() {}
-function parse_git_dirty() {}
-function git_prompt_ahead() {}
-function git_prompt_short_sha() {}
-function git_prompt_long_sha() {}
-function git_prompt_status() {}
-
-RPROMPT='$(vi_mode_prompt_info)'" $RPS1"
-PROMPT='%{${fg[blue]}%}%m %{$fg_bold[green]%}❯%{$reset_color%} '"$PROMPT"
-
-# create a zkbd compatible hash;
-# to add other keys to this hash, see: man 5 terminfo
-typeset -A key
-
-key[Home]=${terminfo[khome]}
-key[End]=${terminfo[kend]}
-key[Insert]=${terminfo[kich1]}
-key[Delete]=${terminfo[kdch1]}
-key[Up]=${terminfo[kcuu1]}
-key[Down]=${terminfo[kcud1]}
-key[Left]=${terminfo[kcub1]}
-key[Right]=${terminfo[kcuf1]}
-key[PageUp]=${terminfo[kpp]}
-key[PageDown]=${terminfo[knp]}
-
-for k in ${(k)key} ; do
-    # $terminfo[] entries are weird in ncurses application mode...
-    [[ ${key[$k]} == $'\eO'* ]] && key[$k]=${key[$k]/O/[}
-done
-unset k
-
-# setup key accordingly
-[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
-[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
-[[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
-[[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
-[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
-[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
-[[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
-[[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
-
-# Turn off username completion.
-zstyle -e ':completion:*:*:*' users 'reply=()'
-
-# Turn off derpy zsh features
-setopt noalways_to_end
-setopt nocomplete_in_word
-setopt noauto_name_dirs
-setopt noshare_history
-setopt noautocd
+## create a zkbd compatible hash;
+## to add other keys to this hash, see: man 5 terminfo
+#typeset -A key
+#
+#key[Home]=${terminfo[khome]}
+#key[End]=${terminfo[kend]}
+#key[Insert]=${terminfo[kich1]}
+#key[Delete]=${terminfo[kdch1]}
+#key[Up]=${terminfo[kcuu1]}
+#key[Down]=${terminfo[kcud1]}
+#key[Left]=${terminfo[kcub1]}
+#key[Right]=${terminfo[kcuf1]}
+#key[PageUp]=${terminfo[kpp]}
+#key[PageDown]=${terminfo[knp]}
+#
+#for k in ${(k)key} ; do
+#    # $terminfo[] entries are weird in ncurses application mode...
+#    [[ ${key[$k]} == $'\eO'* ]] && key[$k]=${key[$k]/O/[}
+#done
+#unset k
+#
+## setup key accordingly
+#[[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
+#[[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
+#[[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
+#[[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
+#[[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
+#[[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
+#[[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
+#[[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
+#
+## Turn off username completion.
+#zstyle -e ':completion:*:*:*' users 'reply=()'
+#
+## Turn off derpy zsh features
+#setopt noalways_to_end
+#setopt nocomplete_in_word
+#setopt noauto_name_dirs
+#setopt noshare_history
+#setopt noautocd
 
 alias l="ls"
 alias sl="ls"
 alias s="ls"
-alias psg="ps wwwaux | grep -v grep | grep"
 
 [[ -x ${commands[cygstart]} ]] && alias open="cygstart"
+
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+unalias run-help
+HELPDIR="$HOME/.zsh/help"
+autoload run-help
+
+setopt BG_NICE
+setopt HUP
+setopt CHECK_JOBS

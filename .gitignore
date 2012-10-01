@@ -18,10 +18,13 @@
 !.vimrc
 
 !.zprofile
+!.zlogin
 !.zshrc
+!.zshenv.old
 !.zshenv
+!.zpretzorc
+!.zpretzo/
 !.zsh/
-!.oh-my-zsh/
 !.dotprivate/
 
 !.tmux.conf
