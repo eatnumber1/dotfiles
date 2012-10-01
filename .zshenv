@@ -116,7 +116,7 @@
 		#
 		# Temporary Files
 		#
-		if [[ -d "$TMPDIR" ]]; then
+		if (( $+TMPDIR )) && [[ -d "$TMPDIR" ]]; then
 		  export TMPPREFIX="${TMPDIR%/}/zsh"
 		  if [[ ! -d "$TMPPREFIX" ]]; then
 			mkdir -p "$TMPPREFIX"

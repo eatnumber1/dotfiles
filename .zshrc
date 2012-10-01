@@ -53,7 +53,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-unalias run-help
+alias run-help >/dev/null && unalias run-help
 HELPDIR="$HOME/.zsh/help"
 autoload run-help
 
