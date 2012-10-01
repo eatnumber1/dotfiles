@@ -52,7 +52,7 @@
 		#
 		# Language
 		#
-		if [[ -z "$LANG" ]]; then
+		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
 		  eval "$(locale)"
 		fi
 
@@ -94,10 +94,10 @@
 		  $manpath
 		)
 
+		local path_file
 		for path_file in /etc/manpaths.d/*(.N); do
 		  manpath+=($(<$path_file))
 		done
-		unset path_file
 
 		# Set the list of directories that Zsh searches for programs.
 		path=(
@@ -111,7 +111,6 @@
 		for path_file in /etc/paths.d/*(.N); do
 		  path+=($(<$path_file))
 		done
-		unset path_file
 
 		#
 		# Temporary Files
