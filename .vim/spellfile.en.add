@@ -52,3 +52,8 @@ SCons
 CMake
 Lockfort
 Nethack
+structs
+LLDB
+introspectable
+parenthesization
+immersive
