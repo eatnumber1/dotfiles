@@ -39,10 +39,6 @@
 #setopt noshare_history
 #setopt noautocd
 
-alias l="ls"
-alias sl="ls"
-alias s="ls"
-
 [[ -x ${commands[cygstart]} ]] && alias open="cygstart"
 
 zstyle ':completion:*' use-cache on
@@ -67,8 +63,22 @@ unalias ln
 unalias mkdir
 unalias mv
 unalias rm
-
+unalias l
+unalias ll
+unalias lr
+unalias la
+unalias lm
+unalias lx
+unalias lk
+unalias lt
+unalias lc
+unalias lu
+unalias sl
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mkdir='nocorrect mkdir'
 alias rm='nocorrect rm'
+
+alias l="ls"
+alias sl="ls"
+alias s="ls"
