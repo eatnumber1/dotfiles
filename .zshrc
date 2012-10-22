@@ -74,6 +74,7 @@ unalias lt
 unalias lc
 unalias lu
 unalias sl
+unalias scp
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mkdir='nocorrect mkdir'
@@ -82,3 +83,5 @@ alias rm='nocorrect rm'
 alias l="ls"
 alias sl="ls"
 alias s="ls"
+
+alias pstree="pstree -g3"
