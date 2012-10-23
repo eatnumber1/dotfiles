@@ -46,7 +46,7 @@
 		}
 		$0_export_or_warn \
 			EDITOR vim \
-			VISUAL view \
+			VISUAL vim \
 			PAGER less
 
 		#
