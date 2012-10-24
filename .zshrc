@@ -84,4 +84,6 @@ alias l="ls"
 alias sl="ls"
 alias s="ls"
 
-alias pstree="pstree -g3"
+if ! pstree -V &> /dev/null; then
+	alias pstree="pstree -g3"
+fi
