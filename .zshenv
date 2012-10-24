@@ -113,6 +113,12 @@
 		  path+=($(<$path_file))
 		done
 
+		fpath=(
+			$HOME/.zsh-local/functions
+			$HOME/.zsh/functions
+			$fpath
+		)
+
 		#
 		# Temporary Files
 		#
@@ -124,7 +130,6 @@
 		fi
 
 		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
-		fpath=( "$HOME/.zsh/functions" "$fpath[@]" )
 
 
 		false
