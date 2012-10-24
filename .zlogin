@@ -9,7 +9,7 @@
 {
 	autoload -U zrecompile
 	local ZDOTDIR="${ZDOTDIR:-$HOME}"
-	zrecompile -p \
+	zrecompile -q -p \
 		-M "$ZDOTDIR"/.zcompdump -- \
 		-R "$ZDOTDIR"/.zshrc -- \
 		-R "$ZDOTDIR"/.zpreztorc -- \
@@ -22,6 +22,8 @@
 		done
 	fi
 } &!
+
+[[ -f "$ZDOTDIR/.zlogin-local" ]] && source "$ZDOTDIR/.zlogin-local"
 
 # Print a random, hopefully interesting, adage.
 if (( $+commands[fortune] )); then
