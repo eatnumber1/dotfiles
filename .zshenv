@@ -144,4 +144,7 @@
 	}
 }
 
+# Some /etc/zsh/zshrc files call compinit. Skip it.
+typeset skip_global_compinit=1
+
 # vim:tw=80
