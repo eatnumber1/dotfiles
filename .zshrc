@@ -75,6 +75,7 @@ unalias lc
 unalias lu
 unalias sl
 unalias scp
+unalias get
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mkdir='nocorrect mkdir'
