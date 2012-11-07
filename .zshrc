@@ -53,9 +53,7 @@ fi
 HELPDIR="$HOME/.zsh/help"
 autoload run-help
 
-setopt BG_NICE
-setopt HUP
-setopt CHECK_JOBS
+setopt bg_nice hup check_jobs clobber
 
 # Undo some prezto zsh aliases.
 unalias cp
@@ -76,6 +74,7 @@ unalias lu
 unalias sl
 unalias scp
 unalias get
+unalias du
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mkdir='nocorrect mkdir'
