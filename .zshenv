@@ -131,8 +131,8 @@
 
 		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
 
+		typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
 
-		false
 		if (( $+commands[keychain] )); then
 			eval "$(keychain --quiet --eval --inherit any-once)"
 			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
