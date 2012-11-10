@@ -49,10 +49,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-(( $+aliases[run-help] )) && unalias run-help
-HELPDIR="$HOME/.zsh/help"
-autoload run-help
-
 setopt bg_nice hup check_jobs clobber typeset_silent
 
 {
@@ -65,25 +61,11 @@ setopt bg_nice hup check_jobs clobber typeset_silent
 	}
 
 	# Undo some prezto zsh aliases.
-	unalias cp
-	unalias ln
-	unalias mkdir
-	unalias mv
-	unalias rm
-	unalias l
-	unalias ll
-	unalias lr
-	unalias la
-	unalias lm
-	unalias lx
-	unalias lk
-	unalias lt
-	unalias lc
-	unalias lu
-	unalias sl
-	unalias scp
-	unalias get
-	unalias du
+	unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du
+
+	unalias run-help
+	HELPDIR="$HOME/.zsh/help"
+	autoload run-help
 } always {
 	unfunction unalias
 }
