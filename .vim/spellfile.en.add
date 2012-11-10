@@ -58,3 +58,5 @@ introspectable
 parenthesization
 immersive
 SML
+memoized
+malloc
