@@ -53,7 +53,7 @@ fi
 HELPDIR="$HOME/.zsh/help"
 autoload run-help
 
-setopt bg_nice hup check_jobs clobber
+setopt bg_nice hup check_jobs clobber typeset_silent
 
 # Undo some prezto zsh aliases.
 unalias cp
