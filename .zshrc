@@ -55,26 +55,39 @@ autoload run-help
 
 setopt bg_nice hup check_jobs clobber typeset_silent
 
-# Undo some prezto zsh aliases.
-unalias cp
-unalias ln
-unalias mkdir
-unalias mv
-unalias rm
-unalias l
-unalias ll
-unalias lr
-unalias la
-unalias lm
-unalias lx
-unalias lk
-unalias lt
-unalias lc
-unalias lu
-unalias sl
-unalias scp
-unalias get
-unalias du
+{
+	function unalias {
+		local a
+		zmodload -F zsh/parameter +p:aliases
+		for a in "$@"; do
+			(( $+aliases[$a] )) && builtin unalias "$a"
+		done
+	}
+
+	# Undo some prezto zsh aliases.
+	unalias cp
+	unalias ln
+	unalias mkdir
+	unalias mv
+	unalias rm
+	unalias l
+	unalias ll
+	unalias lr
+	unalias la
+	unalias lm
+	unalias lx
+	unalias lk
+	unalias lt
+	unalias lc
+	unalias lu
+	unalias sl
+	unalias scp
+	unalias get
+	unalias du
+} always {
+	unfunction unalias
+}
+
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
 alias mkdir='nocorrect mkdir'
