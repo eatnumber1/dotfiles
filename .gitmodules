@@ -25,3 +25,6 @@
 [submodule ".zprezto"]
 	path = .zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule ".vim/bundle/glsl"]
+	path = .vim/bundle/glsl
+	url = git://github.com/vim-scripts/glsl.vim.git
