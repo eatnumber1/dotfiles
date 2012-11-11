@@ -39,8 +39,6 @@
 #setopt noshare_history
 #setopt noautocd
 
-[[ -x ${commands[cygstart]} ]] && alias open="cygstart"
-
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
@@ -49,36 +47,51 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-setopt bg_nice hup check_jobs clobber typeset_silent
+() {
+	{
+		function unalias {
+			local a
+			zmodload -F zsh/parameter +p:aliases
+			for a in "$@"; do
+				(( $+aliases[$a] )) && builtin unalias "$a"
+			done
+		}
 
-{
-	function unalias {
-		local a
-		zmodload -F zsh/parameter +p:aliases
-		for a in "$@"; do
-			(( $+aliases[$a] )) && builtin unalias "$a"
-		done
+		zmodload -F zsh/parameter +p:commands
+
+		setopt bg_nice hup check_jobs clobber typeset_silent
+
+		if (( $+commands[keychain] )); then
+			eval "$(keychain --quiet --eval --inherit any-once)"
+			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
+				keychain --quiet "$HOME/.ssh/id_rsa"
+			fi
+		fi
+
+		# Undo some prezto zsh aliases.
+		unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du
+
+		unalias run-help
+		HELPDIR="$HOME/.zsh/help"
+		autoload run-help
+
+		alias cp='nocorrect cp'
+		alias ln='nocorrect ln'
+		alias mkdir='nocorrect mkdir'
+		alias rm='nocorrect rm'
+
+		if (( $+commands[cygstart] )); then
+			alias open="cygstart"
+		fi
+
+		alias l="ls"
+		alias sl="ls"
+		alias s="ls"
+
+		if ! pstree -V &> /dev/null; then
+			alias pstree="pstree -g3"
+		fi
+	} always {
+		unfunction unalias
 	}
-
-	# Undo some prezto zsh aliases.
-	unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du
-
-	unalias run-help
-	HELPDIR="$HOME/.zsh/help"
-	autoload run-help
-} always {
-	unfunction unalias
 }
-
-alias cp='nocorrect cp'
-alias ln='nocorrect ln'
-alias mkdir='nocorrect mkdir'
-alias rm='nocorrect rm'
-
-alias l="ls"
-alias sl="ls"
-alias s="ls"
-
-if ! pstree -V &> /dev/null; then
-	alias pstree="pstree -g3"
-fi

@@ -12,6 +12,8 @@
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
 
+	zmodload -F zsh/parameter +p:commands
+
 	{
 		#
 		# Browser
@@ -132,13 +134,6 @@
 		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
 
 		typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
-
-		if (( $+commands[keychain] )); then
-			eval "$(keychain --quiet --eval --inherit any-once)"
-			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
-				keychain --quiet "$HOME/.ssh/id_rsa"
-			fi
-		fi
 	} always {
 		unfunction -m "$0_*"
 	}
