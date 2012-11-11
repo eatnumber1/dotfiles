@@ -59,7 +59,7 @@ fi
 
 		zmodload -F zsh/parameter +p:commands
 
-		setopt bg_nice hup check_jobs clobber typeset_silent
+		setopt bg_nice hup check_jobs clobber typeset_silent no_share_history
 
 		if (( $+commands[keychain] )); then
 			eval "$(keychain --quiet --eval --inherit any-once)"
