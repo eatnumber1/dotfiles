@@ -76,7 +76,7 @@ if has("autocmd")
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setf mkd
 		au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setlocal spell
 
-		au BufRead,BufNewFile Gemfile *.ru *.rb setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+		au BufRead,BufNewFile Gemfile,*.ru,*.rb setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 		au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 	augroup END
 else
