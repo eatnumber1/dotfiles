@@ -2,9 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>M2_HOME</key>
-	<string>/usr/share/maven</string>
+	<key>GL_ENABLE_DEBUG_ATTACH</key>
+	<string>YES</string>
 	<key>JAVA_HOME</key>
 	<string>/System/Library/Frameworks/JavaVM.framework/Home</string>
+	<key>M2_HOME</key>
+	<string>/usr/share/maven</string>
 </dict>
 </plist>
