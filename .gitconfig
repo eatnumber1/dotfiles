@@ -14,4 +14,4 @@
 [github]
 	user = eatnumber1
 [include]
-	path = .gitconfig-local
+	path = .gitconfig.local
