@@ -142,8 +142,9 @@
 # Some /etc/zsh/zshrc files call compinit. Skip it.
 typeset skip_global_compinit=1
 
-typeset LOCAL_ZSHENV="$HOME/.zshenv.local"
-[[ -f "$LOCAL_ZSHENV" ]] && source "$LOCAL_ZSHENV"
-unset LOCAL_ZSHENV
+() {
+	local ZSHENV_LOCAL="$HOME/.zshenv.local"
+	[[ -f "$ZSHENV_LOCAL" ]] && source "$ZSHENV_LOCAL"
+}
 
 # vim:tw=80
