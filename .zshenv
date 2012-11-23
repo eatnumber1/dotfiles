@@ -3,73 +3,15 @@
 #
 
 () {
-	setopt LOCAL_OPTIONS
-	setopt FUNCTION_ARGZERO
-	setopt ERR_RETURN
-	setopt NOUNSET
-	#setopt XTRACE
+	setopt local_options
+	setopt function_argzero err_return no_unset
+	#setopt xtrace
 	# We set 0 to RANDOM here to prevent name clashes since an anonymous
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
 
-	zmodload -F zsh/parameter +p:commands
-
 	{
-		#
-		# Browser
-		#
-		if [[ "$OSTYPE" == darwin* ]]; then
-		  export BROWSER='open'
-		fi
-
-		#
-		# Editors
-		#
-		function $0_export_or_warn {
-			typeset -i argeven
-			let "argeven = $# % 2"
-			if [[ $argeven -ne 0 ]]; then
-				zmodload -F zsh/system +b:syserror
-				syserror EINVAL
-				return 1
-			fi
-
-			typeset -A args
-			args=( "$@" )
-			local var
-			for var in "${(k)args[@]}"; do
-				local cmd="$args[$var]"
-				if [[ -x ${commands[$cmd]} ]]; then
-					export "$var=$cmd"
-				else
-					echo "$cmd not found in path" >&2
-				fi
-			done
-		}
-		$0_export_or_warn \
-			EDITOR vim \
-			VISUAL vim \
-			PAGER less
-
-		#
-		# Language
-		#
-		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-		  eval "$(locale)"
-		fi
-
-		#
-		# Less
-		#
-		# Set the default Less options.
-		# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
-		# Remove -X and -F (exit if the content fits on one screen) to enable it.
-		export LESS='-F -g -i -M -R -S -w -X -z-4'
-
-		# Set the Less input preprocessor.
-		if (( $+commands[lesspipe.sh] )); then
-		  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
-		fi
+		zmodload -F zsh/parameter +p:commands
 
 		#
 		# Paths
@@ -122,6 +64,13 @@
 		)
 
 		#
+		# Browser
+		#
+		if [[ "$OSTYPE" == darwin* ]]; then
+		  export BROWSER='open'
+		fi
+
+		#
 		# Temporary Files
 		#
 		if (( $+TMPDIR )) && [[ -d "$TMPDIR" ]]; then
@@ -134,6 +83,53 @@
 		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
 
 		typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
+
+		#
+		# Editors
+		#
+		function $0_export_or_warn {
+			typeset -i argeven
+			let "argeven = $# % 2"
+			if [[ $argeven -ne 0 ]]; then
+				zmodload -F zsh/system +b:syserror
+				syserror EINVAL
+				return 1
+			fi
+
+			typeset -A args
+			args=( "$@" )
+			local var
+			for var in "${(k)args[@]}"; do
+				local cmd="$args[$var]"
+				if [[ -x ${commands[$cmd]} ]]; then
+					export "$var=$cmd"
+				else
+					echo "$cmd not found in path" >&2
+				fi
+			done
+		}
+		$0_export_or_warn \
+			EDITOR vim \
+			VISUAL vim \
+			PAGER less
+
+		#
+		# Language
+		#
+		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
+		  eval "$(locale)"
+		fi
+
+		#
+		# Less
+		#
+		# Set the default Less options.
+		export LESS="-F -X -i -M -R -S -w -z-4 -a"
+
+		# Set the Less input preprocessor.
+		if (( $+commands[lesspipe.sh] )); then
+			eval "$(lesspipe.sh)"
+		fi
 	} always {
 		unfunction -m "$0_*"
 	}
