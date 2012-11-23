@@ -66,13 +66,6 @@ fi
 		fi
 
 		#
-		# Language
-		#
-		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-		  eval "$(locale)"
-		fi
-
-		#
 		# Browser
 		#
 		if [[ "$OSTYPE" == darwin* ]]; then

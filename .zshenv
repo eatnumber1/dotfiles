@@ -62,6 +62,13 @@
 			$HOME/.zsh/functions
 			$fpath
 		)
+
+		#
+		# Language
+		#
+		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
+		  eval "$(locale)"
+		fi
 	} always {
 		unfunction -m "$0_*"
 	}
