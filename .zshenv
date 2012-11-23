@@ -70,16 +70,6 @@
 		  export BROWSER='open'
 		fi
 
-		#
-		# Temporary Files
-		#
-		if (( $+TMPDIR )) && [[ -d "$TMPDIR" ]]; then
-		  export TMPPREFIX="${TMPDIR%/}/zsh"
-		  if [[ ! -d "$TMPPREFIX" ]]; then
-			mkdir -p "$TMPPREFIX"
-		  fi
-		fi
-
 		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
 
 		typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
