@@ -76,7 +76,6 @@
 typeset skip_global_compinit=1
 
 () {
-	setopt local_options
 	local ZSHENV_LOCAL="$HOME/.zshenv.local"
 	[[ -f "$ZSHENV_LOCAL" ]] && source "$ZSHENV_LOCAL"
 }

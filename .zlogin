@@ -1,5 +1,4 @@
 () {
-	setopt local_options
 	local ZLOGIN_LOCAL="${ZDOTDIR:-$HOME}/.zlogin.local"
 	[[ -f "$ZLOGIN_LOCAL" ]] && source "$ZLOGIN_LOCAL"
 }
