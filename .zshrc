@@ -11,6 +11,8 @@ fi
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
 	{
+		zmodload -F zsh/parameter +p:commands
+
 		function unalias {
 			local a
 			zmodload -F zsh/parameter +p:aliases
@@ -18,8 +20,6 @@ fi
 				(( $+aliases[$a] )) && builtin unalias "$a"
 			done
 		}
-
-		zmodload -F zsh/parameter +p:commands
 
 		setopt bg_nice hup check_jobs clobber typeset_silent no_share_history
 

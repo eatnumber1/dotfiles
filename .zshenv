@@ -11,8 +11,6 @@
 	local 0="$0_$RANDOM"
 
 	{
-		zmodload -F zsh/parameter +p:commands
-
 		#
 		# Paths
 		#
