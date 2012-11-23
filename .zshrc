@@ -100,7 +100,7 @@ fi
 			local var
 			for var in "${(k)args[@]}"; do
 				local cmd="$args[$var]"
-				if [[ -x ${commands[$cmd]} ]]; then
+				if (( $+commands[$cmd] )); then
 					export "$var=$cmd"
 				else
 					echo "$cmd not found in path" >&2
