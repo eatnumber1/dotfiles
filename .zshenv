@@ -58,7 +58,7 @@
 		done
 
 		fpath=(
-			$HOME/.zsh-local/functions
+			$HOME/.zsh.local/functions
 			$HOME/.zsh/functions
 			$fpath
 		)
