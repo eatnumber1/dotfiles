@@ -7,6 +7,8 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 () {
+	setopt local_options
+	setopt function_argzero err_return no_unset
 	# We set 0 to RANDOM here to prevent name clashes since an anonymous
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
@@ -20,8 +22,6 @@ fi
 				(( $+aliases[$a] )) && builtin unalias "$a"
 			done
 		}
-
-		setopt bg_nice hup check_jobs clobber typeset_silent no_share_history
 
 		if (( $+commands[keychain] )); then
 			eval "$(keychain --quiet --eval --inherit any-once)"
@@ -109,3 +109,6 @@ fi
 		unfunction -m "$0_*"
 	}
 }
+
+# Gotta set these outside the function due to local_options.
+setopt bg_nice hup check_jobs clobber typeset_silent no_share_history
