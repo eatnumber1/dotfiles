@@ -1,10 +1,3 @@
-#
-# Executes commands at login post-zshrc.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 () {
 	local ZLOGIN_LOCAL="${ZDOTDIR:-$HOME}/.zlogin.local"
 	[[ -f "$ZLOGIN_LOCAL" ]] && source "$ZLOGIN_LOCAL"
