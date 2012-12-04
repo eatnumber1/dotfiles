@@ -110,6 +110,11 @@ fi
 	}
 }
 
+() {
+	local ZSHRC_LOCAL="$HOME/.zshrc.local"
+	[[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
+}
+
 # Gotta set these outside the function due to local_options.
 setopt bg_nice hup check_jobs clobber typeset_silent
 setopt no_share_history no_auto_cd no_auto_pushd
