@@ -8,7 +8,7 @@ fi
 
 () {
 	setopt local_options
-	setopt function_argzero err_return no_unset
+	setopt function_argzero err_return no_unset warn_create_global
 	# We set 0 to RANDOM here to prevent name clashes since an anonymous
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
@@ -23,6 +23,14 @@ fi
 			done
 		}
 
+		function unfunction {
+			local f
+			zmodload -F zsh/parameter +p:functions
+			for f in "$@"; do
+				(( $+functions[$f] )) && builtin unfunction "$f"
+			done
+		}
+
 		if (( $+commands[keychain] )); then
 			eval "$(keychain --quiet --eval --inherit any-once)"
 			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
@@ -32,9 +40,10 @@ fi
 
 		# Undo some prezto zsh aliases.
 		unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du
+		unfunction kill
 
 		unalias run-help
-		HELPDIR="$HOME/.zsh/help"
+		typeset -g HELPDIR="$HOME/.zsh/help"
 		autoload run-help
 
 		alias cp='nocorrect cp'
@@ -62,7 +71,10 @@ fi
 
 		# Set the Less input preprocessor.
 		if (( $+commands[lesspipe.sh] )); then
-			eval "$(lesspipe.sh)"
+			() {
+				setopt no_warn_create_global
+				eval "$(lesspipe.sh)"
+			}
 		fi
 
 		#
@@ -105,6 +117,7 @@ fi
 			VISUAL vim \
 			PAGER less
 	} always {
+		builtin unfunction unfunction
 		unfunction unalias
 		unfunction -m "$0_*"
 	}

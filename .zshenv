@@ -4,7 +4,7 @@
 
 () {
 	setopt local_options
-	setopt function_argzero err_return no_unset
+	setopt function_argzero err_return no_unset warn_create_global
 	#setopt xtrace
 	# We set 0 to RANDOM here to prevent name clashes since an anonymous
 	# function is always called (anon)
