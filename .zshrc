@@ -71,7 +71,7 @@ fi
 
 		# Set the Less input preprocessor.
 		if (( $+commands[lesspipe.sh] )); then
-			emulate -R sh -c "$(lesspipe.sh)"
+			typeset -gx LESSOPEN="|lesspipe.sh %s"
 		fi
 
 		#
