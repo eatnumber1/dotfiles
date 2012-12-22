@@ -8,4 +8,7 @@ zmodload -F zsh/parameter +p:commands
 if (( $+commands[restorecon] )); then
 	restorecon -R .ssh
 fi
-chmod g-w,o-w .ssh
+chmod go= .ssh
+for f in .ssh/*; do
+	[[ -f "$f" ]] && chmod go-w "$f"
+done
