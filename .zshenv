@@ -3,6 +3,7 @@
 #
 
 () {
+	emulate -L zsh
 	setopt local_options
 	setopt function_argzero err_return no_unset warn_create_global
 	#setopt xtrace
@@ -66,7 +67,7 @@
 		# Language
 		#
 		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-			eval "$(locale)"
+			emulate -R sh -c "$(locale)"
 		fi
 	} always {
 		unfunction -m "$0_*"

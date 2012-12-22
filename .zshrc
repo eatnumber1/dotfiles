@@ -71,10 +71,7 @@ fi
 
 		# Set the Less input preprocessor.
 		if (( $+commands[lesspipe.sh] )); then
-			() {
-				setopt no_warn_create_global
-				eval "$(lesspipe.sh)"
-			}
+			emulate -R sh -c "$(lesspipe.sh)"
 		fi
 
 		#
