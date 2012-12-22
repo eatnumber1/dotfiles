@@ -21,35 +21,35 @@
 
 		# Set the the list of directories that cd searches.
 		# cdpath=(
-		#   $cdpath
+		# 	$cdpath
 		# )
 
 		# Set the list of directories that info searches for manuals.
 		infopath=(
-		  /usr/local/share/info
-		  /usr/share/info
-		  $infopath
+			/usr/local/share/info
+			/usr/share/info
+			$infopath
 		)
 
 		# Set the list of directories that man searches for manuals.
 		manpath=(
-		  /usr/local/share/man
-		  /usr/share/man
-		  $manpath
+			/usr/local/share/man
+			/usr/share/man
+			$manpath
 		)
 
 		local path_file
 		for path_file in /etc/manpaths.d/*(.N); do
-		  manpath+=($(<$path_file))
+			manpath+=($(<$path_file))
 		done
 
 		# Set the list of directories that Zsh searches for programs.
 		path=(
-		  $HOME/bin
-		  /usr/local/{bin,sbin}
-		  /usr/{bin,sbin}
-		  /{bin,sbin}
-		  $path
+			$HOME/bin
+			/usr/local/{bin,sbin}
+			/usr/{bin,sbin}
+			/{bin,sbin}
+			$path
 		)
 
 		for path_file in /etc/paths.d/*(.N); do
@@ -66,7 +66,7 @@
 		# Language
 		#
 		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-		  eval "$(locale)"
+			eval "$(locale)"
 		fi
 	} always {
 		unfunction -m "$0_*"
