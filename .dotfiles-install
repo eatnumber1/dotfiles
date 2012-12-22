@@ -3,6 +3,8 @@ emulate -L zsh
 setopt no_unset err_exit
 #setopt xtrace
 
+git submodule update --init --recursive
+
 zmodload -F zsh/parameter +p:commands
 
 if (( $+commands[restorecon] )); then
