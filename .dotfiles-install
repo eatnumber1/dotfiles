@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+emulate -L zsh
+setopt no_unset err_exit
+#setopt xtrace
+
+zmodload -F zsh/parameter +p:commands
+
+if (( $+commands[restorecon] )); then
+	restorecon -R .ssh
+fi
+chmod g-w,o-w .ssh
