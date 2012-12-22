@@ -14,8 +14,9 @@
 		#
 		# Paths
 		#
-		typeset -gU cdpath fpath mailpath manpath path
+		typeset -gU cdpath fpath mailpath manpath path pythonpath
 		typeset -gUT INFOPATH infopath
+		typeset -gUT PYTHONPATH pythonpath
 		typeset -x PATH MANPATH INFOPATH
 
 		# Set the the list of directories that cd searches.
