@@ -75,7 +75,9 @@
 		fi
 
 		# Some /etc/zsh/zshrc files call compinit. Skip it.
-		typeset -g skip_global_compinit=1
+		if [[ -o interactive ]]; then
+			typeset -g skip_global_compinit=1
+		fi
 	} always {
 		unfunction -m "$0_*"
 	}

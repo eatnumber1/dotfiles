@@ -1,3 +1,5 @@
+unset skip_global_compinit
+
 () {
 	local ZSHRC_LOCAL="$HOME/.zshrc.local"
 	[[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
