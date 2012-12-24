@@ -25,6 +25,8 @@ case $? in
 	} &!
 esac
 
+zmodload -F zsh/parameter +p:commands
+
 # Print a random, hopefully interesting, adage.
 if (( $+commands[fortune] )); then
 	fortune -a
