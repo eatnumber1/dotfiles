@@ -1,3 +1,8 @@
+() {
+	local ZSHRC_LOCAL="$HOME/.zshrc.local"
+	[[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
+}
+
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
@@ -120,11 +125,14 @@ fi
 	}
 }
 
-() {
-	local ZSHRC_LOCAL="$HOME/.zshrc.local"
-	[[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
-}
-
 # Gotta set these outside the function due to local_options.
 setopt bg_nice hup check_jobs clobber typeset_silent
 setopt no_share_history no_auto_cd no_auto_pushd
+
+zmodload -F zsh/parameter +p:functions
+if (( $+functions[zshrc_post_hook] )); then
+	zshrc_post_hook
+	unfunction zshrc_post_hook
+fi
+
+# vim:tw=80

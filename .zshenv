@@ -3,6 +3,11 @@
 #
 
 () {
+	local ZSHENV_LOCAL="$HOME/.zshenv.local"
+	[[ -f "$ZSHENV_LOCAL" ]] && source "$ZSHENV_LOCAL"
+}
+
+() {
 	emulate -L zsh
 	setopt function_argzero err_return no_unset warn_create_global
 	#setopt xtrace
@@ -76,9 +81,10 @@
 # Some /etc/zsh/zshrc files call compinit. Skip it.
 typeset skip_global_compinit=1
 
-() {
-	local ZSHENV_LOCAL="$HOME/.zshenv.local"
-	[[ -f "$ZSHENV_LOCAL" ]] && source "$ZSHENV_LOCAL"
-}
+zmodload -F zsh/parameter +p:functions
+if (( $+functions[zshenv_post_hook] )); then
+	zshenv_post_hook
+	unfunction zshenv_post_hook
+fi
 
 # vim:tw=80

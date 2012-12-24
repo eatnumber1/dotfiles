@@ -32,3 +32,11 @@ if (( $+commands[fortune] )); then
 	fortune -a
 	print
 fi
+
+zmodload -F zsh/parameter +p:functions
+if (( $+functions[zlogin_post_hook] )); then
+	zlogin_post_hook
+	unfunction zlogin_post_hook
+fi
+
+# vim:tw=80
