@@ -7,7 +7,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 () {
-	setopt local_options
+	emulate -L zsh
 	setopt function_argzero err_return no_unset warn_create_global
 	# We set 0 to RANDOM here to prevent name clashes since an anonymous
 	# function is always called (anon)
