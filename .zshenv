@@ -73,13 +73,13 @@
 		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
 			emulate -R sh -c "$(locale)"
 		fi
+
+		# Some /etc/zsh/zshrc files call compinit. Skip it.
+		typeset -g skip_global_compinit=1
 	} always {
 		unfunction -m "$0_*"
 	}
 }
-
-# Some /etc/zsh/zshrc files call compinit. Skip it.
-typeset skip_global_compinit=1
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshenv_post_hook] )); then
