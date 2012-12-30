@@ -15,7 +15,7 @@ zmodload -F zsh/system +b:syserror +b:sysread
 
 autoload -U sysread
 
-ztcp "$@"
+ztcp -- "$@"
 integer socket=$REPLY
 trap "ztcp -c $REPLY" EXIT
 
