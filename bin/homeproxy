@@ -33,26 +33,26 @@ function atHome {
 if atHome; then
 	autoload -U znc
 	exec znc $HOST $PORT
-else
-	zmodload -F zsh/parameter +p:commands
-	if ! (( $+commands[socat] )); then
-		print -u 2 "Unable to proxy: socat is not installed"
-		exit 1
-	fi
-	local REPLY
-	if ! socat_major_version; then
-		print -u 2 "Unable to proxy: socat version unsupported" >&2
-		exit 1
-	fi
-	case $REPLY in
-		1)
-			exec socat - socks4a:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
-			;;
-		2)
-			exec socat - "socks5:$HOST:$PORT | tcp-connect:$PROXY_SERVER:$PROXY_PORT"
-			;;
-		*)
-			print -u 2 "Unable to proxy: socat version $REPLY unsupported"
-			exit 1
-	esac
 fi
+
+zmodload -F zsh/parameter +p:commands
+if ! (( $+commands[socat] )); then
+	print -u 2 "Unable to proxy: socat is not installed"
+	exit 1
+fi
+local REPLY
+if ! socat_major_version; then
+	print -u 2 "Unable to proxy: socat version unsupported" >&2
+	exit 1
+fi
+case $REPLY in
+	1)
+		exec socat - socks4a:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
+		;;
+	2)
+		exec socat - "socks5:$HOST:$PORT | tcp-connect:$PROXY_SERVER:$PROXY_PORT"
+		;;
+	*)
+		print -u 2 "Unable to proxy: socat version $REPLY unsupported"
+		exit 1
+esac
