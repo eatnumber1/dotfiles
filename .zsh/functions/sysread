@@ -1,4 +1,5 @@
 #!/bin/zsh
+# A wrapper around zsh's sysread.
 emulate -L zsh
 setopt err_return no_unset
 #setopt xtrace

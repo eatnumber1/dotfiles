@@ -1,4 +1,5 @@
 #!/bin/zsh
+# A pure ZSH implementation of netcat.
 emulate -L zsh
 setopt err_return no_unset
 #setopt xtrace
