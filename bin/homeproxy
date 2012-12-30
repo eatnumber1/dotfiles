@@ -20,7 +20,7 @@ function homenet_version {
 	local network="$(dig +short TXT $TXT_RECORD)"
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	[[ ! -z $network && $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]] || return 1
+	[[ $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]] || return 1
 	REPLY=$match[2]
 }
 
