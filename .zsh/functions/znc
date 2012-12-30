@@ -1,0 +1,36 @@
+#!/bin/zsh
+emulate -L zsh
+setopt err_return no_unset
+#setopt xtrace
+
+zmodload -F zsh/net/tcp +b:ztcp
+zmodload -F zsh/zselect +b:zselect
+zmodload -F zsh/system +b:syserror +b:sysread
+
+autoload -U sysread
+
+ztcp "$@"
+integer socket=$REPLY
+trap "ztcp -c $REPLY" EXIT
+
+local fd
+while true; do
+	typeset -A fds
+	zselect -a fds -r 0 -r $socket
+
+	for fd in $fds; do
+		integer ret=0
+		case $fd in
+			0)
+				sysread -p -i 0 -o $socket -t 0 || ret=$?
+				;;
+			*)
+				sysread -p -i $socket -o 1 -t 0 || ret=$?
+				;;
+		esac
+		if [[ $ret -ne 0 ]]; then
+			[[ $ret -eq 5 ]] && ret=0
+			return $ret
+		fi
+	done
+done

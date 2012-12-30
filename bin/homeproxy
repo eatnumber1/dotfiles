@@ -1,7 +1,6 @@
 #!/bin/zsh
 emulate -L zsh
-setopt err_exit
-setopt nounset
+setopt err_exit no_unset
 #setopt xtrace
 
 readonly PROXY_SERVER="miyazaki.eatnumber1.com"
@@ -9,6 +8,17 @@ readonly PROXY_PORT="10800"
 readonly TXT_RECORD="_network.eatnumber1.com"
 readonly HOST="$1"
 readonly PORT="$2"
+
+function socat_major_version {
+	local MATCH MBEGIN MEND
+	typeset -a match mbegin mend
+	if [[ $(socat -V) =~ "version ([[:digit:]]+)\." ]]; then
+		REPLY=$match
+		return 0
+	else
+		return 1
+	fi
+}
 
 function atHome {
 	local network="$(dig +short TXT "$TXT_RECORD")"
@@ -21,7 +31,28 @@ function atHome {
 }
 
 if atHome; then
-	exec socat - "tcp-connect:${HOST}:${PORT}"
+	autoload -U znc
+	exec znc $HOST $PORT
 else
-	exec socat - "socks5:${HOST}:${PORT} | tcp-connect:${PROXY_SERVER}:${PROXY_PORT:-1080}"
+	zmodload -F zsh/parameter +p:commands
+	if ! (( $+commands[socat] )); then
+		print -u 2 "Unable to proxy: socat is not installed"
+		exit 1
+	fi
+	local REPLY
+	if ! socat_major_version; then
+		print -u 2 "Unable to proxy: socat version unsupported" >&2
+		exit 1
+	fi
+	case $REPLY in
+		1)
+			exec socat - socks4a:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
+			;;
+		2)
+			exec socat - "socks5:$HOST:$PORT | tcp-connect:$PROXY_SERVER:$PROXY_PORT"
+			;;
+		*)
+			print -u 2 "Unable to proxy: socat version $REPLY unsupported"
+			exit 1
+	esac
 fi
