@@ -3,6 +3,11 @@ emulate -L zsh
 setopt err_return no_unset
 #setopt xtrace
 
+if [[ $# -ne 2 ]]; then
+	print -u 2 "Usage: $0 host port"
+	return 1
+fi
+
 zmodload -F zsh/net/tcp +b:ztcp
 zmodload -F zsh/zselect +b:zselect
 zmodload -F zsh/system +b:syserror +b:sysread
