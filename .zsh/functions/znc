@@ -17,7 +17,7 @@ autoload -U sysread
 
 ztcp -- "$@"
 integer socket=$REPLY
-trap "ztcp -c $REPLY" EXIT
+trap "ztcp -c $socket" EXIT
 
 while true; do
 	typeset -A fds
