@@ -1,29 +1,34 @@
 #!/bin/zsh
 # A wrapper around zsh's sysread.
-emulate -L zsh
-setopt err_return no_unset warn_create_global
-#setopt xtrace
 
 zmodload -F zsh/system +b:sysread +b:syserror
 zmodload -F zsh/zutil +b:zparseopts
 
-zparseopts -E -D -K p=print_errors
+function sysread {
+	emulate -L zsh
+	setopt err_return no_unset warn_create_global
+	#setopt xtrace
 
-integer ret=0 ERRNO=0
-builtin sysread "$@" || ret=$?
-if (( $+print_errors )); then
-	case $ret in
-		0|1|4|5)
-			;;
-		2)
-			syserror -p "sysread: " $ERRNO >&2
-			;;
-		3)
-			syserror -p "sysread: partial write: " $ERRNO >&2
-			;;
-		*)
-			print -u 2 "sysread: unknown case value $ret"
-			;;
-	esac
-fi
-return $ret
+	zparseopts -E -D -K p=print_errors
+
+	integer ret=0 ERRNO=0
+	builtin sysread "$@" || ret=$?
+	if (( $+print_errors )); then
+		case $ret in
+			0|1|4|5)
+				;;
+			2)
+				syserror -p "sysread: " $ERRNO >&2
+				;;
+			3)
+				syserror -p "sysread: partial write: " $ERRNO >&2
+				;;
+			*)
+				print -u 2 "sysread: unknown case value $ret"
+				;;
+		esac
+	fi
+	return $ret
+}
+
+sysread "$@"

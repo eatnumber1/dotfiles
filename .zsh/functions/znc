@@ -1,13 +1,5 @@
 #!/bin/zsh
 # A pure ZSH implementation of netcat.
-emulate -L zsh
-setopt err_return no_unset warn_create_global
-#setopt xtrace
-
-if [[ $# -ne 2 ]]; then
-	print -u 2 "Usage: $0 host port"
-	return 1
-fi
 
 zmodload -F zsh/net/tcp +b:ztcp
 zmodload -F zsh/zselect +b:zselect
@@ -15,28 +7,41 @@ zmodload -F zsh/system +b:syserror +b:sysread
 
 autoload -U sysread
 
-ztcp -- "$@"
-integer socket=$REPLY
-trap "ztcp -c $socket" EXIT
+function znc {
+	emulate -L zsh
+	setopt err_return no_unset warn_create_global
+	#setopt xtrace
 
-while true; do
-	typeset -A fds
-	zselect -A fds -r 0 -r $socket
+	if [[ $# -ne 2 ]]; then
+		print -u 2 "Usage: $0 host port"
+		return 1
+	fi
 
-	integer fd
-	for fd in ${(k)fds}; do
-		integer ret=0
-		case $fd in
-			0)
-				sysread -p -i 0 -o $socket -t 0 || ret=$?
-				;;
-			*)
-				sysread -p -i $socket -o 1 -t 0 || ret=$?
-				;;
-		esac
-		if [[ $ret -ne 0 ]]; then
-			[[ $ret -eq 5 ]] && ret=0
-			return $ret
-		fi
+	ztcp -- "$@"
+	integer socket=$REPLY
+	trap "ztcp -c $socket" EXIT
+
+	while true; do
+		typeset -A fds
+		zselect -A fds -r 0 -r $socket
+
+		integer fd
+		for fd in ${(k)fds}; do
+			integer ret=0
+			case $fd in
+				0)
+					sysread -p -i 0 -o $socket -t 0 || ret=$?
+					;;
+				*)
+					sysread -p -i $socket -o 1 -t 0 || ret=$?
+					;;
+			esac
+			if [[ $ret -ne 0 ]]; then
+				[[ $ret -eq 5 ]] && ret=0
+				return $ret
+			fi
+		done
 	done
-done
+}
+
+znc "$@"
