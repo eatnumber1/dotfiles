@@ -24,6 +24,7 @@ function homenet_version {
 	REPLY=$match[2]
 }
 
+local REPLY
 if homenet_version; then
 	autoload -U znc
 	exec znc $HOST $PORT
@@ -34,12 +35,14 @@ if ! (( $+commands[socat] )); then
 	print -u 2 "Unable to proxy: socat is not installed"
 	exit 1
 fi
-local REPLY
 if ! socat_major_version; then
 	print -u 2 "Unable to proxy: socat version unsupported" >&2
 	exit 1
 fi
-case $REPLY in
+
+integer version=$REPLY
+
+case $version in
 	1)
 		exec socat - socks4a:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
 		;;
@@ -47,6 +50,6 @@ case $REPLY in
 		exec socat - "socks5:$HOST:$PORT | tcp-connect:$PROXY_SERVER:$PROXY_PORT"
 		;;
 	*)
-		print -u 2 "Unable to proxy: socat version $REPLY unsupported"
+		print -u 2 "Unable to proxy: socat version $version unsupported"
 		exit 1
 esac
