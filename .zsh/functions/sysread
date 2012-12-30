@@ -1,7 +1,7 @@
 #!/bin/zsh
 # A wrapper around zsh's sysread.
 emulate -L zsh
-setopt err_return no_unset
+setopt err_return no_unset warn_create_global
 #setopt xtrace
 
 zmodload -F zsh/system +b:sysread +b:syserror

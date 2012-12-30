@@ -1,6 +1,6 @@
 #!/bin/zsh
 emulate -L zsh
-setopt err_exit no_unset
+setopt err_exit no_unset warn_create_global
 #setopt xtrace
 
 readonly PROXY_SERVER="miyazaki.eatnumber1.com"
