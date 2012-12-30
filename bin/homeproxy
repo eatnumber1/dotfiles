@@ -10,27 +10,23 @@ readonly HOST="$1"
 readonly PORT="$2"
 
 function socat_major_version {
+	setopt err_return
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	if [[ $(socat -V) =~ "version ([[:digit:]]+)\." ]]; then
-		REPLY=$match
-		return 0
-	else
-		return 1
-	fi
+	[[ $(socat -V) =~ "version ([[:digit:]]+)\." ]]
+	REPLY=$match
 }
 
-function atHome {
-	local network="$(dig +short TXT "$TXT_RECORD")"
+function homenet_version {
+	local network="$(dig +short TXT $TXT_RECORD)"
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	if [[ ! -z "$network" && "$network" =~ "^\"([^,],)*version=([[:digit:]]+)([^,],)*\"$" ]]; then
-		return 0
-	fi
-	return 1
+	setopt err_return
+	[[ ! -z $network && $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]]
+	REPLY=$match[2]
 }
 
-if atHome; then
+if homenet_version; then
 	autoload -U znc
 	exec znc $HOST $PORT
 fi
