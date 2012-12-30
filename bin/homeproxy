@@ -10,10 +10,9 @@ readonly HOST="$1"
 readonly PORT="$2"
 
 function socat_major_version {
-	setopt err_return
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	[[ $(socat -V) =~ "version ([[:digit:]]+)\." ]]
+	[[ $(socat -V) =~ "version ([[:digit:]]+)\." ]] || return 1
 	REPLY=$match
 }
 
@@ -21,8 +20,7 @@ function homenet_version {
 	local network="$(dig +short TXT $TXT_RECORD)"
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	setopt err_return
-	[[ ! -z $network && $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]]
+	[[ ! -z $network && $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]] || return 1
 	REPLY=$match[2]
 }
 
