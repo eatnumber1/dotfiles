@@ -35,6 +35,10 @@
 !.ssh/id_rsa.pub
 !.ssh/authorized_keys
 
+!bin/
+bin/*
+!bin/homeproxy
+
 .dotfiles-*
 
 .netrwhist~

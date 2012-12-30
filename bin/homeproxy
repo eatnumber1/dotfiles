@@ -1,0 +1,27 @@
+#!/bin/zsh
+emulate -L zsh
+setopt err_exit
+setopt nounset
+#setopt xtrace
+
+readonly PROXY_SERVER="miyazaki.eatnumber1.com"
+readonly PROXY_PORT="10800"
+readonly TXT_RECORD="_network.eatnumber1.com"
+readonly HOST="$1"
+readonly PORT="$2"
+
+function atHome {
+	local network="$(dig +short TXT "$TXT_RECORD")"
+	local MATCH MBEGIN MEND
+	typeset -a match mbegin mend
+	if [[ ! -z "$network" && "$network" =~ "^\"([^,],)*version=([[:digit:]]+)([^,],)*\"$" ]]; then
+		return 0
+	fi
+	return 1
+}
+
+if atHome; then
+	exec socat - "tcp-connect:${HOST}:${PORT}"
+else
+	exec socat - "socks5:${HOST}:${PORT} | tcp-connect:${PROXY_SERVER}:${PROXY_PORT:-1080}"
+fi
