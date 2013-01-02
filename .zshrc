@@ -127,6 +127,12 @@ fi
 	}
 }
 
+if [[ $OSTYPE == linux* ]]; then
+	function mean {
+		ionice -c1 -n0 chrt -r 99 nice -n -20 "$@"
+	}
+fi
+
 # Gotta set these outside the function due to local_options.
 setopt bg_nice hup check_jobs clobber typeset_silent
 setopt no_share_history no_auto_cd no_auto_pushd
