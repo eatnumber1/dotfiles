@@ -77,18 +77,8 @@ fi
 		export LESS="-F -X -i -M -R -S -w -z-4 -a"
 
 		# Set the Less input preprocessor.
-		if (( $+commands[lesspipe] )); then
-			local lesspipe="lesspipe"
-		elif (( $+commands[lesspipe.sh] )); then
-			local lesspipe="lesspipe.sh"
-		fi
-
-		if (( $+lesspipe )); then
-			emulate -R zsh -c "$($lesspipe)" 2>/dev/null
-			if ! (( $+LESSOPEN )); then
-				typeset -gx LESSOPEN="|$lesspipe %s"
-			fi
-		fi
+		autoload -U lesspipe
+		lesspipe -x
 
 		#
 		# Browser
