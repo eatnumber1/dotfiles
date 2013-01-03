@@ -77,16 +77,17 @@ fi
 		export LESS="-F -X -i -M -R -S -w -z-4 -a"
 
 		# Set the Less input preprocessor.
-		local lesspipe
 		if (( $+commands[lesspipe] )); then
-			lesspipe="lesspipe"
+			local lesspipe="lesspipe"
 		elif (( $+commands[lesspipe.sh] )); then
-			lesspipe="lesspipe.sh"
+			local lesspipe="lesspipe.sh"
 		fi
 
-		emulate -R zsh -c "$($lesspipe)" 2>/dev/null
-		if ! (( $+LESSOPEN )); then
-			typeset -gx LESSOPEN="|$lesspipe %s"
+		if (( $+lesspipe )); then
+			emulate -R zsh -c "$($lesspipe)" 2>/dev/null
+			if ! (( $+LESSOPEN )); then
+				typeset -gx LESSOPEN="|$lesspipe %s"
+			fi
 		fi
 
 		#
