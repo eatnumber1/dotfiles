@@ -28,7 +28,7 @@ function lesspipe {
 			local LESSOPEN LESSCLOSE
 			local lesspipe_output="$($lesspipe)"
 			emulate -R zsh -c "$lesspipe_output" 2>/dev/null || :
-			(( $+LESSOPEN )) && local lesspipe_exports_var
+			[[ -n $LESSOPEN ]] && local lesspipe_exports_var
 			if (( $+lesspipe_exports_var )); then
 				print "$lesspipe_output"
 			else
