@@ -13,9 +13,9 @@ function lesspipe {
 	zparseopts -E -D -K -A args x
 
 	if (( $+commands[lesspipe] )); then
-		local lesspipe="lesspipe"
+		local lesspipe="$commands[lesspipe]"
 	elif (( $+commands[lesspipe.sh] )); then
-		local lesspipe="lesspipe.sh"
+		local lesspipe="$commands[lesspipe.sh]"
 	fi
 
 	if (( $+lesspipe )); then
