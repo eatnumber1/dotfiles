@@ -46,7 +46,7 @@ fi
 		fi
 
 		# Undo some prezto zsh aliases.
-		unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du top
+		unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du top rsync
 		unfunction kill
 
 		unalias run-help
