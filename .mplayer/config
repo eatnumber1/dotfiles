@@ -19,3 +19,5 @@ framedrop=1
 nocorrect-pts=1
 
 #af=scaletempo
+
+nolirc=1
