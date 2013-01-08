@@ -21,3 +21,4 @@ nocorrect-pts=1
 #af=scaletempo
 
 nolirc=1
+nojoystick=1
