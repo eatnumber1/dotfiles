@@ -1,0 +1,10 @@
+startup_message off
+defutf8 on
+
+chdir
+
+bind '-' resize -1
+bind '=' resize +1
+bind '_' resize -5
+bind '+' resize +5
+bind '0' resize =

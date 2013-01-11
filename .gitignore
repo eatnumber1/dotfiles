@@ -26,7 +26,7 @@
 !.zpretzo/
 !.zsh/
 
-!.tmux.conf
+!.screenrc
 
 !.ssh/
 .ssh/*
