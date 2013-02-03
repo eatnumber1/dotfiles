@@ -119,6 +119,18 @@ fi
 			EDITOR vim \
 			VISUAL vim \
 			PAGER less
+
+		local rvm_script=$HOME/.rvm/scripts/rvm
+		function $0_bash_source {
+			alias shopt=':'
+			alias _expand=_bash_expand
+			alias _complete=_bash_comp
+			emulate -LR sh
+			setopt kshglob noshglob braceexpand
+
+			source "$@"
+		}
+		[[ -f $rvm_script ]] && $0_bash_source $rvm_script
 	} always {
 		builtin unfunction unfunction
 		unfunction unalias
