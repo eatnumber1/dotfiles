@@ -187,9 +187,8 @@ if [[ $OSTYPE == linux* ]]; then
 fi
 
 # Gotta set these outside the function due to local_options.
-setopt bg_nice hup check_jobs clobber typeset_silent
-setopt no_share_history no_auto_cd no_auto_pushd
-setopt no_cdable_vars
+setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT
+unsetopt NO_SHARE_HISTORY CLOBBER
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then

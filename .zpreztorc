@@ -28,7 +28,6 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'history' \
-  'directory' \
   'spectrum' \
   'gnu-utility' \
   'utility' \
