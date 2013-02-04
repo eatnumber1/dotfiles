@@ -15,8 +15,8 @@ autosync=30
 
 channels=2
 
-framedrop=1
-nocorrect-pts=1
+#framedrop=1
+#nocorrect-pts=1
 
 #af=scaletempo
 
