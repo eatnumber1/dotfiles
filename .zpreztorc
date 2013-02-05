@@ -32,8 +32,7 @@ zstyle ':prezto:load' pmodule \
   'gnu-utility' \
   'utility' \
   'completion' \
-  'prompt' \
-  'syntax-highlighting'
+  'prompt'
 
 #
 # Editor
