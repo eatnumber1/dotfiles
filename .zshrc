@@ -20,8 +20,6 @@ fi
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
 	{
-		zmodload -F zsh/parameter +p:commands
-
 		function unalias {
 			local a
 			zmodload -F zsh/parameter +p:aliases
@@ -38,7 +36,7 @@ fi
 			done
 		}
 
-		if (( $+commands[keychain] )); then
+		if is-callable keychain; then
 			eval "$(keychain --quiet --eval --inherit any-once)"
 			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
 				keychain --quiet "$HOME/.ssh/id_rsa"
@@ -58,7 +56,7 @@ fi
 		alias mkdir='nocorrect mkdir'
 		alias rm='nocorrect rm'
 
-		if (( $+commands[cygstart] )); then
+		if is-callable cygstart; then
 			alias open="cygstart"
 		fi
 
@@ -87,7 +85,7 @@ fi
 		  export BROWSER='open'
 		fi
 
-		(( $+commands[slrn] )) && export NNTPSERVER="snews://news.csh.rit.edu"
+		is-callable slrn && export NNTPSERVER="snews://news.csh.rit.edu"
 
 		typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
 
@@ -108,7 +106,7 @@ fi
 			local var
 			for var in "${(k)args[@]}"; do
 				local cmd="$args[$var]"
-				if (( $+commands[$cmd] )); then
+				if is-callable $cmd; then
 					export "$var=$cmd"
 				else
 					echo "$cmd not found in path" >&2
@@ -164,7 +162,7 @@ fi
 		function $0_wrap_if_found {
 			local cmd
 			for cmd in "$@"; do
-				if (( $+commands[$cmd] )); then
+				if is-callable $cmd; then
 					function $cmd {
 						setopt local_options function_argzero
 						exec-and-trigger-rehash $0 "$@"
@@ -182,7 +180,27 @@ fi
 
 if [[ $OSTYPE == linux* ]]; then
 	function mean {
-		ionice -c1 -n0 chrt -r 99 nice -n -20 "$@"
+		emulate -L zsh
+		setopt function_argzero err_return no_unset warn_create_global
+		{
+			function $0_reply-if-avail {
+				if ! is-callable $1; then
+					print -u 2 "$1 not available"
+					return 1
+				fi
+
+				: ${(AP)1::=$@}
+			}
+
+			typeset -a ionice chrt nice
+			$0_reply-if-avail ionice -c1 -n0 || :
+			$0_reply-if-avail chrt -r 99 || :
+			$0_reply-if-avail nice -n -20 || :
+
+			$ionice $chrt $nice "$@"
+		} always {
+			unfunction -m "$0_*"
+		}
 	}
 fi
 
