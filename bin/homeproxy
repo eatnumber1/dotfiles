@@ -8,6 +8,7 @@ readonly PROXY_PORT="10800"
 readonly TXT_RECORD="_network.eatnumber1.com"
 readonly HOST="$1"
 readonly PORT="$2"
+typeset -ri CACHE_DURATION=$(( 5 * 60 )) # seconds
 
 function socat_major_version {
 	local MATCH MBEGIN MEND
@@ -17,11 +18,23 @@ function socat_major_version {
 }
 
 function homenet_version {
+	local cache=${TMPDIR:-/tmp}/homeproxy-version-cache
+	if [[ -f $cache ]]; then
+		zmodload -F zsh/stat +b:zstat
+		zmodload -F zsh/datetime +p:EPOCHSECONDS
+		typeset -A stats
+		zstat -H stats +mtime $cache
+		if [[ $stats[mtime] -gt $(( EPOCHSECONDS - CACHE_DURATION )) ]]; then
+			read -r < $cache
+			return $?;
+		fi
+	fi
 	local network="$(dig +short TXT $TXT_RECORD)"
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
 	[[ $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]] || return 1
 	REPLY=$match[2]
+	echo $REPLY > $cache
 }
 
 local REPLY
