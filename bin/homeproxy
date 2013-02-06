@@ -1,7 +1,7 @@
 #!/bin/zsh
 emulate -L zsh
 setopt err_exit no_unset warn_create_global
-#setopt xtrace
+setopt xtrace
 
 readonly PROXY_SERVER="miyazaki.eatnumber1.com"
 readonly PROXY_PORT="10800"
@@ -26,13 +26,18 @@ function homenet_version {
 		zstat -H stats +mtime $cache
 		if [[ $stats[mtime] -gt $(( EPOCHSECONDS - CACHE_DURATION )) ]]; then
 			read -r < $cache
-			return $?;
+			integer ret
+			[[ $REPLY -ne -1 ]] || ret=$?
+			return $ret
 		fi
 	fi
 	local network="$(dig +short TXT $TXT_RECORD)"
 	local MATCH MBEGIN MEND
 	typeset -a match mbegin mend
-	[[ $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]] || return 1
+	if [[ ! $network =~ "^\"([^,],)*version=([[:digit:]]+(\.[[:digit:]]+)*)([^,],)*\"$" ]]; then
+		echo "-1" > $cache
+		return 1
+	fi
 	REPLY=$match[2]
 	echo $REPLY > $cache
 }
