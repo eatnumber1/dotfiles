@@ -206,7 +206,7 @@ fi
 
 # Gotta set these outside the function due to local_options.
 setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
-unsetopt NO_SHARE_HISTORY CLOBBER
+unsetopt NO_SHARE_HISTORY CLOBBER SHARE_HISTORY
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then
