@@ -205,7 +205,7 @@ if [[ $OSTYPE == linux* ]]; then
 fi
 
 # Gotta set these outside the function due to local_options.
-setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT
+setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
 unsetopt NO_SHARE_HISTORY CLOBBER
 
 zmodload -F zsh/parameter +p:functions
