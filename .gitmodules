@@ -28,3 +28,9 @@
 [submodule ".vim/bundle/glsl"]
 	path = .vim/bundle/glsl
 	url = git://github.com/vim-scripts/glsl.vim.git
+[submodule ".vim/bundle/ctrlp"]
+	path = .vim/bundle/ctrlp
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
