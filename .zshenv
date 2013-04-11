@@ -51,6 +51,7 @@
 		# Set the list of directories that Zsh searches for programs.
 		path=(
 			$HOME/bin
+			$HOME/.rbenv/bin
 			/usr/local/{bin,sbin}
 			/usr/{bin,sbin}
 			/{bin,sbin}
@@ -72,6 +73,10 @@
 		#
 		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
 			emulate -R sh -c "$(locale)"
+		fi
+
+		if (( $+commands[rbenv] )); then
+			eval "$(rbenv init -)"
 		fi
 
 		# Some /etc/zsh/zshrc files call compinit. Skip it.
