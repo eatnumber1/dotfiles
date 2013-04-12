@@ -84,6 +84,19 @@
 		if [[ -o interactive ]]; then
 			typeset -g skip_global_compinit=1
 		fi
+
+		function $0_trim_nonexistant_from {
+			local a
+			for a in "$@"; do
+				integer i
+				for (( i=1; i<=${(P)#a}; i++ )); do
+					if [[ ! -d ${(P)${a}[i]} ]]; then
+						eval "${(q-)a}[${i}]=()"
+					fi
+				done
+			done
+		}
+		$0_trim_nonexistant_from path fpath manpath infopath
 	} always {
 		unfunction -m "$0_*"
 	}
