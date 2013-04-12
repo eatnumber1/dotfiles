@@ -50,7 +50,6 @@
 
 		# Set the list of directories that Zsh searches for programs.
 		path=(
-			$HOME/bin
 			$HOME/.rbenv/bin
 			/usr/local/{bin,sbin}
 			/usr/{bin,sbin}
@@ -78,6 +77,8 @@
 		if (( $+commands[rbenv] )); then
 			eval "$(rbenv init -)"
 		fi
+
+		path=( $HOME/bin $path )
 
 		# Some /etc/zsh/zshrc files call compinit. Skip it.
 		if [[ -o interactive ]]; then
