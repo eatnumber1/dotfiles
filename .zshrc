@@ -206,6 +206,7 @@ fi
 
 # Gotta set these outside the function due to local_options.
 setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
+setopt HASH_EXECUTABLES_ONLY
 unsetopt NO_SHARE_HISTORY CLOBBER SHARE_HISTORY
 
 zmodload -F zsh/parameter +p:functions
