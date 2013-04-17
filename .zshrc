@@ -37,7 +37,7 @@ fi
 		}
 
 		if is-callable keychain; then
-			eval "$(keychain --quiet --eval --inherit any-once)"
+			emulate -R sh -c "$(keychain --quiet --eval --inherit any-once)"
 			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
 				keychain --quiet "$HOME/.ssh/id_rsa"
 			fi
