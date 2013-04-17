@@ -71,6 +71,7 @@
 		# Language
 		#
 		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
+			export LC_ALL="en_US.UTF-8"
 			emulate -R sh -c "$(locale)"
 		fi
 
