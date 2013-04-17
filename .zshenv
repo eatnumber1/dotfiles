@@ -92,12 +92,7 @@
 				integer i
 				for (( i=1; i<=${(P)#a}; i++ )); do
 					if [[ ! -d ${(P)${a}[i]} ]]; then
-						autoload -U is-at-least
-						if is-at-least 4.3.11; then
-							eval "${(q-)a}[${i}]=()"
-						else
-							eval "${(q)a}[${i}]=()"
-						fi
+						eval "${(q)a}[${i}]=()"
 					fi
 				done
 			done
