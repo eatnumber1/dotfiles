@@ -3,7 +3,7 @@
 	email = russ@eatnumber1.com
 [core]
 	ignorecase = false
-	excludesfile = /Users/russ/.gitignore.global
+	excludesfile = ~/.gitignore.global
 [color]
 	diff = auto
 	branch = auto
@@ -16,4 +16,4 @@
 [include]
 	path = .gitconfig.local
 [push]
-	default = matching
+	default = simple
