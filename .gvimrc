@@ -12,7 +12,7 @@ if has("gui_macvim")
 	set guifont=Terminus\ Medium:h14
 else
 	set go-=m go-=e
-	set guifont=Terminus\ Medium\ 12
+	set guifont=Terminus\ Medium\ 14
 endif
 
 set number
