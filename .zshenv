@@ -75,7 +75,22 @@
 			emulate -R sh -c "$(locale)"
 		fi
 
+		function $0_move_to_front {
+			local pathvar=$1 dir=$2
+			integer i ret=1
+			for (( i=1; i<=${(P)#pathvar}; i++ )); do
+				if [[ $dir == ${(P)${pathvar}[i]} ]]; then
+					eval "${(q)pathvar}[${i}]=()"
+					eval "${(q)pathvar}=( \$dir \$${(q)pathvar} )"
+					ret=0
+				fi
+			done
+			return $ret
+		}
+
 		if (( $+commands[rbenv] )); then
+			# TODO: This is inflexible
+			[[ -d $HOME/.rbenv/shims ]] && $0_move_to_front path $HOME/.rbenv/shims || :
 			eval "$(rbenv init -)"
 		fi
 
