@@ -64,6 +64,14 @@ fi
 		alias sl="ls"
 		alias s="ls"
 
+		if (( $+commands[mvim] )); then
+			if (( ! $+commands[gvim] )); then
+				alias gvim="mvim"
+			fi
+		elif (( $+commands[gvim] )); then
+			alias mvim="gvim"
+		fi
+
 		if ! pstree -V &> /dev/null; then
 			alias pstree="pstree -g3"
 		fi
