@@ -119,16 +119,8 @@ fi
 			PAGER less
 
 		local rvm_script=$HOME/.rvm/scripts/rvm
-		function $0_bash_source {
-			alias shopt=':'
-			alias _expand=_bash_expand
-			alias _complete=_bash_comp
-			emulate -LR sh
-			setopt kshglob noshglob braceexpand
-
-			source "$@"
-		}
-		[[ -f $rvm_script ]] && $0_bash_source $rvm_script
+		autoload -U bash_source
+		[[ -f $rvm_script ]] && bash_source $rvm_script
 
 		zmodload -F zsh/stat +b:zstat
 		typeset -gi LAST_REHASH

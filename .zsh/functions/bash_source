@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+function bash_source {
+	alias shopt=':'
+	alias _expand=_bash_expand
+	alias _complete=_bash_comp
+	emulate -LR sh
+	setopt kshglob noshglob braceexpand
+
+	source "$@"
+}
+
+bash_source "$@"
