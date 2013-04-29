@@ -1,13 +1,21 @@
 #!/bin/zsh
 
-function bash_source {
-	alias shopt=':'
-	alias _expand=_bash_expand
-	alias _complete=_bash_comp
-	emulate -LR sh
-	setopt kshglob noshglob braceexpand
-
-	source "$@"
-}
+emulate -R zsh -c 'autoload -Uz is-at-least'
+if is-at-least 5.0.0; then
+	emulate -R sh -o kshglob -o noshglob -c '
+		function bash_source {
+			source "$@"
+		}
+	'
+else
+	emulate -R sh -c '
+		function bash_source {
+			# Do note that functions about to be defined will not be set
+			# with these options when run
+			setopt kshglob noshglob braceexpand
+			source "$@"
+		}
+	'
+fi
 
 bash_source "$@"
