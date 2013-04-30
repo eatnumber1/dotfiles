@@ -2,7 +2,7 @@
 
 emulate -R zsh -c 'autoload -Uz is-at-least'
 if is-at-least 5.0.0; then
-	emulate -R sh -o kshglob -o noshglob -c '
+	emulate -R sh -o kshglob +o shglob +o ignorebraces -c '
 		function bash_source {
 			source "$@"
 		}
