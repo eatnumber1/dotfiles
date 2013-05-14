@@ -105,6 +105,7 @@ chatnets = {
   CorruptNet = { type = "IRC"; username = "corruptnet"; };
   PassThePopcorn = { type = "IRC"; username = "passthepopcorn"; };
   CSH = { type = "IRC"; username = "csh"; };
+  CamperVan = { type = "IRC"; username = "campervan"; };
 };
 
 channels = (
