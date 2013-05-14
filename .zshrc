@@ -208,7 +208,7 @@ fi
 setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
 autoload -U is-at-least
 is-at-least 4.3.11 && setopt HASH_EXECUTABLES_ONLY
-unsetopt NO_SHARE_HISTORY CLOBBER SHARE_HISTORY
+unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then
