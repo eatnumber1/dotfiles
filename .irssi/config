@@ -80,32 +80,32 @@ chatnets = {
   };
   SILC = { type = "SILC"; };
   ZNC = { type = "IRC"; username = "eatnumber1"; };
-  FreeNode = { type = "IRC"; username = "freenode"; };
-  BitlBee = { type = "IRC"; username = "bitlbee"; };
+  FreeNode = { type = "IRC"; username = "eatnumber1/freenode"; };
+  BitlBee = { type = "IRC"; username = "eatnumber1/bitlbee"; };
   EFNet = {
     type = "IRC";
-    username = "efnet";
+    username = "eatnumber1/efnet";
     max_kicks = "4";
     max_msgs = "3";
     max_whois = "1";
   };
   OFTC = {
     type = "IRC";
-    username = "oftc";
+    username = "eatnumber1/oftc";
     max_kicks = "1";
     max_msgs = "3";
     max_whois = "30";
   };
-  Codehaus = { type = "IRC"; username = "codehaus"; };
-  "What.cd" = { type = "IRC"; username = "what.cd"; };
-  "P2P-Network" = { type = "IRC"; username = "p2p-network"; };
-  OnionNet = { type = "IRC"; username = "onionnet"; };
-  HackInt = { type = "IRC"; username = "hackint"; };
-  irc129 = { type = "IRC"; username = "irc129"; };
-  CorruptNet = { type = "IRC"; username = "corruptnet"; };
-  PassThePopcorn = { type = "IRC"; username = "passthepopcorn"; };
-  CSH = { type = "IRC"; username = "csh"; };
-  CamperVan = { type = "IRC"; username = "campervan"; };
+  Codehaus = { type = "IRC"; username = "eatnumber1/codehaus"; };
+  "What.cd" = { type = "IRC"; username = "eatnumber1/whatcd"; };
+  "P2P-Network" = { type = "IRC"; username = "eatnumber1/p2p-network"; };
+  OnionNet = { type = "IRC"; username = "eatnumber1/onionnet"; };
+  HackInt = { type = "IRC"; username = "eatnumber1/hackint"; };
+  irc129 = { type = "IRC"; username = "eatnumber1/irc129"; };
+  CorruptNet = { type = "IRC"; username = "eatnumber1/corruptnet"; };
+  PassThePopcorn = { type = "IRC"; username = "eatnumber1/passthepopcorn"; };
+  CSH = { type = "IRC"; username = "eatnumber1/csh"; };
+  CamperVan = { type = "IRC"; username = "eatnumber1/campervan"; };
 };
 
 channels = (
