@@ -103,7 +103,10 @@ chatnets = {
   HackInt = { type = "IRC"; username = "eatnumber1/hackint"; };
   irc129 = { type = "IRC"; username = "eatnumber1/irc129"; };
   CorruptNet = { type = "IRC"; username = "eatnumber1/corruptnet"; };
-  PassThePopcorn = { type = "IRC"; username = "eatnumber1/passthepopcorn"; };
+  PassThePopcorn = {
+    type = "IRC";
+    username = "eatnumber1/passthepopcorn";
+  };
   CSH = { type = "IRC"; username = "eatnumber1/csh"; };
   CamperVan = { type = "IRC"; username = "eatnumber1/campervan"; };
 };
@@ -291,5 +294,6 @@ ignores = (
   },
   { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "##c" ); },
   { level = "JOINS PARTS QUITS MODES"; channels = ( "&academia" ); },
-  { level = "JOINS PARTS QUITS MODES"; channels = ( "#csh" ); }
+  { level = "JOINS PARTS QUITS MODES"; channels = ( "#csh" ); },
+  { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "#main" ); }
 );
