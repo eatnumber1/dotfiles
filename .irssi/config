@@ -67,7 +67,7 @@ chatnets = {
   };
   Rizon = {
     type = "IRC";
-    username = "rizon";
+    username = "eatnumber1/rizon";
     max_kicks = "1";
     max_msgs = "3";
     max_whois = "30";
