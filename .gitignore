@@ -7,6 +7,7 @@
 !.htoprc
 !.toprc
 !.irssi
+.irssi/config.autosave
 !.mplayer
 !.nethackrc
 !.MacOSX/
