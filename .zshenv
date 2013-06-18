@@ -4,7 +4,9 @@
 
 () {
 	local ZSHENV_LOCAL="$HOME/.zshenv.local"
-	[[ -f "$ZSHENV_LOCAL" ]] && source "$ZSHENV_LOCAL"
+	if [[ -f "$ZSHENV_LOCAL" ]]; then
+		source "$ZSHENV_LOCAL"
+	fi
 }
 
 () {
@@ -116,7 +118,7 @@
 	} always {
 		unfunction -m "$0_*"
 	}
-}
+} || :
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshenv_post_hook] )); then
