@@ -26,6 +26,11 @@
 		typeset -gUT PYTHONPATH pythonpath
 		typeset -x PATH MANPATH INFOPATH
 
+		if [[ $OSTYPE == darwin* ]]; then
+			typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
+			typeset -x DYLD_LIBRARY_PATH
+		fi
+
 		# Set the the list of directories that cd searches.
 		# cdpath=(
 		# 	$cdpath
