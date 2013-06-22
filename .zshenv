@@ -24,7 +24,7 @@
 		typeset -gU cdpath fpath mailpath manpath path pythonpath
 		typeset -gUT INFOPATH infopath
 		typeset -gUT PYTHONPATH pythonpath
-		typeset -x PATH MANPATH INFOPATH
+		typeset -x PATH MANPATH INFOPATH PYTHONPATH
 
 		if [[ $OSTYPE == darwin* ]]; then
 			typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
