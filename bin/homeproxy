@@ -18,7 +18,7 @@ function socat_major_version {
 }
 
 function homenet_version {
-	local cache=${TMPDIR:-/tmp}/homeproxy-version-cache
+	local cache=${TMPDIR:-/tmp}/homeproxy-version-cache-$USERNAME
 	if [[ -f $cache ]]; then
 		zmodload -F zsh/stat +b:zstat
 		zmodload -F zsh/datetime +p:EPOCHSECONDS
