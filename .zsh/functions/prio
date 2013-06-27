@@ -35,10 +35,16 @@ function prio {
 				${FN}_reply-if-avail chrt -b 0 || :
 				${FN}_reply-if-avail nice -n 5 || :
 			}
-			
+
+			function ${FN}_idle {
+				${FN}_reply-if-avail ionice -c3 || :
+				${FN}_reply-if-avail chrt -i 0 || :
+				${FN}_reply-if-avail nice -n 19 || :
+			}
+
 			typeset -A allowed_funs
-			allowed_funs[mean]=${FN}_mean
-			allowed_funs[low]=${FN}_low
+			local name
+			for name ( mean low idle ) allowed_funs[$name]=${FN}_${name}
 
 			typeset -a ionice chrt nice
 			if [[ -z "${allowed_funs[(i)$MODE]}" ]] {
