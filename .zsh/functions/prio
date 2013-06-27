@@ -1,0 +1,56 @@
+#!/bin/zsh
+
+function prio {
+	if [[ $OSTYPE == linux* ]]; then
+		emulate -L zsh
+		setopt function_argzero err_return no_unset warn_create_global
+		set -x
+
+		local FN="$0"
+		{
+			if [[ $# -lt 2 ]]; then
+				print -u 2 "Usage: $0 (mean|low) command [args...]"
+				return 1
+			fi
+			
+			readonly MODE=$1
+			shift
+
+			function ${FN}_reply-if-avail {
+				if ! is-callable "$1"; then
+					print -u 2 "$1 not available"
+					return 1
+				fi
+
+				: ${(AP)1::=$@}
+			}
+
+			function ${FN}_mean {
+				${FN}_reply-if-avail ionice -c1 -n0 || :
+				${FN}_reply-if-avail chrt -r 99 || :
+				${FN}_reply-if-avail nice -n -20 || :
+			}
+
+			function ${FN}_low {
+				${FN}_reply-if-avail ionice -c2 -n1 || :
+				${FN}_reply-if-avail chrt -b 0 || :
+				${FN}_reply-if-avail nice -n 5 || :
+			}
+			
+			typeset -A allowed_funs
+			allowed_funs[mean]=${FN}_mean
+			allowed_funs[low]=${FN}_low
+
+			typeset -a ionice chrt nice
+			${allowed_funs[$MODE]}
+			$ionice $chrt $nice "$@"
+		} always {
+			unfunction -m "${FN}_*"
+		}
+	else
+		print -u 2 "prio not available on $OSTYPE"
+		"$@"
+	fi
+}
+
+prio "$@"

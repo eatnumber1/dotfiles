@@ -178,31 +178,7 @@ fi
 	}
 }
 
-if [[ $OSTYPE == linux* ]]; then
-	function mean {
-		emulate -L zsh
-		setopt function_argzero err_return no_unset warn_create_global
-		{
-			function $0_reply-if-avail {
-				if ! is-callable $1; then
-					print -u 2 "$1 not available"
-					return 1
-				fi
-
-				: ${(AP)1::=$@}
-			}
-
-			typeset -a ionice chrt nice
-			$0_reply-if-avail ionice -c1 -n0 || :
-			$0_reply-if-avail chrt -r 99 || :
-			$0_reply-if-avail nice -n -20 || :
-
-			$ionice $chrt $nice "$@"
-		} always {
-			unfunction -m "$0_*"
-		}
-	}
-fi
+autoload -U prio
 
 # Gotta set these outside the function due to local_options.
 setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
