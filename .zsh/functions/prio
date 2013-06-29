@@ -1,65 +1,90 @@
 #!/bin/zsh
 
 function prio {
-	if [[ $OSTYPE == linux* ]]; then
-		emulate -L zsh
-		setopt function_argzero err_return no_unset warn_create_global
+	emulate -L zsh
+	setopt function_argzero err_return no_unset warn_create_global
 
-		local FN="$0"
-		{
-			if [[ $# -lt 2 ]]; then
-				print -u 2 "Usage: $0 (mean|low) command [args...]"
-				return 1
-			fi
-			
-			readonly MODE=$1
-			shift
-
-			function ${FN}_reply-if-avail {
-				if ! is-callable "$1"; then
-					print -u 2 "$1 not available"
-					return 1
-				fi
-
-				: ${(AP)1::=$@}
-			}
-
-			function ${FN}_mean {
-				${FN}_reply-if-avail ionice -c1 -n0 || :
-				${FN}_reply-if-avail chrt -r 99 || :
-				${FN}_reply-if-avail nice -n -20 || :
-			}
-
-			function ${FN}_low {
-				${FN}_reply-if-avail ionice -c2 -n1 || :
-				${FN}_reply-if-avail chrt -b 0 || :
-				${FN}_reply-if-avail nice -n 5 || :
-			}
-
-			function ${FN}_idle {
-				${FN}_reply-if-avail ionice -c3 || :
-				${FN}_reply-if-avail chrt -i 0 || :
-				${FN}_reply-if-avail nice -n 19 || :
-			}
-
-			typeset -A allowed_funs
-			local name
-			for name ( mean low idle ) allowed_funs[$name]=${FN}_${name}
-
-			typeset -a ionice chrt nice
-			if [[ -z "${allowed_funs[(i)$MODE]}" ]] {
-				print -u 2 "Mode \"$MODE\" not found"
+	local FN="${0}_${RANDOM}"
+	{
+		function ${FN}_reply-if-avail {
+			zmodload -F zsh/parameter +p:commands
+			if (( ! ${+commands[$1]} )) {
+				print -u 2 "$1 not available"
 				return 1
 			}
-			${allowed_funs[$MODE]}
-			$ionice $chrt $nice "$@"
-		} always {
-			unfunction -m "${FN}_*"
+
+			: ${(AP)1::=$@}
 		}
-	else
-		print -u 2 "prio not available on $OSTYPE"
-		"$@"
-	fi
+
+		function ${FN}_add_modes {
+			typeset -a args
+			args=( "$@" )
+			modes+=( "${(@)args}" )
+			modes=( "${(u@)modes}" )
+		}
+
+		typeset -a modes
+		typeset -a prio_commands
+		if [[ $OSTYPE == linux* || $OSTYPE == darwin* ]] {
+			${FN}_add_modes mean low idle
+			prio_commands+=( nice )
+
+			${FN}_mean_nice() { ${FN}_reply-if-avail nice -n -20 || : }
+			${FN}_low_nice() { ${FN}_reply-if-avail nice -n 5 || : }
+			${FN}_idle_nice() { ${FN}_reply-if-avail nice -n 19 || : }
+		}
+
+		if [[ $OSTYPE == linux* ]] {
+			${FN}_add_modes mean low idle
+			prio_commands+=( ionice chrt )
+
+			${FN}_mean_ionice() { ${FN}_reply-if-avail ionice -c1 -n0 || : }
+			${FN}_mean_chrt() { ${FN}_reply-if-avail chrt -r 99 || : }
+
+			${FN}_low_ionice() { ${FN}_reply-if-avail ionice -c2 -n1 || : }
+			${FN}_low_chrt() { ${FN}_reply-if-avail chrt -b 0 || : }
+
+			${FN}_idle_ionice() { ${FN}_reply-if-avail ionice -c3 || : }
+			${FN}_idle_chrt() { ${FN}_reply-if-avail chrt -i 0 || : }
+		}
+
+		typeset -A modes_kv
+		local m
+		for m ( $modes ) {
+			function ${FN}_${m} {
+				local cmd
+				for cmd ( $prio_commands ) ${0}_$cmd "$@"
+			}
+			modes_kv[${m}]=${FN}_$m
+		}
+
+		if [[ ${#modes} -eq 0 ]] {
+			print -u 2 "prio not available on $OSTYPE"
+			"$@"
+		}
+
+		if [[ $# -lt 2 ]]; then
+			print -u 2 "Usage: $0 (${(kj:|:)modes}) command [args...]"
+			return 1
+		fi
+
+		readonly MODE=$1
+		shift
+
+		if (( ! ${+modes_kv[$MODE]} )) {
+			print -u 2 "Mode \"$MODE\" not found"
+			return 1
+		}
+
+		local cmd
+		for cmd ( $prio_commands ) typeset -a $cmd
+		${modes_kv[$MODE]}
+		typeset -a args
+		for cmd ( $prio_commands ) args+=( "${(P@)cmd}" )
+		$args "$@"
+	} always {
+		unfunction -m "${FN}_*"
+	}
 }
 
 prio "$@"
