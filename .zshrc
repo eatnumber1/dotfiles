@@ -135,7 +135,7 @@ fi
 		function rehash-if-needed {
 			emulate -L zsh
 			setopt err_return warn_create_global
-			local rehash_trigger=${TMPDIR:-/tmp}/zsh-needs-rehash
+			local rehash_trigger=${TMPDIR:-/tmp}/zsh-needs-rehash-$USERNAME
 			if [[ -f $rehash_trigger ]]; then
 				typeset -A stats
 				zstat -H stats +mtime $rehash_trigger
@@ -150,7 +150,7 @@ fi
 		function exec-and-trigger-rehash {
 			emulate -L zsh
 			setopt err_return warn_create_global
-			local rehash_trigger=${TMPDIR:-/tmp}/zsh-needs-rehash
+			local rehash_trigger=${TMPDIR:-/tmp}/zsh-needs-rehash-$USERNAME
 			integer code
 			local cmd=$1
 			shift
