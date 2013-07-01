@@ -181,7 +181,7 @@ fi
 autoload -U prio
 
 # Gotta set these outside the function due to local_options.
-setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK
+setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK INTERACTIVE_COMMENTS
 autoload -U is-at-least
 is-at-least 4.3.11 && setopt HASH_EXECUTABLES_ONLY
 unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME
