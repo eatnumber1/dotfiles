@@ -76,6 +76,8 @@ fi
 			alias pstree="pstree -g3"
 		fi
 
+		alias trim='(){ "$@" | cut -c1-$COLUMNS }'
+
 		#
 		# Less
 		#
