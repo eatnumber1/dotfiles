@@ -171,6 +171,14 @@ fi
 			done
 		}
 		$0_wrap_if_found brew dpkg apt-get aptitude yum rpm
+
+		function git {
+			if [[ $1 == grep ]]; then
+				noglob command git "$@"
+			else
+				command git "$@"
+			fi
+		}
 	} always {
 		builtin unfunction unfunction
 		unfunction unalias
