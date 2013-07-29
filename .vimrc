@@ -86,6 +86,10 @@ let g:clang_use_library = 1
 " displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" TODO: Check if clang(\+\+)? is available on the system before defining it.
+let g:syntastic_c_compiler = "clang"
+let g:syntastic_cpp_compiler = "clang++"
+
 let s:localrc = expand("~/.vimrc.local")
 if filereadable(s:localrc)
 	execute "source " . s:localrc
