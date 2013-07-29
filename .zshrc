@@ -185,6 +185,11 @@ fi
 		# Use ccache if available.
 		if [[ -d /usr/lib/ccache ]]; then
 			path=( /usr/lib/ccache $path )
+
+			# Use distcc if available.
+			if [[ -f /etc/distcc/hosts ]]; then
+				typeset -gx CCACHE_PREFIX="distcc"
+			fi
 		fi
 	} always {
 		builtin unfunction unfunction
