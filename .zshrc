@@ -182,14 +182,10 @@ fi
 			fi
 		}
 
-		function ccache {
-			if [[ -d /usr/lib/ccache ]]; then
-				PATH="/usr/lib/ccache:$PATH" "$@"
-			else
-				print -u 2 "No ccache installation found"
-				"$@"
-			fi
-		}
+		# Use ccache if available.
+		if [[ -d /usr/lib/ccache ]]; then
+			path=( /usr/lib/ccache $path )
+		fi
 	} always {
 		builtin unfunction unfunction
 		unfunction unalias
