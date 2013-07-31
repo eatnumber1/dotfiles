@@ -67,7 +67,7 @@ autocmd BufReadPost *
 au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setf mkd
 au BufRead,BufNewFile *.mkd,*.markdown,*.md,*.mkdn setlocal spell
 
-au BufRead,BufNewFile Gemfile,*.ru,*.rb,*.yml setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+au BufRead,BufNewFile Gemfile,*.ru,*.rb,*.yml,*.gemspec,*.erb setl tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 
 let g:liquid_highlight_types = ["c", "dot"]
