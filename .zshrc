@@ -189,6 +189,7 @@ fi
 			# Use distcc if available.
 			if [[ -f /etc/distcc/hosts ]]; then
 				typeset -gx CCACHE_PREFIX="distcc"
+				typeset -gx CCACHE_COMPRESS=1
 			fi
 		fi
 	} always {
