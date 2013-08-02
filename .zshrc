@@ -182,16 +182,21 @@ fi
 			fi
 		}
 
-		# Use ccache if available.
-		if [[ -d /usr/lib/ccache ]]; then
-			path=( /usr/lib/ccache $path )
+		local p
+		for p in /usr/lib{64,}/ccache; do
+			# Use ccache if available.
+			if [[ -d $p ]]; then
+				path=( $p $path )
 
-			# Use distcc if available.
-			if [[ -f /etc/distcc/hosts ]]; then
-				typeset -gx CCACHE_PREFIX="distcc"
-				typeset -gx CCACHE_COMPRESS=1
+				# Use distcc if available.
+				if [[ -f /etc/distcc/hosts ]]; then
+					typeset -gx CCACHE_PREFIX="distcc"
+					typeset -gx CCACHE_COMPRESS=1
+				fi
+
+				break
 			fi
-		fi
+		done
 	} always {
 		builtin unfunction unfunction
 		unfunction unalias
