@@ -43,3 +43,6 @@
 [submodule ".vim/bundle/ag.vim"]
 	path = .vim/bundle/ag.vim
 	url = https://github.com/rking/ag.vim.git
+[submodule ".vim/bundle/vim-varnish"]
+	path = .vim/bundle/vim-varnish
+	url = https://github.com/empanda/vim-varnish.git
