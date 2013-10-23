@@ -55,6 +55,7 @@ fi
 		alias ln='nocorrect ln'
 		alias mkdir='nocorrect mkdir'
 		alias rm='nocorrect rm'
+		alias df='(){ if [[ $# -eq 0 ]] { df -h } else { df "$@" } }'
 
 		if is-callable cygstart; then
 			alias open="cygstart"
