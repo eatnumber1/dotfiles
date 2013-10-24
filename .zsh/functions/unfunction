@@ -1,0 +1,12 @@
+zmodload -F zsh/parameter +p:functions
+
+function unalias {
+	local f
+	for f in "$@"; do
+		(( $+functions[$f] )) && builtin unfunction "$f"
+	done
+}
+
+unalias "$@"
+
+# vim: ft=zsh

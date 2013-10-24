@@ -20,21 +20,7 @@ fi
 	# function is always called (anon)
 	local 0="$0_$RANDOM"
 	{
-		function unalias {
-			local a
-			zmodload -F zsh/parameter +p:aliases
-			for a in "$@"; do
-				(( $+aliases[$a] )) && builtin unalias "$a"
-			done
-		}
-
-		function unfunction {
-			local f
-			zmodload -F zsh/parameter +p:functions
-			for f in "$@"; do
-				(( $+functions[$f] )) && builtin unfunction "$f"
-			done
-		}
+		autoload -U unalias unfunction
 
 		if is-callable keychain; then
 			emulate -R sh -c "$(keychain --quiet --eval --inherit any-once)"
