@@ -1,16 +1,2 @@
-#!/usr/bin/env zsh
-emulate -L zsh
-setopt no_unset err_exit
-#setopt xtrace
-
-git submodule update --init --recursive
-
-zmodload -F zsh/parameter +p:commands
-
-if (( $+commands[restorecon] )); then
-	restorecon -R .ssh
-fi
-chmod go= .ssh
-for f in .ssh/*; do
-	[[ -f "$f" ]] && chmod go-w "$f"
-done
+#!/bin/sh
+exec /usr/bin/env zsh -o no_rcs .zsh/dotfiles-install
