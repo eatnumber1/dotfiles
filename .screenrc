@@ -1,7 +1,7 @@
 startup_message off
 defutf8 on
 
-chdir
+term screen-256color
 
 bind '-' resize -1
 bind '=' resize +1
