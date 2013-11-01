@@ -293,7 +293,6 @@ ignores = (
     channels = ( "&bitlbee" );
   },
   { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "##c" ); },
-  { level = "JOINS PARTS QUITS MODES"; channels = ( "&academia" ); },
   { level = "JOINS PARTS QUITS MODES"; channels = ( "#csh" ); },
   { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "#main" ); },
   { level = "JOINS PARTS QUITS MODES NICKS"; channels = ( "#llvm" ); }
