@@ -82,3 +82,8 @@ API
 CLR
 typedef'ed
 debuggable
+architected
+debugee
+RPC
+SBType
+deinitialization
