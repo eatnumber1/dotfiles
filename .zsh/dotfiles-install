@@ -6,20 +6,10 @@ setopt err_exit no_unset warn_create_global
 echo "Updating submodules"
 git submodule update --init --recursive
 
-git ls-files -z -- '.zsh*' | while read -rd $'\0' file; do
-	[[ $file =~ \.zsh/help/.* ]] && continue
-	echo -n "Syntax checking $file... "
-	zsh -o no_exec -o no_rcs $file
-	echo "OK"
-done
-
-zmodload -F zsh/parameter +p:commands
+.zsh/syntax-check-dotfiles
 
 echo "Fixing permissions on the .ssh directory"
-if (( $+commands[restorecon] )); then
-	restorecon -R .ssh
-fi
+zmodload -F zsh/parameter +p:commands
+if (( $+commands[restorecon] )) restorecon -R .ssh
 chmod go= .ssh
-for f in .ssh/*; do
-	[[ -f "$f" ]] && chmod go-w "$f"
-done
+for f (.ssh/*) if [[ -f "$f" ]] chmod go-w "$f"

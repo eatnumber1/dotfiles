@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 autoload -Uz is-at-least
-if ( is-at-least 5.0.0 ) {
+if { is-at-least 5.0.0 } {
 	function syntax-check {
 		setopt local_options err_return
 		local file
@@ -16,7 +16,6 @@ if ( is-at-least 5.0.0 ) {
 			{
 				zsh -o no_exec -o no_rcs $file 3>&1 4>&2 1>&2 2>&3 2>&4 | read -rd '' stderr || :
 			} 2>&1
-			echo $stderr
 			[[ -z $stderr ]]
 		}
 	}

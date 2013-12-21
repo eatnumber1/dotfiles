@@ -1,0 +1,2 @@
+install: "sudo env DEBIAN_FRONTEND=noninteractive apt-get -q -y install zsh"
+script: ./.zsh/syntax-check-dotfiles
