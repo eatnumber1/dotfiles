@@ -1,0 +1,25 @@
+#!/bin/zsh
+
+autoload -Uz is-at-least
+if ( is-at-least 5.0.0 ) {
+	function syntax-check {
+		setopt local_options err_return
+		local file
+		for file ("$@") zsh -o no_exec -o no_rcs $file
+	}
+} else {
+	function syntax-check {
+		setopt local_options err_return multios
+		local file
+		for file ("$@") {
+			local stderr
+			{
+				zsh -o no_exec -o no_rcs $file 3>&1 4>&2 1>&2 2>&3 2>&4 | read -rd '' stderr || :
+			} 2>&1
+			echo $stderr
+			[[ -z $stderr ]]
+		}
+	}
+}
+
+syntax-check "$@"
