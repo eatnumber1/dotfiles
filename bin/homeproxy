@@ -54,7 +54,7 @@ if ! (( $+commands[socat] )); then
 	exit 1
 fi
 if ! socat_major_version; then
-	print -u 2 "Unable to proxy: socat version unsupported" >&2
+	print -u 2 "Unable to proxy: socat version unsupported"
 	exit 1
 fi
 
