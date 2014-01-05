@@ -184,6 +184,16 @@ fi
 				break
 			fi
 		done
+
+		if (( $+commands[bwm-ng] )) {
+			function bwm-ng {
+				if [[ $# -eq 0 ]] {
+					command bwm-ng -u bits -d
+				} else {
+					command bwm-ng "$@"
+				}
+			}
+		}
 	} always {
 		builtin unfunction unfunction
 		unfunction unalias
