@@ -2,9 +2,21 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+function s:call_if_exists(fn, ...)
+	if exists('*' . a:fn)
+		call call(a:fn, a:000)
+	endif
+endfunction
+
+let s:localrc = expand("~/.vimrc.local")
+if filereadable(s:localrc)
+	execute "source " . s:localrc
+endif
+
 " Pathogen stuff
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
+call s:call_if_exists("g:vimrc_pathogen_hook")
 Helptags
 
 " allow backspacing over everything in insert mode
@@ -90,7 +102,4 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 let g:syntastic_c_compiler = "clang"
 let g:syntastic_cpp_compiler = "clang++"
 
-let s:localrc = expand("~/.vimrc.local")
-if filereadable(s:localrc)
-	execute "source " . s:localrc
-endif
+call s:call_if_exists("g:vimrc_post_hook")
