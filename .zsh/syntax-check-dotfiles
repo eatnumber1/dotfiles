@@ -1,17 +1,24 @@
 #!/usr/bin/env zsh
 emulate -L zsh
 setopt no_unset err_exit
-#setopt xtrace
+setopt xtrace
 
 if [[ ! -d .git ]] {
 	echo "This must be run from the root of the dotfiles repository" >&2
 	exit 1
 }
 
+zsh --version
+
+env
+sudo apt-get install strace
+cat /etc/zsh/zshenv
+:
+export LOGNAME # Workaround a poorly understood bug
 fpath+=( $PWD/.zsh/functions )
 autoload -U syntax-check
-git ls-files -z -- '.zsh*' | while { read -rd $'\0' file } {
-	if [[ $file =~ \.zsh/help/.* ]] continue
+git ls-files -z -- '.z*' | while { read -rd $'\0' file } {
+	if [[ $file =~ \.zsh/help/.* || $file == .zprezto ]] continue
 	echo -n "Syntax checking $file... "
 	syntax-check $file
 	echo "OK"

@@ -1,0 +1,30 @@
+#!/bin/sh
+set -e
+#set -x
+
+if [ "$USER" != root ]; then
+	exec sudo -E "$0" "$@"
+fi
+
+DEBIAN_FRONTEND=noninteractive
+export DEBIAN_FRONTEND
+
+if [ -z "$ZSH_MAJOR_VERSION" ]; then
+	echo "No zsh version requested. Set ZSH_MAJOR_VERSION" >&2
+	exit 1
+fi
+
+case $ZSH_MAJOR_VERSION in
+	5)
+		apt-add-repository -y ppa:hrzhu/zsh-backport
+		apt-get -q -y update -o Dir::Etc::sourcelist="sources.list.d/hrzhu-zsh-backport-precise.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+		;;
+	4)
+		;;
+	*)
+		echo "Unsupported zsh version $ZSH_MAJOR_VERSION requested" >&2
+		exit 1
+esac
+
+apt-get -q -y install zsh
+echo "echo hello" >> /etc/zsh/zshenv

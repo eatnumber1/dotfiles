@@ -215,4 +215,5 @@ if (( $+functions[zshrc_post_hook] )); then
 	unfunction zshrc_post_hook
 fi
 
+true # Set return code
 # vim:tw=80

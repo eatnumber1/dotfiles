@@ -1,2 +1,5 @@
-install: "sudo env DEBIAN_FRONTEND=noninteractive apt-get -q -y install zsh"
+install: ./.travis/install-zsh
 script: ./.zsh/syntax-check-dotfiles
+env:
+  - ZSH_MAJOR_VERSION=4
+  - ZSH_MAJOR_VERSION=5

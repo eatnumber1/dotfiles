@@ -5,7 +5,7 @@ if { is-at-least 5.0.0 } {
 	function syntax-check {
 		setopt local_options err_return
 		local file
-		for file ("$@") zsh -o no_exec -o no_rcs $file
+		for file ("$@") strace -f zsh -o no_exec -o no_rcs $file
 	}
 } else {
 	function syntax-check {

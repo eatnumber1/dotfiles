@@ -39,4 +39,5 @@ if (( $+functions[zlogin_post_hook] )); then
 	unfunction zlogin_post_hook
 fi
 
+true # Set return code
 # vim:tw=80

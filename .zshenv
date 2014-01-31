@@ -131,4 +131,5 @@ if (( $+functions[zshenv_post_hook] )); then
 	unfunction zshenv_post_hook
 fi
 
+true # Set return code
 # vim:tw=80
