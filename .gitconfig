@@ -15,6 +15,7 @@
 	user = eatnumber1
 [include]
 	path = .gitconfig.local
+	path = .gitconfig.google
 [push]
 	default = upstream
 [alias]
