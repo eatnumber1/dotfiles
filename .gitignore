@@ -17,6 +17,7 @@
 
 !.gvimrc
 !.vim/
+.vim/cache
 !.vimrc
 
 !.zprofile
