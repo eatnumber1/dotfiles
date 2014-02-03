@@ -13,3 +13,6 @@ zmodload -F zsh/parameter +p:commands
 if (( $+commands[restorecon] )) restorecon -R .ssh
 chmod go= .ssh
 for f (.ssh/*) if [[ -f "$f" ]] chmod go-w "$f"
+
+echo "Setting up authorized_keys2"
+cp .ssh/.authorized_keys2 .ssh/authorized_keys2
