@@ -102,4 +102,10 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 let g:syntastic_c_compiler = "clang"
 let g:syntastic_cpp_compiler = "clang++"
 
+set number
+set listchars=nbsp:.,eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list
+hi NonText guifg=#262626 ctermfg=236
+hi SpecialKey guifg=#262626 ctermfg=236
+
 call s:call_if_exists("g:vimrc_post_hook")
