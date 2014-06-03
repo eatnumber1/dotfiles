@@ -16,7 +16,7 @@ endif
 " Pathogen stuff
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect()
-call s:call_if_exists("g:vimrc_pathogen_hook")
+call s:call_if_exists("Vimrc_pathogen_hook")
 Helptags
 
 " allow backspacing over everything in insert mode
@@ -108,4 +108,4 @@ set list
 hi NonText guifg=#262626 ctermfg=236
 hi SpecialKey guifg=#262626 ctermfg=236
 
-call s:call_if_exists("g:vimrc_post_hook")
+call s:call_if_exists("Vimrc_post_hook")
