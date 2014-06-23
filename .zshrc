@@ -134,6 +134,7 @@ fi
 				fi
 			fi
 		}
+		autoload -U add-zsh-hook
 		add-zsh-hook preexec rehash-if-needed
 
 		function exec-and-trigger-rehash {
