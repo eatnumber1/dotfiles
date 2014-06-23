@@ -2,6 +2,9 @@
 # Defines environment variables.
 #
 
+# Global globals are loaded globally.
+zmodload -F zsh/parameter +p:commands
+
 () {
 	local ZSHENV_LOCAL="$HOME/.zshenv.local"
 	if [[ -f "$ZSHENV_LOCAL" ]]; then
