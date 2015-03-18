@@ -23,9 +23,13 @@ fi
 		autoload -U unalias unfunction
 
 		if is-callable keychain; then
-			emulate -R sh -c "$(keychain --quiet --eval --inherit any-once)"
+			function $0_keychain {
+				command keychain --quiet --inherit any "$@"
+			}
+
+			emulate -R sh -c "$($0_keychain --eval)"
 			if [[ -f "$HOME/.ssh/id_rsa" ]]; then
-				keychain --quiet "$HOME/.ssh/id_rsa"
+				$0_keychain "$HOME/.ssh/id_rsa"
 			fi
 		fi
 
@@ -134,6 +138,7 @@ fi
 				fi
 			fi
 		}
+		autoload -U add-zsh-hook
 		add-zsh-hook preexec rehash-if-needed
 
 		function exec-and-trigger-rehash {
