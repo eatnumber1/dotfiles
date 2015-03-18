@@ -1,6 +1,6 @@
 [user]
 	name = Russell Harmon
-	email = russ@eatnumber1.com
+	email = eatnumber1@google.com
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore.global
@@ -24,3 +24,5 @@
 	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 [diff]
 	algorithm = patience
+[sendemail]
+	from = eatnumber1@google.com

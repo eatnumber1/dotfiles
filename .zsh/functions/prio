@@ -35,7 +35,7 @@ function prio {
 		}
 
 		if [[ $OSTYPE == linux* ]] {
-			${FN}_add_modes mean low idle
+			${FN}_add_modes mean low idle batch
 			prio_commands+=( ionice chrt )
 
 			${FN}_mean_ionice() { ${FN}_reply-if-avail ionice -c1 -n0 -- || : }
@@ -46,6 +46,10 @@ function prio {
 
 			${FN}_idle_ionice() { ${FN}_reply-if-avail ionice -c3 -- || : }
 			${FN}_idle_chrt() { ${FN}_reply-if-avail chrt -i 0 || : }
+
+			${FN}_batch_ionice() { : }
+			${FN}_batch_nice() { : }
+			${FN}_batch_chrt() { ${FN}_reply-if-avail chrt -b 0 || : }
 		}
 
 		typeset -A modes_kv

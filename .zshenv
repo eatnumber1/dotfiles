@@ -120,6 +120,12 @@
 			done
 		}
 		$0_trim_nonexistant_from path fpath manpath infopath
+
+		local ruby="${ruby:-ruby}"
+		local gem="${gem:-gem}"
+		if (( $+commands[$ruby] && $+commands[$gem] )); then
+			path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
+		fi
 	} always {
 		unfunction -m "$0_*"
 	}

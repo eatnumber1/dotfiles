@@ -58,12 +58,6 @@ endif
 
 color inkpot
 
-" Enable file type detection.
-" Use the default filetype settings, so that mail gets 'tw' set to 72,
-" 'cindent' is on in C files, etc.
-" Also load indent files, to automatically do language-dependent indenting.
-filetype plugin indent on
-
 " For all text files set 'textwidth' to 80 characters.
 autocmd FileType text setlocal textwidth=80
 
@@ -109,3 +103,9 @@ hi NonText guifg=#262626 ctermfg=236
 hi SpecialKey guifg=#262626 ctermfg=236
 
 call s:call_if_exists("Vimrc_post_hook")
+
+" Enable file type detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on

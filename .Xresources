@@ -2,3 +2,4 @@ URxvt.font: xft:Terminus-14
 URxvt.scrollBar: False
 URxvt.urlLauncher: chromium-browser
 URxvt.reverseVideo: True
+Xcursor.theme: DMZ-Black
