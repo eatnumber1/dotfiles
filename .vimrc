@@ -34,7 +34,7 @@ set modeline modelines=5
 set nofoldenable
 set cursorline
 set tabstop=4 shiftwidth=4 softtabstop=4
-set spellfile=~/.vim/spellfile.en.add
+set spellfile=~/.vim/spellfile.en.add,~/.vim.local/spellfile.en.add
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set wildmode=longest,list,full
 
