@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+autoload -U bash_source
+
+function bash_eval {
+	bash_source <(<<<"$*")
+}
+
+bash_eval "$@"
