@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/vim-protobuf"]
 	path = .vim/bundle/vim-protobuf
 	url = https://github.com/uarun/vim-protobuf.git
+[submodule ".vim/bundle/vim-ragel"]
+	path = .vim/bundle/vim-ragel
+	url = https://github.com/arsenerei/vim-ragel.git
