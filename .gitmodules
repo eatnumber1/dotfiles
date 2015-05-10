@@ -52,9 +52,6 @@
 [submodule ".vim/bundle/vim-protobuf"]
 	path = .vim/bundle/vim-protobuf
 	url = https://github.com/uarun/vim-protobuf.git
-[submodule ".vim/bundle/vim-ragel"]
-	path = .vim/bundle/vim-ragel
-	url = https://github.com/arsenerei/vim-ragel.git
 [submodule ".vim/bundle/rust"]
 	path = .vim/bundle/rust
 	url = git://github.com/rust-lang/rust.vim.git
