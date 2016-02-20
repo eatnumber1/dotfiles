@@ -26,3 +26,5 @@
 	algorithm = patience
 [sendemail]
 	from = eatnumber1@google.com
+[credential]
+	helper = osxkeychain
