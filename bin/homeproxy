@@ -42,6 +42,10 @@ function homenet_version {
 	echo $REPLY > $cache
 }
 
+function is_ip {
+	[[ $1 =~ [0-9]+\.[0-9]+\.[0-9]+\.[0-9]+ ]]
+}
+
 local REPLY
 if homenet_version; then
 	autoload -U znc
@@ -62,7 +66,13 @@ integer version=$REPLY
 
 case $version in
 	1)
-		exec socat - socks4a:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
+		declare SOCKS_TYPE
+		if is_ip $HOST; then
+			SOCKS_TYPE=socks4
+		else
+			SOCKS_TYPE=socks4a
+		fi
+		exec socat - $SOCKS_TYPE:$PROXY_SERVER:$HOST:$PORT,socksport=$PROXY_PORT
 		;;
 	2)
 		exec socat - "socks5:$HOST:$PORT | tcp-connect:$PROXY_SERVER:$PROXY_PORT"
