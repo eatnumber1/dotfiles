@@ -37,6 +37,7 @@ set tabstop=4 shiftwidth=4 softtabstop=4
 set spellfile=~/.vim/spellfile.en.add,~/.vim.local/spellfile.en.add
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 set wildmode=longest,list,full
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 if has('statusline')
 	set laststatus=2
@@ -95,6 +96,7 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " TODO: Check if clang(\+\+)? is available on the system before defining it.
 let g:syntastic_c_compiler = "clang"
 let g:syntastic_cpp_compiler = "clang++"
+let g:syntastic_cpp_compiler_options = '-std=c++11'
 
 set number
 set listchars=nbsp:.,eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -109,3 +111,5 @@ call s:call_if_exists("Vimrc_post_hook")
 " 'cindent' is on in C files, etc.
 " Also load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
+
+autocmd BufRead,BufNewFile *.ebnf setf ebnf
