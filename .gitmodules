@@ -55,3 +55,6 @@
 [submodule ".vim/bundle/rust"]
 	path = .vim/bundle/rust
 	url = git://github.com/rust-lang/rust.vim.git
+[submodule ".vim/bundle/ebnf.vim"]
+	path = .vim/bundle/ebnf.vim
+	url = git://github.com/vim-scripts/ebnf.vim.git
