@@ -97,3 +97,8 @@ lexer
 filesystem
 Automounter
 CLI
+ExifTool
+Lytro
+EXIF
+OSX
+LibTIFF
