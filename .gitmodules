@@ -52,6 +52,10 @@
 [submodule ".vim/bundle/rust"]
 	path = .vim/bundle/rust
 	url = git://github.com/rust-lang/rust.vim.git
+[submodule ".vim/bundle/ctrlp-py-matcher"]
+	path = .vim/bundle/ctrlp-py-matcher
+	url = git://github.com/FelikZ/ctrlp-py-matcher
+	ignore = untracked
 [submodule ".vim/bundle/ebnf.vim"]
 	path = .vim/bundle/ebnf.vim
 	url = git://github.com/vim-scripts/ebnf.vim.git
