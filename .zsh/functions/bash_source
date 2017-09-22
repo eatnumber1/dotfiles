@@ -1,21 +1,36 @@
 #!/bin/zsh
 
-emulate -R zsh -c 'autoload -Uz is-at-least'
-if is-at-least 5.0.0; then
-	emulate -R sh -o kshglob +o shglob +o ignorebraces -o bash_rematch -c '
-		function bash_source {
-			source "$@"
-		}
-	'
-else
-	emulate -R sh -c '
-		function bash_source {
-			# Do note that functions about to be defined will not be set
-			# with these options when run
-			setopt kshglob noshglob braceexpand bash_rematch
-			source "$@"
-		}
-	'
-fi
+() {
+  zmodload -F zsh/zutil +b:zparseopts
+  declare -a options
+  zparseopts -D -- o:=options
+  # Strip the leading -o
+  options=( ${options:1} )
+  options=( kshglob noshglob noignorebraces bash_rematch $options )
 
-bash_source "$@"
+  emulate -R zsh -c 'autoload -Uz is-at-least'
+  if is-at-least 5.0.0; then
+    declare -a optargs
+    local option
+    for option in $options; do
+      optargs+=( -o $option )
+    done
+
+    emulate -R sh $optargs -c '
+      function bash_source {
+        source "$@"
+      }
+    '
+  else
+    emulate -R sh -c '
+      function bash_source {
+        # Do note that functions about to be defined will not be set
+        # with these options when run
+        setopt $options
+        source "$@"
+      }
+    '
+  fi
+
+  bash_source "$@"
+} "$@"
