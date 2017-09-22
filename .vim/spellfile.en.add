@@ -95,6 +95,7 @@ queryable
 regeneratable
 roguelike
 segfault
+stateful
 struct
 structs
 subshell
