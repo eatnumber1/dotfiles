@@ -17,6 +17,7 @@ function znc {
 		return 1
 	fi
 
+	local REPLY
 	ztcp -- "$@"
 	integer socket=$REPLY
 	trap "ztcp -c $socket" EXIT
