@@ -6,138 +6,138 @@
 zmodload -F zsh/parameter +p:commands
 
 () {
-	local ZSHENV_LOCAL="$HOME/.zshenv.local"
-	if [[ -f "$ZSHENV_LOCAL" ]]; then
-		source "$ZSHENV_LOCAL"
-	fi
+  local ZSHENV_LOCAL="$HOME/.zshenv.local"
+  if [[ -f "$ZSHENV_LOCAL" ]]; then
+    source "$ZSHENV_LOCAL"
+  fi
 }
 
 () {
-	emulate -L zsh
-	setopt function_argzero err_return no_unset warn_create_global
-	#setopt xtrace
-	# We set 0 to RANDOM here to prevent name clashes since an anonymous
-	# function is always called (anon)
-	local 0="$0_$RANDOM"
+  emulate -L zsh
+  setopt function_argzero err_return no_unset warn_create_global
+  #setopt xtrace
+  # We set 0 to RANDOM here to prevent name clashes since an anonymous
+  # function is always called (anon)
+  local 0="$0_$RANDOM"
 
-	{
-		#
-		# Paths
-		#
-		typeset -gU cdpath fpath mailpath manpath path pythonpath
-		typeset -gUT INFOPATH infopath
-		typeset -gUT PYTHONPATH pythonpath
-		typeset -x PATH MANPATH INFOPATH PYTHONPATH
+  {
+    #
+    # Paths
+    #
+    typeset -gU cdpath fpath mailpath manpath path pythonpath
+    typeset -gUT INFOPATH infopath
+    typeset -gUT PYTHONPATH pythonpath
+    typeset -x PATH MANPATH INFOPATH PYTHONPATH
 
-		if [[ $OSTYPE == darwin* ]]; then
-			typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
-			typeset -x DYLD_LIBRARY_PATH
-		fi
+    if [[ $OSTYPE == darwin* ]]; then
+      typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
+      typeset -x DYLD_LIBRARY_PATH
+    fi
 
-		# Set the the list of directories that cd searches.
-		# cdpath=(
-		# 	$cdpath
-		# )
+    # Set the the list of directories that cd searches.
+    # cdpath=(
+    #   $cdpath
+    # )
 
-		# Set the list of directories that info searches for manuals.
-		infopath=(
-			/usr/local/share/info
-			/usr/share/info
-			$infopath
-		)
+    # Set the list of directories that info searches for manuals.
+    infopath=(
+      /usr/local/share/info
+      /usr/share/info
+      $infopath
+    )
 
-		# Set the list of directories that man searches for manuals.
-		manpath=(
-			/usr/local/share/man
-			/usr/share/man
-			$manpath
-		)
+    # Set the list of directories that man searches for manuals.
+    manpath=(
+      /usr/local/share/man
+      /usr/share/man
+      $manpath
+    )
 
-		local path_file
-		for path_file in /etc/manpaths.d/*(.N); do
-			manpath+=($(<$path_file))
-		done
+    local path_file
+    for path_file in /etc/manpaths.d/*(.N); do
+      manpath+=($(<$path_file))
+    done
 
-		# Set the list of directories that Zsh searches for programs.
-		path=(
-			$HOME/.rbenv/bin
-			/usr/local/{bin,sbin}
-			/usr/{bin,sbin}
-			/{bin,sbin}
-			$path
-		)
+    # Set the list of directories that Zsh searches for programs.
+    path=(
+      $HOME/.rbenv/bin
+      /usr/local/{bin,sbin}
+      /usr/{bin,sbin}
+      /{bin,sbin}
+      $path
+    )
 
-		for path_file in /etc/paths.d/*(.N); do
-		  path+=($(<$path_file))
-		done
+    for path_file in /etc/paths.d/*(.N); do
+      path+=($(<$path_file))
+    done
 
-		fpath=(
-			$HOME/.zsh.local/functions
-			$HOME/.zsh/functions
-			$fpath
-		)
+    fpath=(
+      $HOME/.zsh.local/functions
+      $HOME/.zsh/functions
+      $fpath
+    )
 
-		#
-		# Language
-		#
-		if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-			export LC_ALL="en_US.UTF-8"
-			emulate -R sh -c "$(locale)"
-		fi
+    #
+    # Language
+    #
+    if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
+      export LC_ALL="en_US.UTF-8"
+      emulate -R sh -c "$(locale)"
+    fi
 
-		function $0_move_to_front {
-			local pathvar=$1 dir=$2
-			integer i ret=1
-			for (( i=1; i<=${(P)#pathvar}; i++ )); do
-				if [[ $dir == ${(P)${pathvar}[i]} ]]; then
-					eval "${(q)pathvar}[${i}]=()"
-					eval "${(q)pathvar}=( \$dir \$${(q)pathvar} )"
-					ret=0
-				fi
-			done
-			return $ret
-		}
+    function $0_move_to_front {
+      local pathvar=$1 dir=$2
+      integer i ret=1
+      for (( i=1; i<=${(P)#pathvar}; i++ )); do
+        if [[ $dir == ${(P)${pathvar}[i]} ]]; then
+          eval "${(q)pathvar}[${i}]=()"
+          eval "${(q)pathvar}=( \$dir \$${(q)pathvar} )"
+          ret=0
+        fi
+      done
+      return $ret
+    }
 
-		if (( $+commands[rbenv] )); then
-			# TODO: This is inflexible
-			[[ -d $HOME/.rbenv/shims ]] && $0_move_to_front path $HOME/.rbenv/shims || :
-			eval "$(rbenv init -)"
-		fi
+    if (( $+commands[rbenv] )); then
+      # TODO: This is inflexible
+      [[ -d $HOME/.rbenv/shims ]] && $0_move_to_front path $HOME/.rbenv/shims || :
+      eval "$(rbenv init -)"
+    fi
 
-		path=( $HOME/bin $path )
+    path=( $HOME/bin $path )
 
-		# Some /etc/zsh/zshrc files call compinit. Skip it.
-		if [[ -o interactive ]]; then
-			typeset -g skip_global_compinit=1
-		fi
+    # Some /etc/zsh/zshrc files call compinit. Skip it.
+    if [[ -o interactive ]]; then
+      typeset -g skip_global_compinit=1
+    fi
 
-		function $0_trim_nonexistant_from {
-			local a
-			for a in "$@"; do
-				integer i
-				for (( i=1; i<=${(P)#a}; i++ )); do
-					if [[ ! -d ${(P)${a}[i]} ]]; then
-						eval "${(q)a}[${i}]=()"
-					fi
-				done
-			done
-		}
-		$0_trim_nonexistant_from path fpath manpath infopath
+    function $0_trim_nonexistant_from {
+      local a
+      for a in "$@"; do
+        integer i
+        for (( i=1; i<=${(P)#a}; i++ )); do
+          if [[ ! -d ${(P)${a}[i]} ]]; then
+            eval "${(q)a}[${i}]=()"
+          fi
+        done
+      done
+    }
+    $0_trim_nonexistant_from path fpath manpath infopath
 
-		local ruby="${ruby:-ruby}"
-		local gem="${gem:-gem}"
-		if (( $+commands[$ruby] && $+commands[$gem] )); then
-			path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
-		fi
-	} always {
-		unfunction -m "$0_*"
-	}
+    local ruby="${ruby:-ruby}"
+    local gem="${gem:-gem}"
+    if (( $+commands[$ruby] && $+commands[$gem] )); then
+      path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
+    fi
+  } always {
+    unfunction -m "$0_*"
+  }
 } || :
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshenv_post_hook] )); then
-	zshenv_post_hook
-	unfunction zshenv_post_hook
+  zshenv_post_hook
+  unfunction zshenv_post_hook
 fi
 
 # vim:tw=80
