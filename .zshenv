@@ -16,128 +16,85 @@ zmodload -F zsh/parameter +p:commands
   emulate -L zsh
   setopt function_argzero err_return no_unset warn_create_global
   #setopt xtrace
-  # We set 0 to RANDOM here to prevent name clashes since an anonymous
-  # function is always called (anon)
-  local 0="$0_$RANDOM"
 
-  {
-    #
-    # Paths
-    #
-    typeset -gU cdpath fpath mailpath manpath path pythonpath
-    typeset -gUT INFOPATH infopath
-    typeset -gUT PYTHONPATH pythonpath
-    typeset -x PATH MANPATH INFOPATH PYTHONPATH
+  typeset -gU cdpath fpath mailpath manpath path pythonpath
+  typeset -gUT INFOPATH infopath
+  typeset -gUT PYTHONPATH pythonpath
+  typeset -x PATH MANPATH INFOPATH PYTHONPATH
 
-    if [[ $OSTYPE == darwin* ]]; then
-      typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
-      typeset -x DYLD_LIBRARY_PATH
-    fi
+  if [[ $OSTYPE == darwin* ]]; then
+    typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
+    typeset -x DYLD_LIBRARY_PATH
+  fi
 
-    # Set the the list of directories that cd searches.
-    # cdpath=(
-    #   $cdpath
-    # )
+  # Set the list of directories that info searches for manuals.
+  infopath=(
+    /usr/local/share/info
+    /usr/share/info
+    $infopath
+  )
 
-    # Set the list of directories that info searches for manuals.
-    infopath=(
-      /usr/local/share/info
-      /usr/share/info
-      $infopath
-    )
+  if [[ $OSTYPE == darwin* && -f /usr/libexec/path_helper ]]; then
+    eval "$(/usr/libexec/path_helper -s)"
+  fi
 
-    # Set the list of directories that man searches for manuals.
-    manpath=(
-      /usr/local/share/man
-      /usr/share/man
-      $manpath
-    )
+  path+=(
+    /usr/local/{bin,sbin}
+    /usr/{bin,sbin}
+    /{bin,sbin}
+  )
 
-    local path_file
-    for path_file in /etc/manpaths.d/*(.N); do
-      manpath+=($(<$path_file))
-    done
+  manpath+=(
+    /usr/local/share/man
+    /usr/share/man
+  )
 
-    # Set the list of directories that Zsh searches for programs.
-    path=(
-      $HOME/.rbenv/bin
-      /usr/local/{bin,sbin}
-      /usr/{bin,sbin}
-      /{bin,sbin}
-      $path
-    )
+  fpath=(
+    $HOME/.zsh.local/functions
+    $HOME/.zsh/functions
+    $fpath
+  )
 
-    for path_file in /etc/paths.d/*(.N); do
-      path+=($(<$path_file))
-    done
+  if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
+    export LC_ALL="en_US.UTF-8"
+    emulate -R sh -c "$(locale)"
+  fi
 
-    fpath=(
-      $HOME/.zsh.local/functions
-      $HOME/.zsh/functions
-      $fpath
-    )
+  path=( $HOME/.rbenv/bin $path )
+  if (( $+commands[rbenv] )); then
+    # TODO: This is inflexible
+    [[ -d $HOME/.rbenv/shims ]] && path_move_to_front path $HOME/.rbenv/shims || :
+    eval "$(rbenv init -)"
+  fi
 
-    #
-    # Language
-    #
-    if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-      export LC_ALL="en_US.UTF-8"
-      emulate -R sh -c "$(locale)"
-    fi
+  path=( $HOME/bin $path )
 
-    function $0_move_to_front {
-      local pathvar=$1 dir=$2
-      integer i ret=1
-      for (( i=1; i<=${(P)#pathvar}; i++ )); do
-        if [[ $dir == ${(P)${pathvar}[i]} ]]; then
-          eval "${(q)pathvar}[${i}]=()"
-          eval "${(q)pathvar}=( \$dir \$${(q)pathvar} )"
-          ret=0
-        fi
-      done
-      return $ret
-    }
+  # Some /etc/zsh/zshrc files call compinit. Skip it.
+  if [[ -o interactive ]]; then
+    typeset -g skip_global_compinit=1
+  fi
 
-    if (( $+commands[rbenv] )); then
-      # TODO: This is inflexible
-      [[ -d $HOME/.rbenv/shims ]] && $0_move_to_front path $HOME/.rbenv/shims || :
-      eval "$(rbenv init -)"
-    fi
-
-    path=( $HOME/bin $path )
-
-    # Some /etc/zsh/zshrc files call compinit. Skip it.
-    if [[ -o interactive ]]; then
-      typeset -g skip_global_compinit=1
-    fi
-
-    function $0_trim_nonexistant_from {
-      local a
-      for a in "$@"; do
-        integer i
-        for (( i=1; i<=${(P)#a}; i++ )); do
-          if [[ ! -d ${(P)${a}[i]} ]]; then
-            eval "${(q)a}[${i}]=()"
-          fi
-        done
-      done
-    }
-    $0_trim_nonexistant_from path fpath manpath infopath
-
-    local ruby="${ruby:-ruby}"
-    local gem="${gem:-gem}"
-    if (( $+commands[$ruby] && $+commands[$gem] )); then
-      path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
-    fi
-  } always {
-    unfunction -m "$0_*"
-  }
+  local ruby="${ruby:-ruby}"
+  local gem="${gem:-gem}"
+  if (( $+commands[$ruby] && $+commands[$gem] )); then
+    path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
+  fi
 } || :
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshenv_post_hook] )); then
   zshenv_post_hook
   unfunction zshenv_post_hook
+fi
+
+# On GMac (and maybe all of OSX), /etc/zprofile runs path_helper(8).
+# path_helper then moves the system directories in front of anything that is
+# set here. Therefore, to work around this we save the path and manpath and
+# correct it in .zprofile.
+if [[ $OSTYPE == darwin* && -f /etc/zprofile ]]; then
+  typeset -a saved_path saved_manpath
+  saved_path=( $path )
+  saved_manpath=( $manpath )
 fi
 
 # vim:tw=80

@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+# Usage: path_trim_nonexistant_from variable_name...
+function path_trim_nonexistant_from {
+  local a
+  for a in "$@"; do
+    integer i
+    for (( i=1; i<=${(P)#a}; i++ )); do
+      if [[ ! -d ${(P)${a}[i]} ]]; then
+        eval "${(q)a}[${i}]=()"
+      fi
+    done
+  done
+}
+
+path_trim_nonexistant_from "$@"
