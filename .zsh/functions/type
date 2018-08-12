@@ -1,0 +1,49 @@
+#!/bin/zsh
+# Bash-compatible(ish) -t support for type
+
+function type {
+  emulate -L zsh
+  setopt no_unset warn_create_global
+
+  local saw_dash_t=0
+  local arg
+  for arg in "$@"; do
+    if [[ $arg == -t ]]; then
+      saw_dash_t=1
+    elif [[ $arg == -a ]]; then
+      continue
+    elif [[ ${arg:0:1} != - ]]; then
+      break
+    fi
+  done
+
+  if (( ! saw_dash_t )); then
+    builtin type "$@"
+    return $?
+  fi
+
+  integer i
+  integer i_idx
+  declare -a args
+  args=( "$@" )
+  for (( i=1; i<=$#; i++ )); do
+    if [[ ${args[$i]} == -t ]]; then
+      i_idx=$i
+    fi
+  done
+  args[$i_idx]=()
+  set -- $args
+
+  declare -A types
+  declare -a lines
+  lines=( "${(@f)$(whence -w "$@")}" )
+
+  local line
+  for line in "$lines"; do
+    local kv
+    kv=( "${(@s/: /)line}" )
+    echo ${kv[2]}
+  done
+}
+
+type "$@"

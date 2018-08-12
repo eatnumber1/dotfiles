@@ -1,0 +1,22 @@
+#!/bin/zsh
+# Initialize the run-help environment.
+
+function init-run-help {
+  local dir helper
+  setopt nullglob
+
+  unalias run-help
+  autoload -Uz run-help
+
+  # Load all of the run-help-* helpers in the fpath.
+  for dir in $fpath; do
+    for helper in $dir/run-help-*; do
+      autoload -U "${helper##*/}"
+    done
+  done
+
+  # We are run-once only.
+  unfunction init-run-help
+}
+
+init-run-help "$@"

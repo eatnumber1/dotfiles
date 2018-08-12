@@ -1,0 +1,11 @@
+#!/bin/zsh
+# Source a file only if it exists
+
+if [[ $# -ne 1 ]]; then
+  print -u 2 "Usage: source_if_exists file"
+  return 1
+fi
+
+if [[ -f "$1" ]]; then
+  source "$1"
+fi

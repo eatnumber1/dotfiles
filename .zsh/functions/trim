@@ -1,0 +1,10 @@
+#!/bin/zsh
+# Trims command output to screen width.
+
+if [[ $1 = -h ]]; then
+  echo "Usage: trim command [args...]"
+  echo "Trims command output to screen width"
+  return 0
+fi
+
+"$@" > >(cut -c1-$COLUMNS)

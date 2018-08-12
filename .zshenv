@@ -1,28 +1,25 @@
-#
-# Defines environment variables.
-#
+# Early fpath setup in order to find helper functions used in this file.
+declare -U fpath
+fpath+=( $HOME/.zsh/functions )
 
-# Global globals are loaded globally.
+# Load some "core" functions
+autoload -U is_osx source_if_exists
+
 zmodload -F zsh/parameter +p:commands
 
-() {
-  local ZSHENV_LOCAL="$HOME/.zshenv.local"
-  if [[ -f "$ZSHENV_LOCAL" ]]; then
-    source "$ZSHENV_LOCAL"
-  fi
-}
+source_if_exists $HOME/.zshenv.local
 
 () {
   emulate -L zsh
   setopt function_argzero err_return no_unset warn_create_global
   #setopt xtrace
 
-  typeset -gU cdpath fpath mailpath manpath path pythonpath
+  typeset -gU cdpath mailpath manpath path pythonpath
   typeset -gUT INFOPATH infopath
   typeset -gUT PYTHONPATH pythonpath
   typeset -x PATH MANPATH INFOPATH PYTHONPATH
 
-  if [[ $OSTYPE == darwin* ]]; then
+  if is_osx; then
     typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
     typeset -x DYLD_LIBRARY_PATH
   fi
@@ -34,7 +31,7 @@ zmodload -F zsh/parameter +p:commands
     $infopath
   )
 
-  if [[ $OSTYPE == darwin* && -f /usr/libexec/path_helper ]]; then
+  if is_osx && [[ -f /usr/libexec/path_helper ]]; then
     eval "$(/usr/libexec/path_helper -s)"
   fi
 
@@ -69,7 +66,8 @@ zmodload -F zsh/parameter +p:commands
 
   path=( $HOME/bin $path )
 
-  # Some /etc/zsh/zshrc files call compinit. Skip it.
+  # Some /etc/zsh/zshrc files call compinit. Skip it. We unset it later in
+  # .zshrc.
   if [[ -o interactive ]]; then
     typeset -g skip_global_compinit=1
   fi
@@ -96,5 +94,3 @@ if [[ $OSTYPE == darwin* && -f /etc/zprofile ]]; then
   saved_path=( $path )
   saved_manpath=( $manpath )
 fi
-
-# vim:tw=80

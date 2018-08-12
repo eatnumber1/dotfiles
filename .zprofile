@@ -1,4 +1,6 @@
-if [[ $OSTYPE == darwin* && -f /etc/zprofile ]]; then
+source_if_exists $HOME/.zprofile.local
+
+if is_osx && [[ -f /etc/zprofile ]]; then
   # Restore the saved path and manpath
   # On GMac (and maybe all of OSX), /etc/zprofile runs path_helper(8).
   # path_helper then moves the system directories in front of anything that is

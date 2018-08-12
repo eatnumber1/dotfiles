@@ -1,0 +1,4 @@
+#!/bin/zsh
+# Helper function for checking if the ostype is OSX
+
+[[ "$OSTYPE" == darwin* ]]

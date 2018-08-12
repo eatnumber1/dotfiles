@@ -131,6 +131,13 @@ zstyle ':prezto:module:prompt' theme 'walters'
 #   'function' 'bg=blue'
 
 #
+# Utility
+#
+
+# Use colordiff if available.
+zstyle ':prezto:module:utility:diff' color 'yes'
+
+#
 # Terminal
 #
 

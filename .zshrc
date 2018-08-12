@@ -1,17 +1,14 @@
+# We may have set this to skip global compinit in /etc/zsh/zshrc. Unset it here
+# to not clutter the environment.
 unset skip_global_compinit
 
-() {
-  local ZSHRC_LOCAL="$HOME/.zshrc.local"
-  [[ -f "$ZSHRC_LOCAL" ]] && source "$ZSHRC_LOCAL"
-}
+source_if_exists $HOME/.zshrc.local
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 # Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 
 () {
   emulate -L zsh
@@ -20,7 +17,8 @@ fi
   # function is always called (anon)
   local 0="$0_$RANDOM"
   {
-    autoload -U unalias unfunction
+    #autoload -U unalias unfunction
+    #autoload -U unalias
 
     if is-callable keychain; then
       function $0_keychain {
@@ -34,12 +32,12 @@ fi
     fi
 
     # Undo some prezto zsh aliases.
-    unalias cp ln mkdir mv rm l ll lr la lm lx lk lt lc lu sl scp get du top rsync
-    unfunction kill diff
-
-    unalias run-help
-    typeset -g HELPDIR="$HOME/.zsh/help"
-    autoload run-help
+    # aliases which disable spelling correction or globbing, which I don't like
+    unalias cp ln mkdir mv rm scp du rsync
+    # ls helpers that I don't like
+    unalias l ll lr la lm lx lk lt lc lu sl
+    # aliases that I just don't care to learn
+    unalias get
 
     alias cp='nocorrect cp'
     alias ln='nocorrect ln'
@@ -67,11 +65,12 @@ fi
       alias pstree="pstree -g3"
     fi
 
-    alias trim='(){ "$@" | cut -c1-$COLUMNS }'
+    # This is the way Prezto checks for GNU coreutils
+    if is-callable "dircolors"; then
+      # --literal: Turn off escaping of ls output
+      alias ls="${aliases[ls]:-ls} --literal"
+    fi
 
-    #
-    # Less
-    #
     # Set the default Less options.
     export LESS="-F -X -i -M -R -S -w -z-4 -a"
 
@@ -79,10 +78,7 @@ fi
     autoload -U lesspipe
     lesspipe -x
 
-    #
-    # Browser
-    #
-    if [[ "$OSTYPE" == darwin* ]]; then
+    if is_osx; then
       export BROWSER='open'
     fi
 
@@ -90,9 +86,6 @@ fi
 
     typeset -gx TRY_HELPERS_HOME="$HOME/Sources/try-helpers"
 
-    #
-    # Editors
-    #
     function $0_export_or_warn {
       typeset -i argeven
       let "argeven = $# % 2"
@@ -199,9 +192,12 @@ fi
         }
       }
     }
+
+    autoload -U trim
+
+    autoload init-run-help
+    init-run-help
   } always {
-    builtin unfunction unfunction
-    unfunction unalias
     unfunction -m "$0_*"
   }
 }
@@ -219,5 +215,3 @@ if (( $+functions[zshrc_post_hook] )); then
   zshrc_post_hook
   unfunction zshrc_post_hook
 fi
-
-# vim:tw=80
