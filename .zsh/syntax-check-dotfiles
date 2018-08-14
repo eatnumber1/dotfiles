@@ -3,6 +3,8 @@ emulate -L zsh
 setopt no_unset err_exit
 #setopt xtrace
 
+echo "ZSH version is $ZSH_VERSION"
+
 if [[ ! -d .git ]] {
 	echo "This must be run from the root of the dotfiles repository" >&2
 	exit 1
