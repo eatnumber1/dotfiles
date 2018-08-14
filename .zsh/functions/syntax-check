@@ -5,7 +5,7 @@ if { is-at-least 5.0.0 } {
   function syntax-check {
     setopt local_options err_return
     local file
-    for file ("$@") "$SHELL" -o no_exec -o no_rcs $file
+    for file ("$@") zsh -o no_exec -o no_rcs $file
   }
 } else {
   function syntax-check {
@@ -14,7 +14,7 @@ if { is-at-least 5.0.0 } {
     for file ("$@") {
       local stderr
       {
-        "$SHELL" -o no_exec -o no_rcs $file 3>&1 4>&2 1>&2 2>&3 2>&4 | read -rd '' stderr || :
+        zsh -o no_exec -o no_rcs $file 3>&1 4>&2 1>&2 2>&3 2>&4 | read -rd '' stderr || :
       } 2>&1
       [[ -z $stderr ]]
     }
