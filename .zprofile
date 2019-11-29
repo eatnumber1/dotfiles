@@ -12,7 +12,7 @@ if is_osx && [[ -f /etc/zprofile ]]; then
     unset saved_path
   fi
   if [[ -v saved_manpath ]]; then
-    manpath=( $saved_manpath $manpath )
+    manpath=( "${saved_manpath[@]}" "${manpath[@]}" )
     unset saved_manpath
   fi
 fi

@@ -14,10 +14,11 @@ source_if_exists $HOME/.zshenv.local
   setopt function_argzero err_return no_unset warn_create_global
   #setopt xtrace
 
-  typeset -gU cdpath mailpath manpath path pythonpath
+  typeset -gU cdpath mailpath manpath path pythonpath pkg_config_path
   typeset -gUT INFOPATH infopath
   typeset -gUT PYTHONPATH pythonpath
-  typeset -x PATH MANPATH INFOPATH PYTHONPATH
+  typeset -gUT PKG_CONFIG_PATH pkg_config_path
+  typeset -x PATH MANPATH INFOPATH PYTHONPATH PKG_CONFIG_PATH
 
   if is_osx; then
     typeset -gUT DYLD_LIBRARY_PATH dyld_library_path
@@ -45,6 +46,12 @@ source_if_exists $HOME/.zshenv.local
     /usr/local/share/man
     /usr/share/man
   )
+  if [[ $OSTYPE == darwin* ]]; then
+    # On OSX, the man binary has custom patches to search xcode paths for man
+    # pages, but only when there is an empty element in the manpath.
+    # https://gist.github.com/yiding/11270916
+    manpath+=( "" )
+  fi
 
   fpath=(
     $HOME/.zsh.local/functions
@@ -92,5 +99,5 @@ fi
 if [[ $OSTYPE == darwin* && -f /etc/zprofile ]]; then
   typeset -a saved_path saved_manpath
   saved_path=( $path )
-  saved_manpath=( $manpath )
+  saved_manpath=( "${manpath[@]}" )
 fi
