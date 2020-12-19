@@ -102,3 +102,6 @@ call s:call_if_exists("Vimrc_post_hook")
 filetype plugin indent on
 
 autocmd BufRead,BufNewFile *.ebnf setf ebnf
+
+" Allows for correctly reading nsfplay sources.
+set fileencodings=ucs-bom,utf-8,default,sjis,latin1
