@@ -84,6 +84,10 @@ source_if_exists $HOME/.zshenv.local
     GEM_HOME="$(ruby -r rubygems -e 'puts Gem.user_dir')"
     path+=( "$GEM_HOME/bin" )
   fi
+
+  if [[ -d $HOME/.local/bin ]]; then
+    path=( $HOME/.local/bin $path )
+  fi
 } || :
 
 zmodload -F zsh/parameter +p:functions
