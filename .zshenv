@@ -79,11 +79,11 @@ source_if_exists $HOME/.zshenv.local
     typeset -g skip_global_compinit=1
   fi
 
-  #local ruby="${ruby:-ruby}"
-  #local gem="${gem:-gem}"
-  #if (( $+commands[$ruby] && $+commands[$gem] )); then
-  #  path+=( "$($ruby -rubygems -e 'puts Gem.user_dir')/bin" )
-  #fi
+  if (( $+commands[ruby] && $+commands[gem] )); then
+    declare -gx GEM_HOME
+    GEM_HOME="$(ruby -r rubygems -e 'puts Gem.user_dir')"
+    path+=( "$GEM_HOME/bin" )
+  fi
 } || :
 
 zmodload -F zsh/parameter +p:functions
