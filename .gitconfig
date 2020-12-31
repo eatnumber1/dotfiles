@@ -1,6 +1,6 @@
 [user]
 	name = Russell Harmon
-	email = eatnumber1@google.com
+	email = eatnumber1@gmail.com
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore.global
