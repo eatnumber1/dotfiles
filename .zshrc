@@ -88,6 +88,7 @@ autoload -U is-callable
   }
 
   autoload -U trim
+  autoload -U mand
 
   autoload init-run-help
   init-run-help
