@@ -11,7 +11,7 @@ source_if_exists $HOME/.zshenv.local
 
 () {
   emulate -L zsh
-  setopt function_argzero err_return no_unset warn_create_global
+  setopt function_argzero no_unset warn_create_global
   #setopt xtrace
 
   typeset -gU cdpath mailpath manpath path pythonpath pkg_config_path
@@ -33,7 +33,10 @@ source_if_exists $HOME/.zshenv.local
   )
 
   if is_osx && [[ -f /usr/libexec/path_helper ]]; then
-    eval "$(/usr/libexec/path_helper -s)"
+    local helper_output
+    if helper_output="$(/usr/libexec/path_helper -s)"; then
+      eval "$helper_output"
+    fi
   fi
 
   path+=(
@@ -46,7 +49,7 @@ source_if_exists $HOME/.zshenv.local
     /usr/local/share/man
     /usr/share/man
   )
-  if [[ $OSTYPE == darwin* ]]; then
+  if is_osx; then
     # On OSX, the man binary has custom patches to search xcode paths for man
     # pages, but only when there is an empty element in the manpath.
     # https://gist.github.com/yiding/11270916
@@ -59,19 +62,13 @@ source_if_exists $HOME/.zshenv.local
     $fpath
   )
 
-  if ! (( $+LANG )) || [[ -z "$LANG" ]]; then
-    export LC_ALL="en_US.UTF-8"
-    emulate -R sh -c "$(locale)"
+  if [[ -v $LANG && -z "$LANG" ]]; then
+    export LANG="en_US.UTF-8"
+    local locale_output
+    if locale_output="$(locale)"; then
+      emulate -R sh -c "$locale_output"
+    fi
   fi
-
-  path=( $HOME/.rbenv/bin $path )
-  if (( $+commands[rbenv] )); then
-    # TODO: This is inflexible
-    [[ -d $HOME/.rbenv/shims ]] && path_move_to_front path $HOME/.rbenv/shims || :
-    eval "$(rbenv init -)"
-  fi
-
-  path=( $HOME/bin $path )
 
   # Some /etc/zsh/zshrc files call compinit. Skip it. We unset it later in
   # .zshrc.
@@ -80,15 +77,22 @@ source_if_exists $HOME/.zshenv.local
   fi
 
   if (( $+commands[ruby] && $+commands[gem] )); then
-    declare -gx GEM_HOME
-    GEM_HOME="$(ruby -r rubygems -e 'puts Gem.user_dir')"
-    path+=( "$GEM_HOME/bin" )
+    local ruby_output
+    if ruby_output="$(ruby -r rubygems -e 'puts Gem.user_dir')"; then
+      declare -gx GEM_HOME
+      GEM_HOME="$ruby_output"
+      path+=( "$GEM_HOME/bin" )
+    fi
   fi
 
   if [[ -d $HOME/.local/bin ]]; then
     path=( $HOME/.local/bin $path )
   fi
-} || :
+
+  if [[ -d $HOME/bin ]]; then
+    path=( $HOME/bin $path )
+  fi
+}
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshenv_post_hook] )); then
@@ -100,7 +104,7 @@ fi
 # path_helper then moves the system directories in front of anything that is
 # set here. Therefore, to work around this we save the path and manpath and
 # correct it in .zprofile.
-if [[ $OSTYPE == darwin* && -f /etc/zprofile ]]; then
+if is_osx && [[ -f /etc/zprofile ]]; then
   typeset -a saved_path saved_manpath
   saved_path=( $path )
   saved_manpath=( "${manpath[@]}" )
