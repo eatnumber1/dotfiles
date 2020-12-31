@@ -92,6 +92,10 @@ source_if_exists $HOME/.zshenv.local
   if [[ -d $HOME/bin ]]; then
     path=( $HOME/bin $path )
   fi
+
+  if (( $+commands[vim] )) && [[ ! -v EDITOR ]]; then
+    declare -gx EDITOR=vim
+  fi
 }
 
 zmodload -F zsh/parameter +p:functions
