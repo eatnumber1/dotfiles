@@ -2,10 +2,7 @@
 declare -U fpath
 fpath+=( $HOME/.zsh/functions )
 
-# Load some "core" functions
-autoload -U is_osx source_if_exists
-
-zmodload -F zsh/parameter +p:commands
+autoload -U is_osx source_if_exists is-callable export_or_warn
 
 source_if_exists $HOME/.zshenv.local
 
@@ -76,7 +73,7 @@ source_if_exists $HOME/.zshenv.local
     typeset -g skip_global_compinit=1
   fi
 
-  if (( $+commands[ruby] && $+commands[gem] )); then
+  if is-callable ruby && is-callable gem; then
     local ruby_output
     if ruby_output="$(ruby -r rubygems -e 'puts Gem.user_dir')"; then
       declare -gx GEM_HOME
@@ -100,8 +97,17 @@ source_if_exists $HOME/.zshenv.local
     path=( $HOME/bin $path )
   fi
 
-  if (( $+commands[vim] )) && [[ ! -v EDITOR ]]; then
+  if is-callable vim; then
     declare -gx EDITOR=vim
+    declare -gx VISUAL=vim
+  else
+    echo "vim not found in path" >&2
+  fi
+
+  if is-callable less; then
+    declare -gx PAGER=less
+  else
+    echo "less not found in path" >&2
   fi
 }
 

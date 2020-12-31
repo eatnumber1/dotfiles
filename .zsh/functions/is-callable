@@ -1,0 +1,4 @@
+#!/bin/zsh
+# Based off of zprezto's helper module's is-callable.
+
+(( $+commands[$1] || $+functions[$1] || $+aliases[$1] || $+builtins[$1] ))
