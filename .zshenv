@@ -62,7 +62,7 @@ source_if_exists $HOME/.zshenv.local
     $fpath
   )
 
-  if [[ -v $LANG && -z "$LANG" ]]; then
+  if [[ -v LANG && -z "$LANG" ]]; then
     export LANG="en_US.UTF-8"
     local locale_output
     if locale_output="$(locale)"; then
