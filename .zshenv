@@ -81,12 +81,19 @@ source_if_exists $HOME/.zshenv.local
     if ruby_output="$(ruby -r rubygems -e 'puts Gem.user_dir')"; then
       declare -gx GEM_HOME
       GEM_HOME="$ruby_output"
-      path+=( "$GEM_HOME/bin" )
+      path=( "$GEM_HOME/bin" $path )
     fi
   fi
 
-  if [[ -d $HOME/.local/bin ]]; then
+  if [[ -d $HOME/.npm-packages ]]; then
+    declare -g NPM_PACKAGES="$HOME/.npm-packages"
+    path=( $NPM_PACKAGES/bin $path )
+    manpath=( $NPM_PACKAGES/share/man $path )
+  fi
+
+  if [[ -d $HOME/.local ]]; then
     path=( $HOME/.local/bin $path )
+    manpath=( $HOME/.local/share/man $path )
   fi
 
   if [[ -d $HOME/bin ]]; then

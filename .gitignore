@@ -52,3 +52,5 @@ bin/*
 
 !.travis.yml
 !.travis/
+
+!.npmrc
