@@ -1,11 +1,13 @@
 #!/bin/zsh
 # Initialize the run-help environment.
 
+zmodload -F zsh/parameter +p:aliases
+
 function init-run-help {
   local dir helper
   setopt nullglob
 
-  unalias run-help
+  (( $+aliases[run-help] )) && unalias run-help
   autoload -Uz run-help
 
   # Load all of the run-help-* helpers in the fpath.
