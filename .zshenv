@@ -137,6 +137,6 @@ fi
 # correct it in .zprofile.
 if is_osx && [[ -f /etc/zprofile ]]; then
   typeset -a saved_path saved_manpath
-  saved_path=( $path )
+  saved_path=( "${path[@]}" )
   saved_manpath=( "${manpath[@]}" )
 fi
