@@ -117,6 +117,20 @@ if (( $+functions[zshenv_post_hook] )); then
   unfunction zshenv_post_hook
 fi
 
+() {
+  autoload is_osx
+  is_osx || return
+  local var
+  local val
+  for var in PATH MANPATH; do
+    val="$(launchctl getenv "$var")" || continue
+    if [[ "$val" != "${(P)var}" ]]; then
+      echo "Warning: Launchd environment variable $var does not match the " \
+           "current environment." >&2
+    fi
+  done
+}
+
 # On GMac (and maybe all of OSX), /etc/zprofile runs path_helper(8).
 # path_helper then moves the system directories in front of anything that is
 # set here. Therefore, to work around this we save the path and manpath and
