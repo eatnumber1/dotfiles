@@ -108,3 +108,17 @@ if (( $+functions[zshrc_post_hook] )); then
   zshrc_post_hook
   unfunction zshrc_post_hook
 fi
+
+() {
+  autoload is_osx
+  is_osx || return
+  local elem
+  # Emit a warning if there's no empty element in manpath.
+  for elem in "${manpath[@]}"; do
+    [[ -z "$elem" ]] && return
+  done
+  # On OSX, the man binary has custom patches to search xcode paths for man
+  # pages, but only when there is an empty element in the manpath.
+  # https://gist.github.com/yiding/11270916
+  echo "Warning: No empty element found in manpath. XCode man pages will not be available." >&2
+}
