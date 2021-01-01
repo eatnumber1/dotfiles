@@ -32,7 +32,7 @@ source_if_exists $HOME/.zshenv.local
   if is_osx && [[ -f /usr/libexec/path_helper ]]; then
     local helper_output
     if helper_output="$(/usr/libexec/path_helper -s)"; then
-      eval "$helper_output"
+      emulate -R sh -c "$helper_output"
     fi
   fi
 
@@ -85,12 +85,12 @@ source_if_exists $HOME/.zshenv.local
   if [[ -d $HOME/.npm-packages ]]; then
     declare -g NPM_PACKAGES="$HOME/.npm-packages"
     path=( $NPM_PACKAGES/bin $path )
-    manpath=( $NPM_PACKAGES/share/man $path )
+    manpath=( $NPM_PACKAGES/share/man $manpath )
   fi
 
   if [[ -d $HOME/.local ]]; then
     path=( $HOME/.local/bin $path )
-    manpath=( $HOME/.local/share/man $path )
+    manpath=( $HOME/.local/share/man $manpath )
   fi
 
   if [[ -d $HOME/bin ]]; then
