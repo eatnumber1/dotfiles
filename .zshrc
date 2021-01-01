@@ -96,7 +96,7 @@ autoload -U is-callable
 
 autoload -U prio
 
-# Gotta set these outside the function due to local_options.
+# Gotta set options outside the function due to local_options.
 setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK RM_STAR_SILENT
 setopt INC_APPEND_HISTORY_TIME
 autoload -U is-at-least

@@ -8,7 +8,7 @@ if is_osx && [[ -f /etc/zprofile ]]; then
   # .zshenv, and correct it here.
   if [[ -v saved_path ]]; then
     # This relies on path being declared with -U to deduplicate it.
-    path=( $saved_path $path )
+    path=( "${saved_path[@]}" "${path[@]}" )
     unset saved_path
   fi
   if [[ -v saved_manpath ]]; then

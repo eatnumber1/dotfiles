@@ -56,7 +56,7 @@ source_if_exists $HOME/.zshenv.local
   fpath=(
     $HOME/.zsh.local/functions
     $HOME/.zsh/functions
-    $fpath
+    "${fpath[@]}"
   )
 
   if [[ -v LANG && -z "$LANG" ]]; then
@@ -78,23 +78,23 @@ source_if_exists $HOME/.zshenv.local
     if ruby_output="$(ruby -r rubygems -e 'puts Gem.user_dir')"; then
       declare -gx GEM_HOME
       GEM_HOME="$ruby_output"
-      path=( "$GEM_HOME/bin" $path )
+      path=( "$GEM_HOME/bin" "${path[@]}" )
     fi
   fi
 
   if [[ -d $HOME/.npm-packages ]]; then
     declare -g NPM_PACKAGES="$HOME/.npm-packages"
     path=( $NPM_PACKAGES/bin $path )
-    manpath=( $NPM_PACKAGES/share/man $manpath )
+    manpath=( $NPM_PACKAGES/share/man "${manpath[@]}" )
   fi
 
   if [[ -d $HOME/.local ]]; then
-    path=( $HOME/.local/bin $path )
-    manpath=( $HOME/.local/share/man $manpath )
+    path=( $HOME/.local/bin "${path[@]}" )
+    manpath=( $HOME/.local/share/man "${manpath[@]}" )
   fi
 
   if [[ -d $HOME/bin ]]; then
-    path=( $HOME/bin $path )
+    path=( $HOME/bin "${path[@]}" )
   fi
 
   if is-callable vim; then
