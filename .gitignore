@@ -54,3 +54,7 @@ bin/*
 !.travis/
 
 !.npmrc
+
+!Sources/
+Sources/*
+!Sources/spark/
