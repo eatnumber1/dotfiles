@@ -119,7 +119,7 @@ fi
 
 () {
   autoload is_osx
-  is_osx || return
+  is_osx || return 0
   local var
   local val
   for var in PATH MANPATH; do

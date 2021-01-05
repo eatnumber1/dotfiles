@@ -111,7 +111,7 @@ fi
 
 () {
   autoload is_osx
-  is_osx || return
+  is_osx || return 0
   local elem
   # Emit a warning if there's no empty element in manpath.
   for elem in "${manpath[@]}"; do
