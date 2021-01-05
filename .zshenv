@@ -124,11 +124,10 @@ fi
   local val
   for var in PATH MANPATH; do
     val="$(launchctl getenv "$var")" || continue
-    val="foo:bar:baz"
     if [[ "$val" != "${(P)var}" ]]; then
       echo "Warning: Launchd environment variable $var does not match the" \
            "current environment. Its value is:" >&2
-      printf "\t'%s'\n" "${(@s/:/)val}"
+      printf "\t'%s'\n" "${(@s/:/)val}" >&2
     fi
   done
 }
