@@ -119,15 +119,36 @@ fi
 
 () {
   autoload is_osx
+  local var launchctl_val local_val
+  local -a launchctl_val_a local_val_a
+  local -a missing_from_local missing_from_launchctl
+
   is_osx || return 0
-  local var
-  local val
+  [[ -o interactive ]] || return 0
+
   for var in PATH MANPATH; do
-    val="$(launchctl getenv "$var")" || continue
-    if [[ "$val" != "${(P)var}" ]]; then
-      echo "Warning: Launchd environment variable $var does not match the" \
-           "current environment. Its value is:" >&2
-      printf "\t'%s'\n" "${(@s/:/)val}" >&2
+    launchctl_val="$(launchctl getenv "$var")" || continue
+    # Convert the ':' delimited string to an array.
+    launchctl_val_a=( "${(@s/:/)launchctl_val}" )
+    # Capture the value of the local scalar variable
+    local_val="${(P)var}"
+    # Convert the ':' delimited string to an array.
+    local_val_a=( "${(@s/:/)local_val}" )
+    # Compute local - launchctl
+    missing_from_local=( "${(@)local_val_a:|launchctl_val_a}" )
+    # Compute launchctl - local
+    missing_from_launchctl=( "${(@)launchctl_val_a:|local_val_a}" )
+
+    if [[ ${#missing_from_local} -ne 0 || ${#missing_from_launchctl} -ne 0 ]]; then
+      echo "Warning: Launchd environment variable $var does not match the current environment." >&2
+      if [[ ${#missing_from_launchctl} -ne 0 ]]; then
+        echo "The current environment contains the following which launchctl does not:" >&2
+        printf "\t'%s'\n" "${missing_from_launchctl[@]}" >&2
+      fi
+      if [[ ${#missing_from_local} -ne 0 ]]; then
+        echo "The launchctl environment contains the following which the current one does not:" >&2
+        printf "\t'%s'\n" "${missing_from_local[@]}" >&2
+      fi
     fi
   done
 }
