@@ -59,3 +59,5 @@ bin/*
 !Sources/
 Sources/*
 !Sources/spark/
+
+!.alacritty.yml
