@@ -60,11 +60,11 @@ bin/*
 Sources/*
 !Sources/spark/
 
-!.config
+!.config/
 .config/*
 
-!.config/rclone
-!.config/alacritty
-.config/alacritty/alacritty.yml
+!.config/rclone/
+!.config/alacritty/
+.config/alacritty/alacritty-local.yml
 
 !.netrc
