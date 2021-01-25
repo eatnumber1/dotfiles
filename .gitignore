@@ -67,3 +67,5 @@ Sources/*
 !.config/rclone
 .config/rclone/*
 !.config/rclone/rclone.conf
+
+!.netrc
