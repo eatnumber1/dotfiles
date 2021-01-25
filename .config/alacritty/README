@@ -1,3 +1,9 @@
+Alacritty's config is parsed in a whole-file-first manner, meaning that if the
+main alacritty.yml was the git tracked global one, local overrides would be
+impossible. Instead, alacritty.yml is the local one and it needs to import the
+global one explicitly.
+
+
 On Windows, you need to
 
 touch /mnt/c/Users/eatnu/AppData/Roaming/Alacritty/alacritty.yml
