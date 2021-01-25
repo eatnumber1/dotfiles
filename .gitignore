@@ -61,3 +61,9 @@ Sources/*
 !Sources/spark/
 
 !.alacritty.yml
+
+!.config
+.config/*
+!.config/rclone
+.config/rclone/*
+!.config/rclone/rclone.conf
