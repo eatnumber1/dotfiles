@@ -1,0 +1,5 @@
+On Windows, you need to
+
+touch /mnt/c/Users/eatnu/AppData/Roaming/Alacritty/alacritty.yml
+
+in order to enact changes in live terminals.
