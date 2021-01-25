@@ -1,0 +1,21 @@
+shell:
+  program: "C:\\Windows\\System32\\wsl.exe"
+
+font:
+  normal:
+    family: Terminus (TTF) for Windows
+    style: Medium
+
+  bold:
+    family: Terminus (TTF) for Windows
+    style: Bold
+
+  italic:
+    family: Terminus (TTF) for Windows
+    style: Italic
+
+  bold_italic:
+    family: Terminus (TTF) for Windows
+    style: Bold Italic
+
+  size: 16.0
