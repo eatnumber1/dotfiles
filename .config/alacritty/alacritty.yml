@@ -573,3 +573,7 @@ key_bindings:
   - { key: B,  mods: Alt,           chars: "\x1bb"                       }
   - { key: D,  mods: Alt,           chars: "\x1bd"                       }
   - { key: F,  mods: Alt,           chars: "\x1bf"                       }
+
+import:
+  - "~/.config/alacritty/alacritty-local.yml"
+  - "~/wslhome/.config/alacritty/alacritty-local.yml"
