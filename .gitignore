@@ -62,10 +62,8 @@ Sources/*
 
 !.config
 .config/*
-!.config/rclone
-.config/rclone/*
-!.config/rclone/rclone.conf
 
+!.config/rclone
 !.config/alacritty
 
 !.netrc
