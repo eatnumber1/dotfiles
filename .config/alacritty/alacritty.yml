@@ -7,11 +7,9 @@
 import:
   # Import the global config first
   - "~/.config/alacritty/global.yml"
-  - "~/wslhome/.config/alacritty/global.yml"
 
   # Windows-specific global config (overrides some of the global config)
-  - "~/wslhome/.config/alacritty/windows-global.yml"
+  - "~/.config/alacritty/windows-global.yml"
 
   # Import the local config
   - "~/.config/alacritty/local.yml"
-  - "~/wslhome/.config/alacritty/local.yml"
