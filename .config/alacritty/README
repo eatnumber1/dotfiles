@@ -3,3 +3,8 @@ On Windows, you need to
 touch /mnt/c/Users/eatnu/AppData/Roaming/Alacritty/alacritty.yml
 
 in order to enact changes in live terminals.
+
+On Windows, you probably want to add the following to local.yml:
+
+import:
+  - "~/.config/alacritty/windows-global.yml"
