@@ -92,6 +92,8 @@ autoload -U is-callable
 
   autoload init-run-help
   init-run-help
+
+  declare -gx BASE16_SHELL="$HOME/.config/base16-shell"
 }
 
 autoload -U prio

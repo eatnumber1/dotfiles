@@ -64,6 +64,8 @@ Sources/*
 .config/*
 
 !.config/rclone/
+!.config/base16-shell/
+
 !.config/alacritty/
 .config/alacritty/alacritty-local.yml
 
