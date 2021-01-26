@@ -5,11 +5,5 @@
 # file.  With this file, we explicitly import the global and then the local
 # config files.
 import:
-  # Import the global config first
   - "~/.config/alacritty/global.yml"
-
-  # Windows-specific global config (overrides some of the global config)
-  - "~/.config/alacritty/windows-global.yml"
-
-  # Import the local config
   - "~/.config/alacritty/local.yml"

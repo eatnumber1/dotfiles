@@ -67,6 +67,6 @@ Sources/*
 !.config/base16-shell/
 
 !.config/alacritty/
-.config/alacritty/alacritty-local.yml
+.config/alacritty/local.yml
 
 !.netrc
