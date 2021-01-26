@@ -53,7 +53,9 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-color inkpot
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-irblack
+"colorscheme inkpot  " Old color theme
 
 " For all text files set 'textwidth' to 80 characters.
 autocmd FileType text setlocal textwidth=80

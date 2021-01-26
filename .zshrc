@@ -92,9 +92,14 @@ autoload -U is-callable
 
   autoload init-run-help
   init-run-help
-
-  declare -gx BASE16_SHELL="$HOME/.config/base16-shell"
 }
+
+# Base16 needs to be set up outside of the above function since its sourced
+# script creates globals that would otherwise emit warnings.
+export BASE16_SHELL="$HOME/.config/base16-shell"
+eval "$("$BASE16_SHELL/profile_helper.sh")"
+# Gives us environment variables used by the vim theme.
+source $BASE16_SHELL/scripts/base16-irblack.sh
 
 autoload -U prio
 
