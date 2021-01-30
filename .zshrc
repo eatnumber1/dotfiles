@@ -92,6 +92,9 @@ autoload -U is-callable
 
   autoload init-run-help
   init-run-help
+
+  # Disable gnu ls quoting
+  declare -gx QUOTING_STYLE=literal
 }
 
 # Base16 needs to be set up outside of the above function since its sourced
