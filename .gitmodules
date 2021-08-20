@@ -71,3 +71,6 @@
 [submodule ".vim/bundle/base16-vim"]
 	path = .vim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
+[submodule "/Users/eatnumber1/.vim/bundle/vim-jsonnet"]
+	path = /Users/eatnumber1/.vim/bundle/vim-jsonnet
+	url = https://github.com/google/vim-jsonnet
