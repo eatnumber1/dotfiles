@@ -69,4 +69,6 @@ Sources/*
 !.config/alacritty/
 .config/alacritty/local.yml
 
+!.config/starship.toml
+
 !.netrc
