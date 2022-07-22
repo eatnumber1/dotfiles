@@ -22,3 +22,6 @@ if [[ $OSTYPE =~ darwin.+ ]]; then
   # absolute path to bypass ssh-add on GMac.
   /usr/bin/ssh-add -K ~/.ssh/id_rsa
 fi
+
+echo "Installing Starship"
+curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $HOME/bin --yes
