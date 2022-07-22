@@ -1,13 +1,26 @@
-# Don't print a new line at the start of the prompt
+format = "$username$shlvl$directory$time$jobs$status$character"
+
+# Don't print a newline at the start of the prompt
 add_newline = false
 
+[directory]
+truncation_length = 5
+truncation_symbol = "…/"
 
+[directory.substitutions]
+"Documents" = ""
+"Downloads" = ""
+"Music" = ""
+"Pictures" = ""
+"depot/google3" = "³"
+"google3" = "³"
+"waymo" = ""
+"third_party/car" = "tp"
+"simulator/queue" = "simqueue"
+"sim/queue" = "simqueue"
 
-# Replace the "❯" symbol in the prompt with "➜"
-#[character]                            # The name of the module we are configuring is "character"
-#success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-
-
+[status]
+disabled = false
 
 [package]
 disabled = true
@@ -31,4 +44,11 @@ disabled = false
 disabled = true
 
 [shlvl]
+# Breaks screen sessions (for some reason)
+disabled = true
+
+[c]
+disabled = true
+
+[battery]
 disabled = true
