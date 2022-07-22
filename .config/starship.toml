@@ -1,4 +1,4 @@
-format = "$username$shlvl$directory$time$jobs$status$character"
+format = "$username$hostname$shlvl$directory$time$jobs$status$character"
 
 # Don't print a newline at the start of the prompt
 add_newline = false
@@ -18,6 +18,12 @@ truncation_symbol = "…/"
 "third_party/car" = "tp"
 "simulator/queue" = "simqueue"
 "sim/queue" = "simqueue"
+
+[hostname]
+format = "[$hostname]($style) in "
+
+[username]
+disabled = true
 
 [status]
 disabled = false
