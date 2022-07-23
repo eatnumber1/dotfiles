@@ -7,8 +7,8 @@ source_if_exists $HOME/.zshrc.local
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-# Source Prezto.
-source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+source ~/.zprezto/init.zsh
+source ~/.zplug/init.zsh
 
 zmodload -F zsh/parameter +p:commands
 autoload -U is-callable

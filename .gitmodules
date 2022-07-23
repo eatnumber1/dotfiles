@@ -74,3 +74,6 @@
 [submodule "/Users/eatnumber1/.vim/bundle/vim-jsonnet"]
 	path = .vim/bundle/vim-jsonnet
 	url = https://github.com/google/vim-jsonnet
+[submodule "/usr/local/google/home/eatnumber1/.zplug"]
+	path = /usr/local/google/home/eatnumber1/.zplug
+	url = git://github.com/zplug/zplug.git
