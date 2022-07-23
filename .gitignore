@@ -44,6 +44,7 @@
 bin/*
 !bin/homeproxy
 !bin/spark
+!bin/bkt*
 
 .dotfiles-*
 
