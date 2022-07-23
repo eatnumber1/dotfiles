@@ -25,3 +25,28 @@ fi
 
 echo "Installing Starship"
 curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $HOME/bin --yes
+
+echo "Installing bkt"
+() {
+  version="v0.5.4"
+  architecture="$(uname -m)"
+
+  case "$OSTYPE" in
+    linux-gnu*)
+      platform="linux-gnu"
+      vendor="unknown"
+      ;;
+    darwin*)
+      platform="darwin"
+      vendor="apple"
+      ;;
+    *)
+      echo "Unknown platform $OSTYPE, will not install bkt" >&2
+      return
+  esac
+
+  ln -s "$HOME/bin/bkt.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/bkt
+}
+
+
+734dc94
