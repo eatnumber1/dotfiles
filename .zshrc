@@ -8,16 +8,11 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 source ~/.zprezto/init.zsh
-source ~/.zplug/init.zsh
 
 zmodload -F zsh/parameter +p:commands
 autoload -U is-callable
 
 () {
-  emulate -L zsh
-  setopt function_argzero no_unset warn_create_global
-  #setopt xtrace
-
   if is-callable keychain; then
     local -a keychain
     keychain=( keychain --quiet --inherit any --eval )
@@ -29,76 +24,74 @@ autoload -U is-callable
       emulate -R sh -c "$keychain_output"
     fi
   fi
-
-  # Undo some prezto zsh aliases.
-  # aliases which disable spelling correction or globbing, which I don't like
-  unalias cp ln mkdir mv rm scp du rsync
-  # ls helpers that I don't like
-  unalias l ll lr la lm lx lk lt lc lu sl
-  # aliases that I just don't care to learn
-  unalias get
-
-  alias cp='nocorrect cp'
-  alias ln='nocorrect ln'
-  alias mkdir='nocorrect mkdir'
-  alias rm='nocorrect rm'
-  alias df='(){ if [[ $# -eq 0 ]] { df -h } else { df "$@" } }'
-
-  if is-callable cygstart; then
-    alias open="cygstart"
-  fi
-
-  alias l="ls"
-  alias sl="ls"
-  alias s="ls"
-
-  if is-callable mvim; then
-    if ! is-callable gvim; then
-      alias gvim="mvim"
-    fi
-  elif is-callable gvim; then
-    alias mvim="gvim"
-  fi
-
-  if ! pstree -V &> /dev/null; then
-    alias pstree="pstree -g3"
-  fi
-
-  # Set the default Less options.
-  export LESS="-F -X -i -M -R -S -w -z-4 -a"
-
-  # Set the Less input preprocessor.
-  autoload -U lesspipe
-  lesspipe -x
-
-  if is_osx; then
-    declare -gx BROWSER='open'
-  fi
-
-  is-callable slrn && declare -gx NNTPSERVER="snews://news.csh.rit.edu"
-
-  if (( $+commands[bwm-ng] )) {
-    function bwm-ng {
-      if [[ $# -eq 0 ]] {
-        command bwm-ng -u bits -d
-      } else {
-        command bwm-ng "$@"
-      }
-    }
-  }
-
-  autoload -U trim
-  autoload -U mand
-
-  autoload init-run-help
-  init-run-help
-
-  # Disable gnu ls quoting
-  declare -gx QUOTING_STYLE=literal
 }
 
-# Base16 needs to be set up outside of the above function since its sourced
-# script creates globals that would otherwise emit warnings.
+# Undo some prezto zsh aliases.
+# aliases which disable spelling correction or globbing, which I don't like
+unalias cp ln mkdir mv rm scp du rsync
+# ls helpers that I don't like
+unalias l ll lr la lm lx lk lt lc lu sl
+# aliases that I just don't care to learn
+unalias get
+
+alias cp='nocorrect cp'
+alias ln='nocorrect ln'
+alias mkdir='nocorrect mkdir'
+alias rm='nocorrect rm'
+alias df='(){ if [[ $# -eq 0 ]] { df -h } else { df "$@" } }'
+
+if is-callable cygstart; then
+  alias open="cygstart"
+fi
+
+alias l="ls"
+alias sl="ls"
+alias s="ls"
+
+if is-callable mvim; then
+  if ! is-callable gvim; then
+    alias gvim="mvim"
+  fi
+elif is-callable gvim; then
+  alias mvim="gvim"
+fi
+
+if ! pstree -V &> /dev/null; then
+  alias pstree="pstree -g3"
+fi
+
+# Set the default Less options.
+export LESS="-F -X -i -M -R -S -w -z-4 -a"
+
+# Set the Less input preprocessor.
+autoload -U lesspipe
+lesspipe -x
+
+if is_osx; then
+  export BROWSER='open'
+fi
+
+is-callable slrn && export NNTPSERVER="snews://news.csh.rit.edu"
+
+if (( $+commands[bwm-ng] )) {
+  function bwm-ng {
+    if [[ $# -eq 0 ]] {
+      command bwm-ng -u bits -d
+    } else {
+      command bwm-ng "$@"
+    }
+  }
+}
+
+autoload -U trim
+autoload -U mand
+
+autoload init-run-help
+init-run-help
+
+# Disable gnu ls quoting
+declare -gx QUOTING_STYLE=literal
+
 export BASE16_SHELL="$HOME/.config/base16-shell"
 eval "$("$BASE16_SHELL/profile_helper.sh")"
 # Gives us environment variables used by the vim theme.
