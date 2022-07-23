@@ -17,4 +17,4 @@ case "$OSTYPE" in
     exit 1
 esac
 
-exec "${0:A:h}/bkt.${version}.${architecture}-${vendor}-${platform}"
+exec "${0:A:h}/bkt.${version}.${architecture}-${vendor}-${platform}" "$@"
