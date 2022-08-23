@@ -20,7 +20,7 @@ cp .ssh/.authorized_keys2 .ssh/authorized_keys2
 if [[ $OSTYPE =~ darwin.+ ]]; then
   # GMacs have a custom ssh-add command that doesn't support -K. Use an
   # absolute path to bypass ssh-add on GMac.
-  /usr/bin/ssh-add -K ~/.ssh/id_rsa
+  /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
 fi
 
 echo "Installing Starship"
