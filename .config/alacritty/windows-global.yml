@@ -19,3 +19,6 @@ font:
     style: Bold Italic
 
   size: 16.0
+
+key_bindings:
+  - { key: N,   mods: Alt,           action: CreateNewWindow }
