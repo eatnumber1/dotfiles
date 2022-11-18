@@ -45,7 +45,6 @@ echo "Installing bkt"
       return
   esac
 
-  set -x
   zmodload -F zsh/parameter +p:commands
   if [[ $vendor == "apple" ]] && (( ! ${+commands[bkt]} && ${+commands[brew]} )); then
     brew install bkt
