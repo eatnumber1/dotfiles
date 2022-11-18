@@ -1,6 +1,7 @@
 [user]
 	name = Russell Harmon
 	email = eatnumber1@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+vT7wnXpD1W/K1knMxWOrnGO4/1wI8R/yLu6kM/h9n
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore.global
@@ -30,3 +31,9 @@
 	helper = osxkeychain
 [pull]
 	rebase = true
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+	gpgsign = true
