@@ -45,5 +45,11 @@ echo "Installing bkt"
       return
   esac
 
-  ln -sf "$HOME/bin/bkt.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/bkt
+  set -x
+  zmodload -F zsh/parameter +p:commands
+  if [[ $vendor == "apple" ]] && (( ! ${+commands[bkt]} && ${+commands[brew]} )); then
+    brew install bkt
+  else
+    ln -sf "$HOME/bin/bkt.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/bkt
+  fi
 }
