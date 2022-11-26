@@ -3,19 +3,19 @@ shell:
 
 font:
   normal:
-    family: Terminus (TTF) for Windows
+    family: TerminessTTF Nerd Font Mono
     style: Medium
 
   bold:
-    family: Terminus (TTF) for Windows
+    family: TerminessTTF Nerd Font Mono
     style: Bold
 
   italic:
-    family: Terminus (TTF) for Windows
+    family: TerminessTTF Nerd Font Mono
     style: Italic
 
   bold_italic:
-    family: Terminus (TTF) for Windows
+    family: TerminessTTF Nerd Font Mono
     style: Bold Italic
 
   size: 16.0
