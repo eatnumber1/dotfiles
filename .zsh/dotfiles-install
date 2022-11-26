@@ -23,9 +23,6 @@ if [[ $OSTYPE =~ darwin.+ ]]; then
   /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
 fi
 
-echo "Installing Starship"
-curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir $HOME/bin --yes
-
 echo "Installing bkt"
 () {
   version="v0.5.4"
@@ -52,3 +49,8 @@ echo "Installing bkt"
     ln -sf "$HOME/bin/bkt.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/bkt
   fi
 }
+
+autoload is-at-least
+if ! is-at-least 5.2 $ZSH_VERSION; then
+  echo "Need at least zsh 5.2 for spaceship prompt." >&2
+fi

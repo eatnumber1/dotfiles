@@ -97,8 +97,6 @@ eval "$("$BASE16_SHELL/profile_helper.sh")"
 # Gives us environment variables used by the vim theme.
 source $BASE16_SHELL/scripts/base16-irblack.sh
 
-eval "$(starship init zsh)"
-
 autoload -U prio
 
 # Gotta set options outside the function due to local_options.

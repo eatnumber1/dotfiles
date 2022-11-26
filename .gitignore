@@ -72,6 +72,6 @@ Sources/*
 !.config/alacritty/
 .config/alacritty/local.yml
 
-!.config/starship.toml
+!.config/spaceship.zsh
 
 !.netrc
