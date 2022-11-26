@@ -73,4 +73,4 @@
 	url = https://github.com/chriskempson/base16-vim.git
 [submodule ".zprezto-contrib"]
 	path = .zprezto-contrib
-	url = https://github.com/belak/prezto-contrib
+	url = https://github.com/eatnumber1/prezto-contrib
