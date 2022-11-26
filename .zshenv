@@ -73,6 +73,10 @@ source_if_exists $HOME/.zshenv.local
     typeset -g skip_global_compinit=1
   fi
 
+  if [[ -d $HOME/bin ]]; then
+    path=( $HOME/bin "${path[@]}" )
+  fi
+
   if is-callable ruby && is-callable gem; then
     local ruby_output
     if ruby_output="$(bkt -- ruby -r rubygems -e 'puts Gem.user_dir')"; then
@@ -91,10 +95,6 @@ source_if_exists $HOME/.zshenv.local
   if [[ -d $HOME/.local ]]; then
     path=( $HOME/.local/bin "${path[@]}" )
     manpath=( $HOME/.local/share/man "${manpath[@]}" )
-  fi
-
-  if [[ -d $HOME/bin ]]; then
-    path=( $HOME/bin "${path[@]}" )
   fi
 
   if is-callable vim; then
