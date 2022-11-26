@@ -30,5 +30,3 @@
 	helper = osxkeychain
 [pull]
 	rebase = true
-[gpg]
-	format = ssh
