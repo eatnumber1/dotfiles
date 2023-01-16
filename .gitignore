@@ -75,3 +75,4 @@ Sources/*
 !.config/spaceship.zsh
 
 !.netrc
+!.dir_colors

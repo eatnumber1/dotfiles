@@ -53,8 +53,11 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-irblack
+if exists('$BASE16_THEME')
+    \ && (!exists('g:colors_name') || g:colors_name != 'base16-$BASE16_THEME')
+  let base16colorspace=256
+  colorscheme base16-$BASE16_THEME
+endif
 "colorscheme inkpot  " Old color theme
 
 " For all text files set 'textwidth' to 80 characters.
