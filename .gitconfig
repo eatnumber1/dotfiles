@@ -24,9 +24,12 @@
 	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 [diff]
 	algorithm = patience
-[sendemail]
-	from = eatnumber1@google.com
 [credential]
 	helper = osxkeychain
 [pull]
 	rebase = true
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpUser = eatnumber1@gmail.com
+	smtpServerPort = 587
