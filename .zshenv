@@ -79,7 +79,7 @@ source_if_exists $HOME/.zshenv.local
 
   if is-callable ruby && is-callable gem; then
     local ruby_output
-    if ruby_output="$(bkt -- ruby -r rubygems -e 'puts Gem.user_dir')"; then
+    if ruby_output="$(bkt --ttl=1h -- ruby -r rubygems -e 'puts Gem.user_dir')"; then
       declare -gx GEM_HOME
       GEM_HOME="$ruby_output"
       path=( "$GEM_HOME/bin" "${path[@]}" )
