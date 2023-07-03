@@ -104,7 +104,7 @@ setopt BG_NICE HUP CHECK_JOBS TYPESET_SILENT HIST_FCNTL_LOCK RM_STAR_SILENT
 setopt INC_APPEND_HISTORY_TIME
 autoload -U is-at-least
 is-at-least 4.3.11 && setopt HASH_EXECUTABLES_ONLY
-unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME COMPLETE_IN_WORD
+unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME COMPLETE_IN_WORD CORRECT
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then
