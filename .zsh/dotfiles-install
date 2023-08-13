@@ -23,10 +23,13 @@ if [[ $OSTYPE =~ darwin.+ ]]; then
   /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
 fi
 
-echo "Installing bkt"
-() {
-  version="v0.5.4"
-  architecture="$(uname -m)"
+# Usage: install_cli $progname $version
+function install_cli {
+  local prog=$1
+  local version=$2
+  local architecture="$(uname -m)"
+
+  echo "Installing $prog"
 
   case "$OSTYPE" in
     linux-gnu*)
@@ -38,17 +41,23 @@ echo "Installing bkt"
       vendor="apple"
       ;;
     *)
-      echo "Unknown platform $OSTYPE, will not install bkt" >&2
+      echo "Unknown platform $OSTYPE, will not install $prog" >&2
       return
   esac
 
   zmodload -F zsh/parameter +p:commands
   if [[ $vendor == "apple" ]] && (( ! ${+commands[bkt]} && ${+commands[brew]} )); then
+    # TODO replace this with something generic
     brew install bkt
   else
-    ln -sf "$HOME/bin/bkt.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/bkt
+    ln -sf "$HOME/bin/${prog}.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/${prog}
   fi
 }
+
+install_cli bkt v0.5.4
+install_cli op v2.19.0
+
+unfunction install_cli
 
 autoload is-at-least
 if ! is-at-least 5.2 $ZSH_VERSION; then
