@@ -1,6 +1,6 @@
 [user]
 	name = Russell Harmon
-	email = eatnumber1@gmail.com
+	email = russ@har.mn
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore.global
@@ -31,5 +31,5 @@
 [sendemail]
 	smtpEncryption = tls
 	smtpServer = smtp.gmail.com
-	smtpUser = eatnumber1@gmail.com
+	smtpUser = russ@har.mn
 	smtpServerPort = 587
