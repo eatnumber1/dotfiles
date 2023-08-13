@@ -40,7 +40,7 @@
 !.ssh/id_rsa.pub
 !.ssh/google_compute_engine
 !.ssh/google_compute_engine.pub
-!.ssh/.authorized_keys2
+!.ssh/authorized_keys2
 
 !bin/
 bin/*
