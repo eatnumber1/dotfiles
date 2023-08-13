@@ -1,6 +1,7 @@
 [user]
 	name = Russell Harmon
 	email = russ@har.mn
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+vT7wnXpD1W/K1knMxWOrnGO4/1wI8R/yLu6kM/h9n
 [core]
 	ignorecase = false
 	excludesfile = ~/.gitignore.global
@@ -33,3 +34,7 @@
 	smtpServer = smtp.gmail.com
 	smtpUser = russ@har.mn
 	smtpServerPort = 587
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
