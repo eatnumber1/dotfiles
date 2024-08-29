@@ -54,8 +54,8 @@ function install_cli {
   fi
 }
 
-install_cli bkt v0.5.4
-install_cli op v2.19.0
+install_cli bkt v0.8.0
+install_cli op v2.30.0
 
 unfunction install_cli
 
