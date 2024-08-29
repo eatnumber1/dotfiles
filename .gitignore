@@ -73,6 +73,8 @@ Sources/*
 !.config/alacritty/
 .config/alacritty/local.yml
 
+!.config/kitty/
+
 !.config/spaceship.zsh
 
 !.netrc

@@ -74,3 +74,9 @@
 [submodule ".zprezto-contrib"]
 	path = .zprezto-contrib
 	url = https://github.com/eatnumber1/prezto-contrib
+[submodule ".vim/bundle/vim-kitty"]
+	path = .vim/bundle/vim-kitty
+	url = https://github.com/fladson/vim-kitty.git
+[submodule ".config/kitty/colors/base16-kitty"]
+	path = .config/kitty/colors/base16-kitty
+	url = https://github.com/kdrag0n/base16-kitty.git
