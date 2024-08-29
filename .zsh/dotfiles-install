@@ -3,6 +3,12 @@ emulate -L zsh
 setopt err_exit no_unset
 #setopt xtrace
 
+echo "Setting up kitty terminfo"
+tic -x -o ~/.terminfo ~/.config/kitty/kitty.terminfo 2>/dev/null
+if ! infocmp xterm-kitty >/dev/null; then
+  echo "Couldn't set up a terminfo db for xterm-kitty" >&2
+fi
+
 echo "Updating submodules"
 git submodule update --init --recursive
 
