@@ -112,3 +112,6 @@ autocmd BufRead,BufNewFile *.ebnf setf ebnf
 
 " Allows for correctly reading nsfplay sources.
 set fileencodings=ucs-bom,utf-8,default,sjis,latin1
+
+" Turn off mouse support
+set mouse-=a
