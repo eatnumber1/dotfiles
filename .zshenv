@@ -11,6 +11,8 @@ source_if_exists $HOME/.zshenv.local
   setopt function_argzero no_unset warn_create_global
   #setopt xtrace
 
+  typeset -gx BKT_CACHE_DIR="${TMPDIR:-/tmp}/bkt-$USER-cache"
+
   typeset -gU cdpath mailpath manpath path pythonpath pkg_config_path
   typeset -gUT INFOPATH infopath
   typeset -gUT PYTHONPATH pythonpath
