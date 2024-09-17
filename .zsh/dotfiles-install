@@ -3,31 +3,45 @@ emulate -L zsh
 setopt err_exit no_unset
 #setopt xtrace
 
-echo "Setting up kitty terminfo"
-tic -x -o ~/.terminfo ~/.config/kitty/kitty.terminfo 2>/dev/null
-if ! infocmp xterm-kitty >/dev/null; then
-  echo "Couldn't set up a terminfo db for xterm-kitty" >&2
-fi
+() {
+  echo "Updating submodules"
+  git submodule update --init --recursive
+}
 
-echo "Updating submodules"
-git submodule update --init --recursive
+() {
+  echo "Syntax checking dotfiles"
+  .zsh/syntax-check-dotfiles
+}
 
-.zsh/syntax-check-dotfiles
+() {
+  echo "Setting up kitty terminfo"
+  tic -x -o ~/.terminfo ~/.config/kitty/kitty.terminfo 2>/dev/null
+  if ! infocmp xterm-kitty >/dev/null; then
+    echo "Couldn't set up a terminfo db for xterm-kitty" >&2
+  fi
+}
 
-echo "Fixing permissions on the .ssh directory"
-zmodload -F zsh/parameter +p:commands
-if (( $+commands[restorecon] )) restorecon -R .ssh
-chmod go= .ssh
-for f (.ssh/*) if [[ -f "$f" ]] chmod go-w "$f"
+() {
+  echo "Fixing permissions on the .ssh directory"
+  zmodload -F zsh/parameter +p:commands
+  if (( $+commands[restorecon] )) restorecon -R .ssh
+  chmod go= .ssh
+  for f (.ssh/*) if [[ -f "$f" ]] chmod go-w "$f"
+}
 
-echo "Setting up authorized_keys2"
-cp .ssh/.authorized_keys2 .ssh/authorized_keys2
+() {
+  echo "Setting up authorized_keys2"
+  cp .ssh/.authorized_keys2 .ssh/authorized_keys2
+}
 
-if [[ $OSTYPE =~ darwin.+ ]]; then
-  # GMacs have a custom ssh-add command that doesn't support -K. Use an
-  # absolute path to bypass ssh-add on GMac.
-  /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
-fi
+() {
+  if [[ $OSTYPE =~ darwin.+ ]]; then
+    echo "Adding SSH key to apple keychain"
+    # GMacs have a custom ssh-add command that doesn't support -K. Use an
+    # absolute path to bypass ssh-add on GMac.
+    /usr/bin/ssh-add --apple-use-keychain ~/.ssh/id_rsa
+  fi
+}
 
 # Usage: install_cli $progname $version
 function install_cli {
