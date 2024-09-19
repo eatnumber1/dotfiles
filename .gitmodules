@@ -80,3 +80,6 @@
 [submodule ".config/kitty/colors/base16-kitty"]
 	path = .config/kitty/colors/base16-kitty
 	url = https://github.com/kdrag0n/base16-kitty.git
+[submodule ".vim/bundle/vim-jsonnet"]
+	path = .vim/bundle/vim-jsonnet
+	url = https://github.com/google/vim-jsonnet
