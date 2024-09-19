@@ -14,9 +14,6 @@
 	status = auto
 [github]
 	user = eatnumber1
-[include]
-	path = .gitconfig.local
-	path = .gitconfig.google
 [push]
 	default = upstream
 [alias]
@@ -38,3 +35,6 @@
 	format = ssh
 [commit]
 	gpgsign = true
+[include]
+	path = .gitconfig.google
+	path = .gitconfig.local
