@@ -30,7 +30,7 @@ autoload -U is-callable
 # aliases which disable spelling correction or globbing, which I don't like
 unalias cp ln mkdir mv rm scp du rsync
 # ls helpers that I don't like
-unalias l ll lr la lm lx lk lt lc lu sl
+unalias l ll lr la lm lx lk lt lc lu
 # aliases that I just don't care to learn
 unalias get
 
