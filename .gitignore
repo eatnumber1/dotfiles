@@ -5,6 +5,7 @@
 !.gitmodules
 !.gitconfig
 !.htoprc
+!.config/htop/htoprc
 !.toprc
 !.irssi
 .irssi/config.autosave
