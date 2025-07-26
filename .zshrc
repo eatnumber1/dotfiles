@@ -108,6 +108,12 @@ unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME COMPLETE_IN_WORD CORRECT
 # Set by the zprezto completion module; I don't like it.
 unsetopt COMPLETE_IN_WORD AUTO_PARAM_SLASH
 
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+# Disable path highlighting which does a filesystem call and hangs if the fs is
+# broken.
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
+
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then
   zshrc_post_hook
