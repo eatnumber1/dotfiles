@@ -93,9 +93,9 @@ init-run-help
 declare -gx QUOTING_STYLE=literal
 
 export BASE16_SHELL="$HOME/.config/base16-shell"
-export BASE16_THEME=irblack
+export BASE16_THEME=unikitty-light
 source "$BASE16_SHELL/profile_helper.sh"
-base16_irblack
+base16_unikitty-light
 
 autoload -U prio
 
