@@ -242,4 +242,7 @@ zstyle ':prezto:module:utility:diff' color 'yes'
 zstyle ':prezto:module:utility' safe-ops 'no'
 zstyle ':prezto:module:utility:ls' dirs-first 'no'
 
+# Disable spelling corrections.
+zstyle ':prezto:module:utility' correct 'no'
+
 # vim:filetype=zsh
