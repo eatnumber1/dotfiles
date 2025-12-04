@@ -111,6 +111,10 @@ source_if_exists $HOME/.zshenv.local
   else
     echo "less not found in path" >&2
   fi
+
+  if is-callable env_parallel.zsh; then
+    source $commands[env_parallel.zsh]
+  fi
 }
 
 zmodload -F zsh/parameter +p:functions
