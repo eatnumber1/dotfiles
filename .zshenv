@@ -11,7 +11,7 @@ source_if_exists $HOME/.zshenv.local
   setopt function_argzero no_unset warn_create_global
   #setopt xtrace
 
-  typeset -gx BKT_TMPDIR="${TMPDIR:-/tmp}/bkt-$USER-cache"
+  typeset -gx BKT_TMPDIR="${TMPDIR:-/tmp}/bkt-$USERNAME-cache"
 
   typeset -gU cdpath mailpath manpath path pythonpath pkg_config_path
   typeset -gUT INFOPATH infopath
@@ -111,6 +111,10 @@ source_if_exists $HOME/.zshenv.local
   else
     echo "less not found in path" >&2
   fi
+
+  if is-callable env_parallel.zsh; then
+    source $commands[env_parallel.zsh]
+  fi
 }
 
 zmodload -F zsh/parameter +p:functions
@@ -119,41 +123,42 @@ if (( $+functions[zshenv_post_hook] )); then
   unfunction zshenv_post_hook
 fi
 
-() {
-  autoload is_osx
-  local var launchctl_val local_val
-  local -a launchctl_val_a local_val_a
-  local -a missing_from_local missing_from_launchctl
-
-  is_osx || return 0
-  [[ -o interactive ]] || return 0
-
-  for var in PATH MANPATH; do
-    launchctl_val="$(launchctl getenv "$var")" || continue
-    # Convert the ':' delimited string to an array.
-    launchctl_val_a=( "${(@s/:/)launchctl_val}" )
-    # Capture the value of the local scalar variable
-    local_val="${(P)var}"
-    # Convert the ':' delimited string to an array.
-    local_val_a=( "${(@s/:/)local_val}" )
-    # Compute local - launchctl
-    missing_from_local=( "${(@)local_val_a:|launchctl_val_a}" )
-    # Compute launchctl - local
-    missing_from_launchctl=( "${(@)launchctl_val_a:|local_val_a}" )
-
-    if [[ ${#missing_from_local} -ne 0 || ${#missing_from_launchctl} -ne 0 ]]; then
-      echo "Warning: Launchd environment variable $var does not match the current environment." >&2
-      if [[ ${#missing_from_launchctl} -ne 0 ]]; then
-        echo "The current environment contains the following which launchctl does not:" >&2
-        printf "\t'%s'\n" "${missing_from_launchctl[@]}" >&2
-      fi
-      if [[ ${#missing_from_local} -ne 0 ]]; then
-        echo "The launchctl environment contains the following which the current one does not:" >&2
-        printf "\t'%s'\n" "${missing_from_local[@]}" >&2
-      fi
-    fi
-  done
-}
+# Disabled - maybe delete? The output was annoying and probably unnecessary.
+#() {
+#  autoload is_osx
+#  local var launchctl_val local_val
+#  local -a launchctl_val_a local_val_a
+#  local -a missing_from_local missing_from_launchctl
+#
+#  is_osx || return 0
+#  [[ -o interactive ]] || return 0
+#
+#  for var in PATH MANPATH; do
+#    launchctl_val="$(launchctl getenv "$var")" || continue
+#    # Convert the ':' delimited string to an array.
+#    launchctl_val_a=( "${(@s/:/)launchctl_val}" )
+#    # Capture the value of the local scalar variable
+#    local_val="${(P)var}"
+#    # Convert the ':' delimited string to an array.
+#    local_val_a=( "${(@s/:/)local_val}" )
+#    # Compute local - launchctl
+#    missing_from_local=( "${(@)local_val_a:|launchctl_val_a}" )
+#    # Compute launchctl - local
+#    missing_from_launchctl=( "${(@)launchctl_val_a:|local_val_a}" )
+#
+#    if [[ ${#missing_from_local} -ne 0 || ${#missing_from_launchctl} -ne 0 ]]; then
+#      echo "Warning: Launchd environment variable $var does not match the current environment." >&2
+#      if [[ ${#missing_from_launchctl} -ne 0 ]]; then
+#        echo "The current environment contains the following which launchctl does not:" >&2
+#        printf "\t'%s'\n" "${missing_from_launchctl[@]}" >&2
+#      fi
+#      if [[ ${#missing_from_local} -ne 0 ]]; then
+#        echo "The launchctl environment contains the following which the current one does not:" >&2
+#        printf "\t'%s'\n" "${missing_from_local[@]}" >&2
+#      fi
+#    fi
+#  done
+#}
 
 # On GMac (and maybe all of OSX), /etc/zprofile runs path_helper(8).
 # path_helper then moves the system directories in front of anything that is

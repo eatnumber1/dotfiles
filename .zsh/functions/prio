@@ -41,7 +41,7 @@ function prio {
 			${FN}_mean_ionice() { ${FN}_reply-if-avail ionice -c1 -n0 -- || : }
 			${FN}_mean_chrt() { ${FN}_reply-if-avail chrt -r 99 || : }
 
-			${FN}_low_ionice() { ${FN}_reply-if-avail ionice -c2 -n1 -- || : }
+			${FN}_low_ionice() { ${FN}_reply-if-avail ionice -c2 -n6 -- || : }
 			${FN}_low_chrt() { ${FN}_reply-if-avail chrt -b 0 || : }
 
 			${FN}_idle_ionice() { ${FN}_reply-if-avail ionice -c3 -- || : }

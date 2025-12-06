@@ -4,6 +4,8 @@
 # local overrides to globals would not work if this were the global config
 # file.  With this file, we explicitly import the global and then the local
 # config files.
-import:
-  - "~/.config/alacritty/global.yml"
-  - "~/.config/alacritty/local.yml"
+[general]
+import = [
+  "~/.config/alacritty/global.toml",
+  "~/.config/alacritty/local.yml",
+]

@@ -93,9 +93,9 @@ init-run-help
 declare -gx QUOTING_STYLE=literal
 
 export BASE16_SHELL="$HOME/.config/base16-shell"
-export BASE16_THEME=irblack
+export BASE16_THEME=tomorrow
 source "$BASE16_SHELL/profile_helper.sh"
-base16_irblack
+base16_tomorrow
 
 autoload -U prio
 
@@ -107,6 +107,12 @@ is-at-least 4.3.11 && setopt HASH_EXECUTABLES_ONLY
 unsetopt CLOBBER SHARE_HISTORY AUTO_RESUME COMPLETE_IN_WORD CORRECT
 # Set by the zprezto completion module; I don't like it.
 unsetopt COMPLETE_IN_WORD AUTO_PARAM_SLASH
+
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+# Disable path highlighting which does a filesystem call and hangs if the fs is
+# broken.
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 zmodload -F zsh/parameter +p:functions
 if (( $+functions[zshrc_post_hook] )); then
