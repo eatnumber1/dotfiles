@@ -83,5 +83,6 @@ Sources/*
 
 !.netrc
 !.dir_colors
+!.dir_colors.*
 
 !.gnupg

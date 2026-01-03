@@ -1,0 +1,823 @@
+# eatnumber1: Generated on 2026-01-02 from
+# https://github.com/eatnumber1/base16-gnu-dircolors using the workflow documented
+# at https://github.com/chriskempson/base16-builder-php and the schemes from
+# https://github.com/tinted-theming/base16-schemes for the irblack theme using
+# the commands
+#   cat ../../base16-schemes/irblack.yaml | php ../../base16-builder-php/base16-builder.php --template ../templates/default.mustache > gen_dircolors.py
+#   python3 ./gen_dircolors.py > ~/.dir_colors.irblack
+
+# Term Section
+
+TERM Eterm
+
+TERM ansi
+
+TERM color-xterm
+
+TERM con132x25
+
+TERM con132x30
+
+TERM con132x43
+
+TERM con132x60
+
+TERM con80x25
+
+TERM con80x28
+
+TERM con80x30
+
+TERM con80x43
+
+TERM con80x50
+
+TERM con80x60
+
+TERM cons25
+
+TERM console
+
+TERM cygwin
+
+TERM dtterm
+
+TERM eterm-color
+
+TERM fbterm
+
+TERM gnome
+
+TERM gnome-256color
+
+TERM jfbterm
+
+TERM konsole
+
+TERM konsole-256color
+
+TERM kterm
+
+TERM linux
+
+TERM linux-c
+
+TERM mach-color
+
+TERM mlterm
+
+TERM putty
+
+TERM putty-256color
+
+TERM rxvt
+
+TERM rxvt-256color
+
+TERM rxvt-cygwin
+
+TERM rxvt-cygwin-native
+
+TERM rxvt-unicode
+
+TERM rxvt-unicode256
+
+TERM rxvt-unicode-256color
+
+TERM screen
+
+TERM screen-256color
+
+TERM screen-256color-bce
+
+TERM screen-256color-s
+
+TERM screen-256color-bce-s
+
+TERM screen-bce
+
+TERM screen-w
+
+TERM screen.linux
+
+TERM st
+
+TERM st-meta
+
+TERM st-256color
+
+TERM st-meta-256color
+
+TERM vt100
+
+TERM xterm
+
+TERM xterm-16color
+
+TERM xterm-256color
+
+TERM xterm-88color
+
+TERM xterm-color
+
+TERM xterm-debian
+
+TERM xterm-termite
+
+
+
+# Special files
+
+
+
+NORMAL 00
+
+# reset to "normal" color
+
+RESET 0
+
+
+
+# regular file
+
+# No color at all
+
+FILE 00
+
+
+
+# files with executable flag
+
+# system red in bold and underlined
+
+EXEC 04;01;31
+
+
+
+# directory
+
+# white on dark blue background
+
+# DIR 48;5;4;38;5;15;
+
+# bold and reversed
+
+DIR 30;47;01
+
+
+
+# symbolic link. (If you set this to 'target' instead of a
+
+# numerical value, the color is as for the file pointed to.)
+
+# white on light green background
+
+LINK 48;5;2;38;5;15;
+
+
+
+# symlink to nonexistent file, or non-stat'able file
+
+# white on red background
+
+ORPHAN 48;5;160;38;5;15;
+
+
+
+# ORPHAN 48;5;160;38;5;15;01 # <-bold
+
+# ORPHAN 48;5;235;38;5;160 # red on gray
+
+
+
+# regular file with more than one link
+
+# No color at all
+
+MULTIHARDLINK 00
+
+
+
+# named pipe
+
+# white on dark green background
+
+FIFO 48;5;8;38;5;15
+
+
+
+# socket
+
+# white on light blue background
+
+SOCK 48;5;12;38;5;15;
+
+
+
+# block device driver
+
+# white on brown background
+
+BLK 48;5;1;38;5;15
+
+
+
+# door
+
+# white on orange background
+
+DOOR 48;5;9;38;5;15
+
+
+
+# character device driver
+
+# white on pink background
+
+CHR 48;5;5;38;5;15
+
+
+
+# file that is setuid (u+s)
+
+# white on cyan background
+
+SETUID 48;5;14;38;5;15
+
+
+
+# file that is setgid (g+s)
+
+# white on gray background
+
+SETGID 48;5;0;38;5;15
+
+
+
+# file with capability
+
+# white on yellow background
+
+CAPABILITY 48;5;226;38;5;15
+
+
+
+# dir that is sticky and other-writable (+t,o+w)
+
+# white on purple background
+
+STICKY_OTHER_WRITABLE 48;5;55;38;5;15
+
+
+
+# dir that is other-writable (o+w) and not sticky
+
+# white on violet background
+
+OTHER_WRITABLE 48;5;93;38;5;15
+
+
+
+# dir with the sticky bit set (+t) and not other-writable
+
+# white on pink background
+
+STICKY 48;5;129;38;5;15
+
+
+
+# Filetypes
+
+
+
+# archives
+
+.7z 00;38;5;59
+
+.Z 00;38;5;59
+
+.ace 00;38;5;59
+
+.apk 00;38;5;59
+
+.apk 00;38;5;59
+
+.arj 00;38;5;59
+
+.bz 00;38;5;59
+
+.bz2 00;38;5;59
+
+.cpio 00;38;5;59
+
+.deb 00;38;5;59
+
+.dz 00;38;5;59
+
+.egg 00;38;5;59
+
+.gem 00;38;5;59
+
+.gz 00;38;5;59
+
+.jad 00;38;5;59
+
+.jar 00;38;5;59
+
+.lz 00;38;5;59
+
+.lzh 00;38;5;59
+
+.lzma 00;38;5;59
+
+.rar 00;38;5;59
+
+.rpm 00;38;5;59
+
+.rpm 00;38;5;59
+
+.rz 00;38;5;59
+
+.tar 00;38;5;59
+
+.taz 00;38;5;59
+
+.tbz 00;38;5;59
+
+.tbz2 00;38;5;59
+
+.tgz 00;38;5;59
+
+.tlz 00;38;5;59
+
+.txz 00;38;5;59
+
+.tz 00;38;5;59
+
+.xz 00;38;5;59
+
+.z 00;38;5;59
+
+.zip 00;38;5;59
+
+.zoo 00;38;5;59
+
+
+
+# images
+
+.CR2 00;38;5;16
+
+.JPEG 00;38;5;16
+
+.JPG 00;38;5;16
+
+.bmp 00;38;5;16
+
+.cgm 00;38;5;16
+
+.dl 00;38;5;16
+
+.emf 00;38;5;16
+
+.eps 00;38;5;16
+
+.gif 00;38;5;16
+
+.ico 00;38;5;16
+
+.jpeg 00;38;5;16
+
+.jpg 00;38;5;16
+
+.mng 00;38;5;16
+
+.pbm 00;38;5;16
+
+.pcx 00;38;5;16
+
+.pgm 00;38;5;16
+
+.png 00;38;5;16
+
+.ppm 00;38;5;16
+
+.svg 00;38;5;16
+
+.svgz 00;38;5;16
+
+.tga 00;38;5;16
+
+.tif 00;38;5;16
+
+.tiff 00;38;5;16
+
+.xbm 00;38;5;16
+
+.xbm 00;38;5;16
+
+.xcf 00;38;5;16
+
+.xpm 00;38;5;16
+
+.xwd 00;38;5;16
+
+.yuv 00;38;5;16
+
+.xpm 00;38;5;16
+
+
+
+# audio
+
+.aac 00;38;5;16
+
+.au 00;38;5;16
+
+.au 00;38;5;16
+
+.axa 00;38;5;16
+
+.flac 00;38;5;16
+
+.flac 00;38;5;16
+
+.m4a 00;38;5;16
+
+.mid 00;38;5;16
+
+.mid 00;38;5;16
+
+.midi 00;38;5;16
+
+.midi 00;38;5;16
+
+.mka 00;38;5;16
+
+.mka 00;38;5;16
+
+.mp3 00;38;5;16
+
+.mp3 00;38;5;16
+
+.mpc 00;38;5;16
+
+.mpc 00;38;5;16
+
+.oga 00;38;5;16
+
+.ogg 00;38;5;16
+
+.ogg 00;38;5;16
+
+.ra 00;38;5;16
+
+.ra 00;38;5;16
+
+.spx 00;38;5;16
+
+.wav 00;38;5;16
+
+.wav 00;38;5;16
+
+.xspf 00;38;5;16
+
+
+
+# video
+
+.anx 00;38;5;160
+
+.asf 00;38;5;160
+
+.avi 00;38;5;160
+
+.axv 00;38;5;160
+
+.divx 00;38;5;160
+
+.flc 00;38;5;160
+
+.fli 00;38;5;160
+
+.flv 00;38;5;160
+
+.gl 00;38;5;160
+
+.m2ts 00;38;5;160
+
+.m2v 00;38;5;160
+
+.m4v 00;38;5;160
+
+.mkv 00;38;5;160
+
+.mov 00;38;5;160
+
+.mp4 00;38;5;160
+
+.mp4v 00;38;5;160
+
+.mpeg 00;38;5;160
+
+.mpg 00;38;5;160
+
+.nuv 00;38;5;160
+
+.ogm 00;38;5;160
+
+.ogv 00;38;5;160
+
+.ogx 00;38;5;160
+
+.qt 00;38;5;160
+
+.qt 00;38;5;160
+
+.rm 00;38;5;160
+
+.rmvb 00;38;5;160
+
+.vob 00;38;5;160
+
+.webm 00;38;5;160
+
+.wmv 00;38;5;160
+
+
+
+# sourcecode
+
+*1 01;38;5;208
+
+*rc 01;38;5;208
+
+.awk 01;38;5;208
+
+.bash 01;38;5;208
+
+.bat 01;38;5;208
+
+.c 01;38;5;208
+
+.cc 01;38;5;208
+
+.coffee 01;38;5;208
+
+.cpp 01;38;5;208
+
+.cs 01;38;5;208
+
+.el 01;38;5;208
+
+.go 01;38;5;208
+
+.h 01;38;5;208
+
+.hs 01;38;5;208
+
+.java 01;38;5;208
+
+.js 01;38;5;208
+
+.lisp 01;38;5;208
+
+.lua 01;38;5;208
+
+.php 01;38;5;208
+
+.pl 01;38;5;208
+
+.py 01;38;5;208
+
+.rb 01;38;5;208
+
+.s 01;38;5;208
+
+.scala 01;38;5;208
+
+.scm 01;38;5;208
+
+.sed 01;38;5;208
+
+.sh 01;38;5;208
+
+.swift 01;38;5;208
+
+.vim 01;38;5;208
+
+.vue 01;38;5;208
+
+.zsh 01;38;5;208
+
+.zsh-theme 01;38;5;208
+
+
+
+# other dev files
+
+*AUTHORS 01;38;5;178
+
+*CMakeLists.txt 01;38;5;178
+
+*Dockerfile 01;38;5;178
+
+*LICENSE 01;38;5;178
+
+*Makefile 01;38;5;178
+
+*README 01;38;5;178
+
+*Rakefile 01;38;5;178
+
+*Vagrantfile 01;38;5;178
+
+*build.xml 01;38;5;178
+
+*license 01;38;5;178
+
+.256dark 01;38;5;178
+
+.cabal 01;38;5;178
+
+.cfg 01;38;5;178
+
+.conf 01;38;5;178
+
+.config 01;38;5;178
+
+.svn 01;38;5;178
+
+.gitignore 01;38;5;178
+
+.gitmodules 01;38;5;178
+
+.gpg 01;38;5;178
+
+.ini 01;38;5;178
+
+.log 01;38;5;178
+
+.make 01;38;5;178
+
+.min 01;38;5;178
+
+.mk 01;38;5;178
+
+.sql 01;38;5;178
+
+
+
+# data
+
+.csv 01;38;5;64
+
+.dat 01;38;5;64
+
+.json 01;38;5;64
+
+.sqlite3 01;38;5;64
+
+.xml 01;38;5;64
+
+.yaml 01;38;5;64
+
+.yml 01;38;5;64
+
+
+
+# markup & style
+
+.css 01;38;5;67
+
+.htm 01;38;5;67
+
+.html 01;38;5;67
+
+.less 01;38;5;67
+
+.mustache 01;38;5;67
+
+.sass 01;38;5;67
+
+.scss 01;38;5;67
+
+.theme 01;38;5;67
+
+.xhtml 01;38;5;67
+
+.xml 01;38;5;67
+
+
+
+# unimportant files
+
+*# 00;38;5;61
+
+*~ 00;38;5;61
+
+.DS_Store 00;38;5;61
+
+.aux 00;38;5;61
+
+.bak 00;38;5;61
+
+.bbl 00;38;5;61
+
+.blg 00;38;5;61
+
+.bu 00;38;5;61
+
+.cache 00;38;5;61
+
+.class 00;38;5;61
+
+.elc 00;38;5;61
+
+.incomplete 00;38;5;61
+
+.lof 00;38;5;61
+
+.lol 00;38;5;61
+
+.lot 00;38;5;61
+
+.old 00;38;5;61
+
+.out 00;38;5;61
+
+.part 00;38;5;61
+
+.project 00;38;5;61
+
+.pyc 00;38;5;61
+
+.swp 00;38;5;61
+
+.temp 00;38;5;61
+
+.tmp 00;38;5;61
+
+.toc 00;38;5;61
+
+
+
+# text
+
+.markdown 00;38;5;97
+
+.md 00;38;5;97
+
+.mkd 00;38;5;97
+
+.nfo 00;38;5;97
+
+.org 00;38;5;97
+
+.pandoc 00;38;5;97
+
+.rst 00;38;5;97
+
+.tex 00;38;5;97
+
+.txt 00;38;5;97
+
+
+
+# office
+
+.doc 00;38;5;131
+
+.docx 00;38;5;131
+
+.ics 00;38;5;131
+
+.odp 00;38;5;131
+
+.ods 00;38;5;131
+
+.odt 00;38;5;131
+
+.odt 00;38;5;131
+
+.ppt 00;38;5;131
+
+.pptx 00;38;5;131
+
+.rtf 00;38;5;131
+
+.xls 00;38;5;131
+
+.xlsx 00;38;5;131
+
+
+
+# documents
+
+.epub 00;38;5;102
+
+.mobi 00;38;5;102
+
+.pdc 00;38;5;102
+
+.pdf 00;38;5;102
