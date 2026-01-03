@@ -1,0 +1,52 @@
+#!/bin/zsh
+# ZSH-compatible env_parallel
+#
+# Usage: zenv_parallel --flags -- args
+#
+# Note: the `--` is required.
+# Note: shell code is *not* evaluated normally (see zenv_parallel_call)
+#
+# This function is run from env_parallel so doesn't inherit globally set
+# options.
+function zenv_parallel {
+  local -a zenv_parallel_setopts
+  zenv_parallel_setopts=( $(setopt) )
+
+  function zenv_parallel_call {
+    emulate -L zsh
+    setopt "${zenv_parallel_setopts[@]}"
+    "$@"
+  }
+
+  local -a flags
+  local -i has_env_flag=0
+  while [[ "$1" != -- ]]; do
+    if [[ "$1" == --env ]]; then
+      has_env_flag=1
+    fi
+
+    flags+=( "$1" )
+    shift
+  done
+
+  if [[ "$1" != -- ]]; then
+    echo "Must have -- in zenv_parallel args" >&2
+    return 1
+  fi
+  shift
+
+  if (( has_env_flag )); then
+    flags+=( --env zenv_parallel_call )
+    flags+=( --env zread )
+  fi
+
+  () {
+    emulate -LR zsh
+    #setopt xtrace
+    env_parallel "${flags[@]}" -- zenv_parallel_call "$@"
+  } "$@"
+
+  unfunction zenv_parallel_call
+}
+
+zenv_parallel "$@"
