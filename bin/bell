@@ -1,0 +1,3 @@
+#!/bin/sh
+# https://superuser.com/questions/969080/how-to-ring-the-system-bell-from-command-line
+exec tput bel

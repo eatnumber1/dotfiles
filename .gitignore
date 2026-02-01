@@ -48,10 +48,11 @@
 
 !bin/
 bin/*
-!bin/homeproxy
-!bin/spark
+!bin/bell
 !bin/bkt.*
+!bin/homeproxy
 !bin/op.*
+!bin/spark
 
 .dotfiles-*
 
