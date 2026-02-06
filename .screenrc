@@ -9,4 +9,12 @@ bind '_' resize -5
 bind '+' resize +5
 bind '0' resize =
 
+# Recommended by https://www.gnu.org/software/screen/manual/html_node/Focus.html
+bind h focus left
+bind j focus down
+bind k focus up
+bind l focus right
+bind t focus top
+bind b focus bottom
+
 setenv SSH_AUTH_SOCK $HOME/.ssh/agent.sock
