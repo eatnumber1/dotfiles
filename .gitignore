@@ -70,6 +70,10 @@ Sources/*
 !.config/
 .config/*
 
+!.config/htop/
+.config/htop/*
+!.config/htop/.htoprc
+
 !.config/rclone/
 !.config/base16-shell/
 
