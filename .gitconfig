@@ -1,40 +1,40 @@
 [user]
-	name = Russell Harmon
-	email = russ@har.mn
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+vT7wnXpD1W/K1knMxWOrnGO4/1wI8R/yLu6kM/h9n
+  name = Russell Harmon
+  email = russ@har.mn
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB+vT7wnXpD1W/K1knMxWOrnGO4/1wI8R/yLu6kM/h9n
 [core]
-	ignorecase = false
-	excludesfile = ~/.gitignore.global
+  ignorecase = false
+  excludesfile = ~/.gitignore.global
 [color]
-	diff = auto
-	branch = auto
-	grep = auto
-	interactive = auto
-	showbranch = auto
-	status = auto
+  diff = auto
+  branch = auto
+  grep = auto
+  interactive = auto
+  showbranch = auto
+  status = auto
 [github]
-	user = eatnumber1
+  user = eatnumber1
 [push]
-	default = upstream
+  default = upstream
 [alias]
-	assume = update-index --assume-unchanged
-	unassume = update-index --no-assume-unchanged
-	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
 [diff]
-	algorithm = patience
+  algorithm = patience
 [credential]
-	helper = osxkeychain
+  helper = osxkeychain
 [pull]
-	rebase = true
+  rebase = true
 [sendemail]
-	smtpEncryption = tls
-	smtpServer = smtp.gmail.com
-	smtpUser = russ@har.mn
-	smtpServerPort = 587
+  smtpEncryption = tls
+  smtpServer = smtp.gmail.com
+  smtpUser = russ@har.mn
+  smtpServerPort = 587
 [gpg]
-	format = ssh
+  format = ssh
 [commit]
-	gpgsign = true
+  gpgsign = true
 [include]
-	path = .gitconfig.google
-	path = .gitconfig.local
+  path = .gitconfig.google
+  path = .gitconfig.local
