@@ -32,7 +32,7 @@ unalias cp ln mkdir mv rm scp du rsync
 # ls helpers that I don't like
 unalias l ll lr la lm lx lk lt lc lu
 # aliases that I just don't care to learn
-unalias get
+(( $+aliases[get] )) && unalias get
 
 alias cp='nocorrect cp'
 alias ln='nocorrect ln'
