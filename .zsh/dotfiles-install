@@ -3,6 +3,8 @@ emulate -L zsh
 setopt err_exit no_unset
 #setopt xtrace
 
+cd ~
+
 () {
   echo "Updating submodules"
   git submodule update --init --recursive
@@ -25,13 +27,15 @@ setopt err_exit no_unset
   echo "Fixing permissions on the .ssh directory"
   zmodload -F zsh/parameter +p:commands
   if (( $+commands[restorecon] )) restorecon -R .ssh
-  chmod go= .ssh
-  for f (.ssh/*) if [[ -f "$f" ]] chmod go-w "$f"
+  chmod -v go= .ssh
+  for f (.ssh/*) if [[ -f "$f" ]] chmod -v go-w "$f"
 }
 
 () {
+  [[ -f .ssh/authorized_keys2 ]] && return 0
+
   echo "Setting up authorized_keys2"
-  cp .ssh/.authorized_keys2 .ssh/authorized_keys2
+  cp -av .ssh/.authorized_keys2 .ssh/authorized_keys2
 }
 
 () {
@@ -70,7 +74,7 @@ function install_cli {
     # TODO replace this with something generic
     brew install bkt
   else
-    ln -sf "$HOME/bin/${prog}.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/${prog}
+    ln -vsf "$HOME/bin/${prog}.${version}.${architecture}-${vendor}-${platform}" $HOME/bin/${prog}
   fi
 }
 
@@ -83,3 +87,11 @@ autoload is-at-least
 if ! is-at-least 5.2 $ZSH_VERSION; then
   echo "Need at least zsh 5.2 for spaceship prompt." >&2
 fi
+
+() {
+  local confdir=.config/htop
+  [[ -f $confdir/htoprc ]] && return 0
+
+  echo "Setting htoprc"
+  cp -av $confdir/.htoprc $confdir/htoprc
+}
