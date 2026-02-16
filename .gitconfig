@@ -34,6 +34,7 @@
 [gpg]
   format = ssh
 [commit]
+  # If the ssh keys are not on this machine, set this to false in a .gitconfig.local
   gpgsign = true
 [include]
   path = .gitconfig.google
