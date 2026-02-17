@@ -1,3 +1,6 @@
+# This file is a global gitignore for *all git repositories* that are subject
+# to ~/.gitconfig.
+
 .DS_Store
 .*.swp
 .*.swo
@@ -5,3 +8,5 @@
 .swp
 .swo
 .swn
+
+# vim:ft=gitignore

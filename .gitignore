@@ -1,9 +1,12 @@
+# For local gitignores, use .git/info/exclude
+
 /*
 
 !.gitignore
 !.gitignore.global
 !.gitmodules
 !.gitconfig
+!.gitconfig.google
 !.toprc
 !.irssi
 .irssi/config.autosave
