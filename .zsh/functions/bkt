@@ -1,0 +1,24 @@
+#!/bin/zsh
+emulate -L zsh
+setopt err_return
+setopt warn_create_global no_unset
+setopt pipe_fail
+#set -x
+
+local -a bktargs
+
+local arg
+for arg in "$@"; do
+  # Skip the `--` arg. It'll be added later.
+  if [[ "$arg" == -- ]]; then
+    shift
+    break
+  fi
+  if [[ "$arg" != -* ]]; then
+    break
+  fi
+  bktargs+=( "$arg" )
+  shift
+done
+
+command bkt "${bktargs[@]}" -- "$@"

@@ -12,6 +12,8 @@ source_if_exists $HOME/.zshenv.local
   #setopt xtrace
 
   typeset -gx BKT_TMPDIR="${TMPDIR:-/tmp}/bkt-$USERNAME-cache"
+  typeset -gx BKT_TTL=10m
+  autoload -U bkt
 
   typeset -gU cdpath mailpath manpath path pythonpath pkg_config_path
   typeset -gUT INFOPATH infopath
