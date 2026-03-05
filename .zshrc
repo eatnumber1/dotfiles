@@ -56,7 +56,7 @@ elif is-callable gvim; then
   alias mvim="gvim"
 fi
 
-if ! pstree -V &> /dev/null; then
+if ! command pstree -V &> /dev/null; then
   alias pstree="pstree -g3"
 fi
 
