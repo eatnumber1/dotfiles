@@ -95,7 +95,8 @@ declare -gx QUOTING_STYLE=literal
 export BASE16_SHELL="$HOME/.config/base16-shell"
 export BASE16_THEME=tomorrow
 source "$BASE16_SHELL/profile_helper.sh"
-base16_tomorrow
+# eval: .zshrc is zcompiled, which parses before this alias exists.
+eval base16_tomorrow
 
 autoload -U prio
 
@@ -134,3 +135,5 @@ fi
   # https://gist.github.com/yiding/11270916
   echo "Warning: No empty element found in manpath. XCode man pages will not be available." >&2
 }
+
+path=( ~/.local/bin $path )
