@@ -13,6 +13,9 @@ if [[ ! -d .git ]] {
 fpath+=( $PWD/.zsh/functions )
 autoload -U syntax-check
 git ls-files -z -- '.zsh*' | while { read -rd $'\0' file } {
+	# TODO: loading ztcp (`zmodload -F zsh/net/tcp`) causes the process to get a
+	# SIGKILL. Maybe a bpf program?
+	if [[ $file == .zsh/functions/znc ]] continue
 	if [[ $file =~ \.zsh/help/.* ]] continue
 	echo -n "Syntax checking $file... "
 	syntax-check $file
